@@ -148,3 +148,25 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .site-header { position: static; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ---------- Weirdest Arrests ---------- */
+.arrests-band { margin-top: 56px; background: var(--gray-50); border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); padding: 44px 0 48px; }
+.band-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+.band-head h2 { font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -.035em; font-weight: 900; margin: 12px 0 6px; }
+.band-head p { margin: 0; color: var(--gray-600); max-width: 560px; }
+.arrest-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.arrest { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 8px; border-top: 4px solid var(--accent); }
+.arrest h3 { margin: 0; font-size: 17px; line-height: 1.3; letter-spacing: -.015em; font-weight: 800; }
+.arrest-meta { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; color: var(--gray-600); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.arrest-place { color: var(--accent-ink); font-weight: 800; }
+.arrest-blurb { margin: 0; font-size: 14.5px; color: #333a33; }
+.arrest-charge { margin: 0; font-size: 13px; color: var(--gray-600); }
+.arrest-charge span { display: inline-block; font-weight: 800; text-transform: uppercase; font-size: 10.5px; letter-spacing: .08em; background: var(--gray-100); color: var(--ink); padding: 2px 7px; border-radius: 6px; margin-right: 6px; }
+.arrest-links { margin: auto 0 0; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; font-weight: 600; }
+.arrest-links a { color: var(--gray-600); }
+.arrest-links a:hover, .arrest-more { color: var(--accent-ink) !important; }
+.arrest-day { margin-bottom: 40px; max-width: 780px; }
+.arrest-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 16px; }
+.arrest-list .arrest h3 { font-size: 19px; }
+@media (max-width: 980px) { .arrest-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .arrest-grid, .arrest-list { grid-template-columns: 1fr; } .arrests-band { padding: 32px 0; } }

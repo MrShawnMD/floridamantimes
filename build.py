@@ -14,6 +14,7 @@ import os
 import re
 
 from stories import STORIES
+from arrests import ARRESTS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -98,7 +99,7 @@ def logo(cls="logo"):
 
 
 def header():
-    nav = "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = '<a href="/arrests/">Weirdest Arrests</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
@@ -116,7 +117,7 @@ def header():
 
 def footer():
     year = dt.date.today().year
-    nav = "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = '<a href="/arrests/">Weirdest Arrests</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     return f"""<footer class="site-footer">
   <div class="footer-inner">
     <div>
@@ -181,12 +182,58 @@ def trending(items):
     return f'<aside class="trending"><h2 class="label">Trending</h2><ol>{lis}</ol></aside>'
 
 
+def arrest_item(a, compact=False):
+    more = f'<a class="arrest-more" href="/stories/{a["story"]}/">Full story →</a>' if a.get("story") else ""
+    charge = f'<p class="arrest-charge"><span>Charge</span>{e(a["charge"])}</p>' if a.get("charge") else ""
+    blurb = "" if compact else f'<p class="arrest-blurb">{e(a["blurb"])}</p>'
+    return f"""<li class="arrest">
+  <div class="arrest-meta"><span class="arrest-place">{e(a["place"])}</span><span>{e(a["county"])} County</span><span>{nice_date(a["date"])}</span></div>
+  <h3>{e(a["headline"])}</h3>
+  {blurb}{charge}
+  <p class="arrest-links">{more}<a href="{a["source_url"]}" rel="nofollow noopener" target="_blank">Source: {e(a["source_name"])} ↗</a></p>
+</li>"""
+
+
+def arrests_band():
+    items = "".join(arrest_item(a) for a in ARRESTS[:4])
+    return f"""<section class="arrests-band">
+  <div class="container">
+    <div class="band-head">
+      <div><span class="pill live">Police blotter</span><h2>Tonight's Weirdest Arrests</h2>
+      <p>The strangest calls from Florida sheriff's reports, in two sentences or less. No names, no mugshots.</p></div>
+      <a class="button" href="/arrests/">See all arrests</a>
+    </div>
+    <ol class="arrest-grid">{items}</ol>
+  </div>
+</section>"""
+
+
+def build_arrests():
+    groups = {}
+    for a in ARRESTS:
+        groups.setdefault(a["date"], []).append(a)
+    days = "".join(
+        f'<section class="arrest-day"><h2 class="label">{dt.date.fromisoformat(d).strftime("%A, %B %-d, %Y")}</h2>'
+        f'<ol class="arrest-list">{"".join(arrest_item(a) for a in items)}</ol></section>'
+        for d, items in groups.items())
+    body = f"""<section class="container">
+  <div class="page-head"><span class="pill live">Police blotter</span><h1>Tonight's Weirdest Arrests</h1>
+  <p>The strangest arrests from across Florida, straight from sheriff's reports and local news. We never post names or mugshots, and everyone is presumed innocent unless proven guilty in court.</p></div>
+  {days}
+</section>"""
+    write("arrests/index.html", page(
+        f"Tonight's Weirdest Arrests in Florida | {NAME}",
+        "The weirdest arrests in Florida, updated daily: strange charges and bizarre police reports from Sarasota, Tampa Bay and across the Sunshine State.",
+        SITE + "/arrests/", body))
+
+
 def build_home():
     lead, rest = STORIES[0], STORIES[1:]
     body = f"""<section class="top container">
   {hero(lead)}
   {trending(rest[:5])}
 </section>
+{arrests_band()}
 <section class="container">
   <div class="section-head"><h2 class="label">Latest Stories</h2></div>
   <div class="grid">{''.join(card(s) for s in rest)}</div>
@@ -312,7 +359,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today)]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today)]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -337,6 +384,7 @@ if __name__ == "__main__":
     for s in STORIES:
         build_story(s)
     build_sections()
+    build_arrests()
     build_about()
     build_404()
     build_feeds()

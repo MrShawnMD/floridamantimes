@@ -62,3 +62,18 @@ body (list of paragraphs), source_name, source_url.
   involved or any real, identifiable person.
 - No brand logos or trademarks (no Target bullseye, no Nissan badge, no mascots), no text in the image.
 - Every image is captioned on the site as an illustration automatically.
+
+## Tonight's Weirdest Arrests (arrests.py)
+Quick-hit police-blotter items, newest first. Add 3–6 per day when good ones exist.
+- **No names. No mugshots. No photos of real people. Ever.** Describe ("a 45-year-old man").
+- `headline`: one punchy line in the house voice. `blurb`: 1–3 sentences, facts only from the
+  source, attributed ("deputies say"). `charge`: plain-English charge(s) as reported.
+- Fields: date (YYYY-MM-DD of the arrest), place (city), county (no "County"), headline, blurb,
+  charge, source_name, source_url, optional story (slug, if there is a full story on the site).
+- Prefer Southwest Florida / Tampa Bay (Sarasota, Manatee, Charlotte, Lee, Hillsborough, Pinellas,
+  Pasco, Polk), then the rest of Florida.
+- Same safety rules as stories, strictly: skip violence with injuries, weapons fired, sex crimes,
+  anything involving kids, abuse, DUI crashes with injuries, addiction/overdoses, mental-health
+  crises, homelessness, and deaths. Weird and harmless only: absurd choices, odd thefts, silly
+  getaways, bizarre excuses, animals behaving badly.
+- Never repeat an item already in arrests.py (check source_url and headline).
