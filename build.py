@@ -363,18 +363,35 @@ def build_events():
         SITE + "/events/", body))
 
 
+def eat_image(x):
+    for ext in IMG_EXTS:
+        if os.path.exists(os.path.join(ROOT, "images", "eats", x["slug"] + ext)):
+            return f"/images/eats/{x['slug']}{ext}"
+    return None
+
+
 def eat_card(x):
+    from urllib.parse import quote
     eats = "".join(f'<span class="mini-tag">{e(t)}</span>' for t in x["eats"])
     status = ('<span class="status on">On the menu</span>' if x["status"] == "menu"
               else '<span class="status legend">Florida food legend</span>')
+    img = eat_image(x)
+    pic = (f'<div class="eat-photo"><img src="{img}" alt="{e(x["eats"][0])} illustration" loading="lazy" decoding="async"></div>'
+           if img else f'<div class="eat-photo placeholder" aria-hidden="true"><span>{x["emoji"]}</span></div>')
+    addr = ""
+    if x.get("address"):
+        maps = "https://www.google.com/maps/search/?api=1&query=" + quote(x["name"] + ", " + x["address"])
+        addr = (f'<p class="eat-addr">📍 {e(x["address"])}</p>'
+                f'<a class="dir-btn" href="{maps}" target="_blank" rel="noopener">Get directions</a>')
     return f"""<article class="eat">
-  <div class="eat-emoji" aria-hidden="true">{x["emoji"]}</div>
+  {pic}
   <div class="eat-body">
     {status}
     <h3>{e(x["name"])}</h3>
     <p class="meta">{e(x["place"])} <span>·</span> {e(x["city"])}</p>
     <div class="ev-tags">{eats}</div>
     <p class="ev-blurb">{e(x["blurb"])}</p>
+    {addr}
     <a class="ev-link" href="{x["source_url"]}" rel="nofollow noopener" target="_blank">Source: {e(x["source_name"])} ↗</a>
   </div>
 </article>"""

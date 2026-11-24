@@ -2,12 +2,15 @@
 
 status: "menu" = currently served (per recent reporting; menus change, call ahead)
         "legend" = Florida food legend, no longer served — kept for the story.
-Fields: name, place, city, emoji, eats (list), blurb, status, source_name, source_url.
+Images: images/eats/<slug>.jpg (food photo illustration). Optional "address" adds a directions button.
+Fields: slug, name, place, city, address (optional), emoji, eats (list), blurb, status, source_name, source_url.
 """
 
 EATS = [
     {
         "name": "The Yearling Restaurant",
+        "slug": "the-yearling",
+        "address": "14531 East County Road 325, Hawthorne, FL 32640",
         "place": "Restaurant",
         "city": "Hawthorne",
         "emoji": "🐊",
@@ -19,6 +22,8 @@ EATS = [
     },
     {
         "name": "Red Wing Restaurant",
+        "slug": "red-wing",
+        "address": "12500 State Road 33, Groveland, FL 34736",
         "place": "Restaurant",
         "city": "Groveland",
         "emoji": "🦌",
@@ -30,6 +35,8 @@ EATS = [
     },
     {
         "name": "Marsh Landing Restaurant",
+        "slug": "marsh-landing",
+        "address": "44 N Broadway St, Fellsmere, FL 32948",
         "place": "Restaurant",
         "city": "Fellsmere",
         "emoji": "🐸",
@@ -41,6 +48,8 @@ EATS = [
     },
     {
         "name": "Lone Cabbage Fish Camp",
+        "slug": "lone-cabbage",
+        "address": "8199 W King St (SR 520), Cocoa, FL 32926",
         "place": "Fish camp",
         "city": "Cocoa",
         "emoji": "🛶",
@@ -52,6 +61,7 @@ EATS = [
     },
     {
         "name": "Swamp Cabbage Fritters",
+        "slug": "swamp-cabbage-fritters",
         "place": "Festival food",
         "city": "LaBelle",
         "emoji": "🌴",
@@ -63,6 +73,7 @@ EATS = [
     },
     {
         "name": "Lion Chop at Spoto's Steak Joint",
+        "slug": "lion-chop",
         "place": "Restaurant",
         "city": "Dunedin",
         "emoji": "🦁",
@@ -74,6 +85,7 @@ EATS = [
     },
     {
         "name": "$35 Lion Tacos at Taco Fusion",
+        "slug": "lion-tacos",
         "place": "Restaurant",
         "city": "Tampa",
         "emoji": "🌮",
@@ -85,6 +97,7 @@ EATS = [
     },
     {
         "name": "The $45 Python Pizza",
+        "slug": "python-pizza",
         "place": "Pizzeria",
         "city": "Fort Myers",
         "emoji": "🐍",
