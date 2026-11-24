@@ -93,3 +93,7 @@ Places to eat strange Florida food (gator, frog legs, wild game, swamp cabbage, 
 - status "menu" only when a recent (last ~12 months) source shows it's served now; otherwise
   "legend". Never claim a place serves something you can't source.
 - Blurb: 1–3 lines in the house voice. Link the source.
+- Arrest images: illustrations only, saved as images/arrests/<date>-<place-slug>.jpg
+  (e.g. images/arrests/2026-06-24-thonotosassa.jpg). Same image rules as stories: invented
+  people, never a mugshot or the real person. Arrests linked to a full story reuse its image.
+  In the daily report, include an image prompt + file name for each new arrest.
