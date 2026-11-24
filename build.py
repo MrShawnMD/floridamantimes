@@ -385,7 +385,7 @@ def section_row(name, slug):
         return ""
     return f"""<section class="container">
   <div class="section-head split"><h2 class="label">{e(name)}</h2><a class="see-all" href="/section/{slug}/">More {e(name)} →</a></div>
-  <div class="grid4">{"".join(card(s) for s in items)}</div>
+  <div class="grid4 rowscroll">{"".join(card(s) for s in items)}</div>
 </section>"""
 
 

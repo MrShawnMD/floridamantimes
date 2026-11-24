@@ -248,3 +248,50 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .two-up > div:last-child { padding-top: 0; }
   .grid4 { grid-template-columns: 1fr; }
 }
+
+/* ---------- Phone: compact, app-like layout ---------- */
+@media (max-width: 760px) {
+  main { padding-bottom: 40px; }
+  .bar { padding: 10px 16px 6px; gap: 6px; }
+  .logo-text { font-size: 18px; }
+  .logo-mark { width: 32px; height: 32px; font-size: 13px; }
+  .nav a { padding: 7px 10px; font-size: 13.5px; }
+  .breaking-inner { font-size: 13px; padding: 7px 16px; }
+  .container { padding-left: 16px; padding-right: 16px; }
+  .front3 { padding-top: 16px; gap: 20px; }
+  .col-lead .hero h2 { font-size: 27px; margin: 8px 0; }
+  .col-lead .dek { font-size: 16px; }
+  /* compact rows: thumb left, headline right */
+  .col-left .mini, .latest-wrap .card { display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: start; }
+  .col-left .mini .media, .latest-wrap .card .media { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .col-left .mini h3, .latest-wrap .card h3 { font-size: 15.5px; margin: 4px 0 2px; }
+  .latest-wrap .card .card-body { padding-top: 0; gap: 4px; }
+  .latest-wrap .card .dek { display: none; }
+  .col-left { gap: 14px; }
+  .latest-wrap .grid4 { gap: 14px; }
+  .tag { font-size: 10.5px; padding: 3px 8px; }
+  /* section rows swipe sideways */
+  .rowscroll { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; margin: 0 -16px; padding: 0 16px 6px; scrollbar-width: none; }
+  .rowscroll::-webkit-scrollbar { display: none; }
+  .rowscroll .card { flex: 0 0 76%; scroll-snap-align: start; }
+  .rowscroll .card .dek { display: none; }
+  .section-head { margin: 32px 0 14px; padding-bottom: 10px; }
+  /* events on the homepage: 3, no long blurbs */
+  .two-up .event:nth-child(n+4) { display: none; }
+  .two-up .ev-blurb, .two-up .ev-note, .two-up .ev-tags { display: none; }
+  .event { padding: 14px; }
+  .ev-date { width: 54px; height: 60px; }
+  .ev-day { font-size: 22px; }
+  .ev-body h3, .eat-body h3 { font-size: 17px; }
+  .two-up > div:last-child { gap: 16px; }
+  .rail-box { padding: 14px; }
+  .cta { margin-top: 36px; padding: 22px; }
+  .cta h2 { font-size: 21px; }
+  /* story pages */
+  .story-head h1 { font-size: 31px; }
+  .story-dek { font-size: 18px; }
+  .page-head { padding: 28px 0 4px; margin-bottom: 20px; }
+  .page-head p { font-size: 16px; }
+  .share a, .share button { padding: 8px 13px; font-size: 13px; }
+  .eat-emoji { width: 56px; height: 56px; font-size: 30px; }
+}
