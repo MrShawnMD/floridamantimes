@@ -200,9 +200,10 @@ def build_about():
     body = """<article class="story">
   <h1>About Florida Man Times</h1>
   <div class="story-body">
-  <p>Florida is the only place where the news reads like fiction. Florida Man Times collects the strangest, funniest and most unbelievable true stories from across the Sunshine State and serves them up in one place.</p>
-  <p>Every story we publish starts with a real, published news report. We rewrite it in our own words and always link back to the original source so you can see it for yourself.</p>
-  <p>Some of our stories involve arrests. An arrest is only an accusation, and everyone is presumed innocent unless proven guilty in court. We cover the absurd, not the tragic.</p>
+  <p>Other states have news. Florida has <em>stories</em>. The kind where you read the headline, read it again, and then call someone just to say it out loud.</p>
+  <p>Florida Man Times is where those stories live. The stolen school buses. The gators who won't leave the driveway. The 911 calls that probably should have been texts to a friend.</p>
+  <p>Here's our deal. Every story starts with a real report from a real news outlet or police agency. We retell it in our own words, with jokes clearly labeled as jokes and facts kept straight. Every story links back to the original source so you can check our homework.</p>
+  <p>We laugh at bad decisions, never at people's suffering. And because an arrest is only an accusation, everyone in our arrest stories is presumed innocent unless a court says otherwise.</p>
   <p>Based in Sarasota, Florida. Of course.</p>
   </div>
 </article>"""

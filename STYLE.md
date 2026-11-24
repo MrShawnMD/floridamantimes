@@ -1,0 +1,54 @@
+# Florida Man Times — House Style
+
+Every story is a real news event retold in our own voice. The voice is modeled on the
+*spirit* of witty magazine columnists like Troy Johnson (San Diego Magazine): clever,
+cheeky, conversational, but still a news story. We never copy anyone's actual lines and
+never claim any outside writer wrote for us. Byline is always "Florida Man Times Desk."
+
+## The voice
+- **Open with a hook.** A bold one-liner claim or drop the reader into the scene.
+  Never open with "A Florida man was arrested..."
+- **Mix sentence lengths.** Short punches. Fragments are fine. Then a longer sentence that
+  builds and builds before it lands the joke.
+- **Absurd, specific comparisons.** Compare the situation to everyday Florida life
+  (Publix subs, HOA meetings, I-4 traffic, hurricane prep, flip-flops, golf carts).
+- **Mock-serious asides.** Treat the ridiculous with straight-faced gravity
+  ("Experts agree: sugar is not worth a felony.").
+- **Talk to the reader** ("you") and occasionally to the subject itself
+  (the gator, the porta-potty, the Jell-O shot).
+- **Close on a zinger** that ties back to the opening.
+- 250–450 words. Clean language: no profanity, nothing crude or sexual.
+
+## The news part (non-negotiable)
+- Every fact comes from the source article. Do not invent quotes, details, ages, charges,
+  times or outcomes. Jokes are clearly jokes; facts are clearly facts.
+- Attribute: "deputies say," "according to the arrest report," "police said."
+- Paraphrase. At most ONE direct quote per story, under 15 words, in quotation marks,
+  credited. Never copy the source's sentences or structure.
+- Include the 5 W's somewhere in the piece: who (described), what, where (city/county),
+  when, and what happens next (charges, etc.).
+- Link the original source at the bottom (`source_name`, `source_url`).
+
+## Safety rules (the scanner publishes on its own, so these are strict)
+- **Don't name private people who were arrested.** Describe them ("a 43-year-old Sanibel
+  man"). Officials, agencies and businesses can be named.
+- Always end arrest stories with a light presumed-innocent line.
+- **Skip** any story involving: a death or serious injury, sexual crimes or nudity-as-the-joke,
+  children as victims, abuse, mental health crises, suicide, hate crimes, or anyone under 18.
+  We mock absurd choices, never suffering, race, poverty, illness or addiction.
+- Wildlife stories: no animal cruelty as a punchline. Include the FWC nuisance alligator
+  line (866-392-4286) on gator stories.
+- Only use stories from established news outlets (local TV, newspapers, AP, sheriff's or
+  police press releases). No forums, no social media posts as the only source.
+- Must be in Florida, and recent (ideally the last 14 days).
+- Never repeat a story already in `stories.py` (check slugs, titles and source URLs).
+
+## Headlines
+- Punchy, specific, SEO-friendly. Start with "Florida Man" / "Florida Woman" when it fits;
+  otherwise lead with the funniest concrete detail. Under 90 characters ideally.
+- `dek`: one witty line that adds a new detail, not a repeat of the headline.
+
+## Story fields (see stories.py)
+slug, title, dek, category ("Florida Man" | "Florida Woman" | "Wild Florida"), location,
+date (date of the incident or report, YYYY-MM-DD), emoji, color (hex for the art tile),
+body (list of paragraphs), source_name, source_url.
