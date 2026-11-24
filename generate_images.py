@@ -23,6 +23,7 @@ sys.path.insert(0, ROOT)
 from stories import STORIES  # noqa: E402
 from arrests import ARRESTS  # noqa: E402
 from eats import EATS  # noqa: E402
+from giving import LEMONADE  # noqa: E402
 import build  # noqa: E402
 
 KEY = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -42,6 +43,9 @@ def jobs():
     for a in ARRESTS:
         if a.get("image_prompt") and not build.arrest_image(a):
             yield os.path.join("images", "arrests", build.arrest_id(a) + ".jpg"), a["image_prompt"]
+    hero = LEMONADE["hero_image"].lstrip("/")
+    if LEMONADE.get("image_prompt") and not os.path.exists(os.path.join(ROOT, hero)):
+        yield hero, LEMONADE["image_prompt"]
     for x in EATS:
         if x.get("image_prompt") and not build.eat_image(x):
             yield os.path.join("images", "eats", x["slug"] + ".jpg"), x["image_prompt"]

@@ -322,3 +322,83 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .eat-addr { margin: 2px 0 0; font-size: 14px; font-weight: 600; }
 .dir-btn { display: inline-block; background: var(--ink); color: #fff; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 999px; }
 .dir-btn:hover { background: var(--accent); color: var(--ink); }
+
+/* ---------- Best of ---------- */
+.best-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.best-row { display: grid; grid-template-columns: 56px 220px 1fr; gap: 20px; align-items: center; padding-bottom: 18px; border-bottom: 1px solid var(--gray-200); }
+.best-num { font-size: 48px; font-weight: 900; letter-spacing: -.05em; color: var(--accent-ink); text-align: center; line-height: 1; }
+.best-body { display: grid; gap: 6px; justify-items: start; }
+.best-body h3 { margin: 0; font-size: 21px; line-height: 1.22; letter-spacing: -.02em; font-weight: 800; }
+.best-body h3 a:hover { color: var(--accent-ink); }
+.views { margin-left: 8px; font-weight: 700; color: var(--accent-ink); }
+@media (max-width: 760px) {
+  .best-row { grid-template-columns: 40px 96px 1fr; gap: 12px; align-items: start; }
+  .best-num { font-size: 30px; }
+  .best-media .media { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .best-body h3 { font-size: 15.5px; }
+  .best-body .dek { display: none; }
+}
+
+/* ---------- Gives Back / LEMONADE ---------- */
+:root { --lemon: #ffe14d; --lemon-deep: #f5c400; --lemon-soft: #fff9d6; }
+.lp-kicker { display: inline-block; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: #7a5d00; }
+.lp-btn { display: inline-block; margin-top: 12px; background: var(--ink); color: #fff; font-weight: 800; font-size: 14px; padding: 11px 18px; border-radius: 999px; }
+.lemon-promo { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; margin-top: 56px; border-radius: 22px; overflow: hidden; background: var(--lemon); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
+.lemon-promo:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0 var(--ink); }
+.lp-text { padding: 30px 32px; }
+.lp-text h2 { font-size: clamp(26px, 3vw, 38px); letter-spacing: -.035em; font-weight: 900; margin: 8px 0; line-height: 1.05; }
+.lp-text p { margin: 0; font-size: 16px; color: #3a3200; }
+.lp-img { background: var(--lemon-deep); display: grid; place-items: center; min-height: 220px; }
+.lp-img img { width: 100%; height: 100%; object-fit: cover; }
+.lp-img span, .lemon-emoji { font-size: 90px; }
+.give-card { display: grid; grid-template-columns: 1fr 1.1fr; border-radius: 20px; overflow: hidden; background: var(--lemon-soft); border: 2px solid var(--ink); }
+.give-img { background: var(--lemon); display: grid; place-items: center; min-height: 260px; }
+.give-img img { width: 100%; height: 100%; object-fit: cover; }
+.give-body { padding: 28px; }
+.give-body h2 { font-size: 30px; letter-spacing: -.03em; font-weight: 900; margin: 8px 0; }
+.lemon-hero { background: var(--lemon); border-bottom: 2px solid var(--ink); }
+.lemon-hero-in { display: grid; grid-template-columns: 1fr 1.1fr; gap: 36px; align-items: center; padding-top: 40px; padding-bottom: 40px; }
+.lh-text h1 { font-size: clamp(56px, 9vw, 112px); line-height: .9; letter-spacing: -.06em; font-weight: 900; margin: 10px 0 4px; }
+.lh-sub { font-size: 24px; font-weight: 800; margin: 0 0 12px; letter-spacing: -.02em; }
+.lh-tag { font-size: 19px; margin: 0 0 22px; color: #3a3200; }
+.lh-img { border-radius: 20px; overflow: hidden; border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); aspect-ratio: 16 / 10; background: var(--lemon-deep); display: grid; place-items: center; }
+.lh-img img { width: 100%; height: 100%; object-fit: cover; }
+.button.big { padding: 15px 26px; font-size: 16px; }
+.button.disabled { background: #6b6b6b; cursor: default; }
+.lemon-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 8px; }
+.lemon-facts div { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px 16px; }
+.lemon-facts span { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-600); }
+.lemon-facts strong { font-size: 15px; }
+.lemon-intro { font-size: 19px; }
+.how-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.how-list li { display: flex; gap: 14px; padding: 18px; border-radius: 14px; border: 1px solid var(--gray-200); }
+.how-n { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--lemon); border: 2px solid var(--ink); display: grid; place-items: center; font-weight: 900; }
+.how-list h3 { margin: 0 0 4px; font-size: 18px; }
+.how-list p { margin: 0; font-size: 15px; color: #333a33; }
+.tiers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.tier { position: relative; border: 1px solid var(--gray-200); border-radius: 16px; padding: 20px; background: #fff; }
+.tier.featured { border: 2px solid var(--ink); background: var(--lemon-soft); box-shadow: 6px 6px 0 var(--ink); }
+.tier-flag { position: absolute; top: -11px; left: 16px; background: var(--ink); color: var(--lemon); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 3px 9px; border-radius: 999px; }
+.tier h3 { margin: 0; font-size: 18px; }
+.tier-price { font-size: 34px; font-weight: 900; letter-spacing: -.04em; margin: 4px 0 10px; }
+.tier ul { margin: 0; padding-left: 18px; font-size: 14px; display: grid; gap: 6px; color: #333a33; }
+.awards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.award { padding: 18px; border-radius: 14px; background: var(--gray-50); border: 1px solid var(--gray-200); }
+.award span { font-size: 32px; }
+.award h3 { margin: 6px 0 4px; font-size: 17px; }
+.award p { margin: 0; font-size: 14px; color: var(--gray-600); }
+.extras { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 16px; }
+.lemon-cta { background: var(--ink); }
+@media (max-width: 900px) {
+  .tiers { grid-template-columns: repeat(2, 1fr); }
+  .awards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .lemon-promo, .give-card, .lemon-hero-in { grid-template-columns: 1fr; }
+  .lemon-promo { margin-top: 36px; box-shadow: 5px 5px 0 var(--ink); }
+  .lp-text { padding: 22px; }
+  .lp-img { min-height: 160px; order: -1; }
+  .lemon-hero-in { padding-top: 24px; padding-bottom: 28px; gap: 20px; }
+  .lemon-facts, .how-list, .tiers, .awards { grid-template-columns: 1fr; }
+  .lemon-intro { font-size: 17px; }
+}

@@ -17,12 +17,15 @@ from stories import STORIES
 from arrests import ARRESTS
 from events import EVENTS
 from eats import EATS
+from giving import LEMONADE
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
 TAGLINE = "The wildest true stories from the Sunshine State"
 ROOT = os.path.dirname(os.path.abspath(__file__))
 IMG_EXTS = (".webp", ".jpg", ".jpeg", ".png")
+# Page-view counter (GoatCounter). Set the site code to turn on counting, e.g. "floridamantimes".
+GOATCOUNTER = ""
 
 SECTIONS = {
     "Florida Man": "florida-man",
@@ -83,6 +86,7 @@ def page(title, description, canonical, body, extra_head="", og_type="website", 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+{counter_tag()}
 {extra_head}
 </head>
 <body>
@@ -96,12 +100,35 @@ def page(title, description, canonical, body, extra_head="", og_type="website", 
 """
 
 
+def counter_tag():
+    if not GOATCOUNTER:
+        return ""
+    return (f'<script data-goatcounter="https://{GOATCOUNTER}.goatcounter.com/count" '
+            'async src="//gc.zgo.at/count.js"></script>')
+
+
+def load_views():
+    try:
+        with open(os.path.join(ROOT, "popularity.json"), encoding="utf-8") as f:
+            return json.load(f).get("views", {})
+    except (OSError, ValueError):
+        return {}
+
+
+def top_stories(n=10):
+    views = load_views()
+    newest = sorted(STORIES, key=lambda s: s["date"], reverse=True)
+    if not views:
+        return newest[:n]
+    return sorted(newest, key=lambda s: -int(views.get(s["slug"], 0)))[:n]
+
+
 def logo(cls="logo"):
     return f'<a class="{cls}" href="/" aria-label="{NAME} home"><span class="logo-mark">FM</span><span class="logo-text">Florida Man <b>Times</b></span></a>'
 
 
 def header():
-    nav = '<a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = '<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/gives-back/">Gives Back</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
@@ -119,7 +146,7 @@ def header():
 
 def footer():
     year = dt.date.today().year
-    nav = '<a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = '<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/gives-back/">Gives Back</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     return f"""<footer class="site-footer">
   <div class="footer-inner">
     <div>
@@ -350,6 +377,105 @@ def build_lookup():
         SITE + "/arrest-lookup/", body))
 
 
+def lemonade_promo():
+    L = LEMONADE
+    return f"""<section class="container"><a class="lemon-promo" href="/gives-back/{L["slug"]}/">
+  <div class="lp-text"><span class="lp-kicker">🍋 Florida Man Times Gives Back</span>
+  <h2>LEMONADE: The Lemon Drag Race</h2>
+  <p>{e(L["tagline"])} Local businesses sponsor $500 beaters, deck them out and race them at a Florida dragstrip for charity.</p>
+  <span class="lp-btn">See how it works →</span></div>
+  <div class="lp-img">{'<img src="' + L["hero_image"] + '" alt="Lemon cars racing illustration" loading="lazy">' if os.path.exists(os.path.join(ROOT, L["hero_image"].lstrip("/"))) else '<span>🍋🏁</span>'}</div>
+</a></section>"""
+
+
+def build_best_of():
+    views = load_views()
+    items = top_stories(10)
+    rows = ""
+    for i, st in enumerate(items, 1):
+        url = f'/stories/{st["slug"]}/'
+        v = int(views.get(st["slug"], 0))
+        vtxt = f'<span class="views">{v:,} reads</span>' if views else ""
+        rows += f"""<li class="best-row"><span class="best-num">{i}</span>
+  <a class="best-media" href="{url}">{media(st)}</a>
+  <div class="best-body">{tag(st)}<h3><a href="{url}">{e(st["title"])}</a></h3><p class="dek">{e(st["dek"])}</p>
+  <p class="meta">{e(st["location"])} <span>·</span> {nice_date(st["date"])} {vtxt}</p></div></li>"""
+    note = ("Ranked by reader views over the last 30 days. Updated every day." if views
+            else "Rankings start once reader counts come in. Until then, these are the latest stories.")
+    body = f"""<section class="container" style="max-width:980px">
+  <div class="page-head"><span class="pill live">Most read</span><h1>Best of Florida Man: Top 10</h1>
+  <p>The stories Florida can't stop reading. {note}</p></div>
+  <ol class="best-list">{rows}</ol>
+</section>"""
+    write("best-of/index.html", page(
+        f"Best of Florida Man: Top 10 Most-Read Stories | {NAME}",
+        "The 10 most-read Florida Man stories right now, ranked by readers.",
+        SITE + "/best-of/", body))
+
+
+def lemon_hero_img():
+    L = LEMONADE
+    if os.path.exists(os.path.join(ROOT, L["hero_image"].lstrip("/"))):
+        return f'<img src="{L["hero_image"]}" alt="Illustration: lemon cars drag racing">'
+    return '<span class="lemon-emoji">🍋🏁</span>'
+
+
+def build_giving():
+    L = LEMONADE
+    # hub page
+    hub = f"""<section class="container" style="max-width:1000px">
+  <div class="page-head"><span class="tag">Community</span><h1>Florida Man Times Gives Back</h1>
+  <p>Florida gives us a lot of headlines. This is where we give back: weird, fun, community events that raise real money for local Florida charities.</p></div>
+  <a class="give-card" href="/gives-back/{L["slug"]}/">
+    <div class="give-img">{lemon_hero_img()}</div>
+    <div class="give-body"><span class="lp-kicker">Event #1 · {e(L["date"] if L["date"] != "TBA" else "Date announcing soon")}</span>
+    <h2>LEMONADE: The Lemon Drag Race</h2><p>{e(L["tagline"])}</p><span class="lp-btn">Learn more & sponsor a car →</span></div>
+  </a>
+</section>"""
+    write("gives-back/index.html", page(f"Florida Man Times Gives Back | {NAME}",
+          "Charity events from Florida Man Times, starting with LEMONADE, the lemon car drag race for local charities.",
+          SITE + "/gives-back/", hub))
+    # event page
+    how = "".join(f'<li><span class="how-n">{i}</span><div><h3>{e(t)}</h3><p>{e(d)}</p></div></li>' for i, (t, d) in enumerate(L["how"], 1))
+    tiers = "".join(f"""<div class="tier{' featured' if t.get('featured') else ''}">{'<span class="tier-flag">Most popular</span>' if t.get('featured') else ''}
+  <h3>{e(t["name"])}</h3><p class="tier-price">{e(t["price"])}</p>
+  <ul>{''.join(f'<li>{e(x)}</li>' for x in t["perks"])}</ul></div>""" for t in L["tiers"])
+    awards = "".join(f'<div class="award"><span>{em}</span><h3>{e(n)}</h3><p>{e(d)}</p></div>' for em, n, d in L["awards"])
+    extras = "".join(f'<li><strong>{e(n)}.</strong> {e(d)}</li>' for n, d in L["extras"])
+    cta = (f'<a class="button big" href="mailto:{L["contact_email"]}?subject=LEMONADE%20sponsorship">Become a sponsor</a>'
+           if L["contact_email"] else '<span class="button big disabled">Sponsor sign-ups open soon</span>')
+    facts = f"""<div class="lemon-facts">
+  <div><span>When</span><strong>{e(L["date"] if L["date"] != "TBA" else "Announcing soon")}</strong></div>
+  <div><span>Where</span><strong>{e(L["venue"])}</strong></div>
+  <div><span>Benefiting</span><strong>{e(L["beneficiary"])}</strong></div>
+</div>"""
+    body = f"""<section class="lemon-hero"><div class="container lemon-hero-in">
+  <div class="lh-text"><span class="lp-kicker">{e(L["kicker"])}</span>
+  <h1>LEMONADE</h1><p class="lh-sub">The Lemon Drag Race</p>
+  <p class="lh-tag">{e(L["tagline"])}</p>{cta}</div>
+  <div class="lh-img">{lemon_hero_img()}</div>
+</div></section>
+<section class="container" style="max-width:1000px">
+  {facts}
+  <div class="story-body lemon-intro">{''.join(f'<p>{e(p)}</p>' for p in L["intro"])}</div>
+  <div class="section-head"><h2 class="label">How it works</h2></div>
+  <ol class="how-list">{how}</ol>
+  <div class="section-head"><h2 class="label">Sponsor a lemon</h2></div>
+  <div class="tiers">{tiers}</div>
+  <div class="section-head"><h2 class="label">Trophies nobody wants (but everybody wants)</h2></div>
+  <div class="awards">{awards}</div>
+  <div class="section-head"><h2 class="label">More at the track</h2></div>
+  <ul class="extras">{extras}</ul>
+  <div class="cta lemon-cta"><div><h2>Want your business behind the wheel?</h2>
+  <p>Grab a sponsorship, build the ugliest car in Florida, and raise money for a good cause.</p></div>{cta}</div>
+  <p class="section-sub" style="margin-top:20px">All cars must pass the host track's safety inspection, and all drivers must meet the track's requirements. Event details are subject to change.</p>
+</section>"""
+    write(f"gives-back/{L['slug']}/index.html", page(
+        f"LEMONADE: The Lemon Car Drag Race for Charity | {NAME}",
+        "Local businesses sponsor $500 lemon cars, decorate them and drag race them at a Florida dragstrip to raise money for local charities.",
+        f"{SITE}/gives-back/{L['slug']}/", body, og_image=L["hero_image"] if os.path.exists(os.path.join(ROOT, L["hero_image"].lstrip("/"))) else None))
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -470,8 +596,9 @@ def build_home():
 
 <section class="container two-up">
   <div>{events_band_inner()}</div>
-  <div>{eats_teaser()}{headline_list(STORIES[:5], "Most Read")}</div>
+  <div>{eats_teaser()}{headline_list(top_stories(5), "Best of Florida Man")}<a class="rail-more" href="/best-of/">See the Top 10 →</a></div>
 </section>
+{lemonade_promo()}
 {"".join(section_row(n, sl) for n, sl in SECTIONS.items())}
 <section class="container">
   <div class="cta">
@@ -594,7 +721,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today)]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today)]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -622,6 +749,8 @@ if __name__ == "__main__":
     build_arrests()
     build_events()
     build_lookup()
+    build_best_of()
+    build_giving()
     build_eats()
     build_about()
     build_404()

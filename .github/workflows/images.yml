@@ -1,9 +1,9 @@
-name: Generate missing images
+name: Generate missing images and update Top 10
 
 on:
   push:
     branches: [main]
-    paths: ["stories.py", "arrests.py", "eats.py"]
+    paths: ["stories.py", "arrests.py", "eats.py", "giving.py"]
   schedule:
     - cron: "30 12 * * *"   # daily backstop, after the morning story scan
   workflow_dispatch: {}
@@ -30,6 +30,11 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL }}
         run: python generate_images.py
+      - name: Update Top 10 view counts
+        env:
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+        run: python fetch_popularity.py
       - name: Rebuild site
         run: python build.py
       - name: Commit and publish
