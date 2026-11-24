@@ -2,7 +2,10 @@
 """Builds the Florida Man Times static site from stories.py.
 
 Usage:  python3 build.py
-Writes index.html, /stories/<slug>/, /section/<name>/, sitemap.xml, robots.txt, feed.xml.
+
+Images: drop a picture named after the story's slug into /images
+(e.g. images/florida-man-steals-school-bus-drives-it-all-day.jpg — .jpg, .jpeg, .png or .webp).
+The build picks it up automatically. Stories without an image get a clean placeholder.
 """
 import datetime as dt
 import html
@@ -16,6 +19,7 @@ SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
 TAGLINE = "The wildest true stories from the Sunshine State"
 ROOT = os.path.dirname(os.path.abspath(__file__))
+IMG_EXTS = (".webp", ".jpg", ".jpeg", ".png")
 
 SECTIONS = {
     "Florida Man": "florida-man",
@@ -27,7 +31,22 @@ e = html.escape
 
 
 def nice_date(d):
-    return dt.date.fromisoformat(d).strftime("%B %-d, %Y")
+    return dt.date.fromisoformat(d).strftime("%b %-d, %Y")
+
+
+def read_time(s):
+    words = sum(len(p.split()) for p in s["body"])
+    return max(1, round(words / 230))
+
+
+def image_for(s):
+    """Return the site path of a story's image, or None."""
+    if s.get("image"):
+        return s["image"]
+    for ext in IMG_EXTS:
+        if os.path.exists(os.path.join(ROOT, "images", s["slug"] + ext)):
+            return f"/images/{s['slug']}{ext}"
+    return None
 
 
 def write(path, text):
@@ -37,7 +56,8 @@ def write(path, text):
         f.write(text)
 
 
-def page(title, description, canonical, body, extra_head="", og_type="website"):
+def page(title, description, canonical, body, extra_head="", og_type="website", og_image=None):
+    og_image = SITE + (og_image or "/og-image.png")
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,18 +66,19 @@ def page(title, description, canonical, body, extra_head="", og_type="website"):
 <title>{e(title)}</title>
 <meta name="description" content="{e(description)}">
 <link rel="canonical" href="{canonical}">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:site_name" content="{NAME}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(description)}">
 <meta property="og:url" content="{canonical}">
-<meta property="og:image" content="{SITE}/og-image.png">
+<meta property="og:image" content="{og_image}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="{NAME}" href="/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Oswald:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 {extra_head}
 </head>
@@ -72,154 +93,219 @@ def page(title, description, canonical, body, extra_head="", og_type="website"):
 """
 
 
+def logo(cls="logo"):
+    return f'<a class="{cls}" href="/" aria-label="{NAME} home"><span class="logo-mark">FM</span><span class="logo-text">Florida Man <b>Times</b></span></a>'
+
+
 def header():
-    today = dt.date.today().strftime("%A, %B %-d, %Y")
     nav = "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
-    ticker = " &nbsp;★&nbsp; ".join(e(s["title"]) for s in STORIES[:5])
-    return f"""<header class="masthead">
-  <div class="topbar"><span>{today}</span><span>Sarasota, Florida</span><span>Est. 2026 · Always Unbelievable, Always True</span></div>
-  <a class="logo" href="/"><span class="logo-small">The</span>Florida Man Times</a>
-  <p class="tagline">{TAGLINE}</p>
-  <nav class="nav"><a href="/">Front Page</a>{nav}<a href="/about/">About</a></nav>
-  <div class="ticker"><span class="ticker-label">Breaking</span><div class="ticker-track"><span>{ticker}</span></div></div>
+    latest = STORIES[0]
+    return f"""<header class="site-header">
+  <div class="bar">
+    {logo()}
+    <nav class="nav">{nav}<a href="/about/">About</a></nav>
+  </div>
+  <div class="breaking">
+    <div class="breaking-inner">
+      <span class="pill live">Latest</span>
+      <a href="/stories/{latest['slug']}/">{e(latest['title'])}</a>
+    </div>
+  </div>
 </header>"""
 
 
 def footer():
     year = dt.date.today().year
-    return f"""<footer class="footer">
-  <a class="logo logo-footer" href="/">Florida Man Times</a>
-  <p>{TAGLINE}. Every story is based on real, published news reports, rewritten by us and linked to the original source.</p>
-  <p class="fine">People named or described in arrest stories are presumed innocent unless proven guilty in court. © {year} Florida Man Times.</p>
+    nav = "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    return f"""<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      {logo("logo logo-footer")}
+      <p class="footer-tag">{TAGLINE}. Real reports, retold our way, always linked to the source.</p>
+    </div>
+    <nav class="footer-nav">{nav}<a href="/about/">About</a><a href="/feed.xml">RSS</a></nav>
+  </div>
+  <p class="fine">People in arrest stories are presumed innocent unless proven guilty in court. Story images are illustrations, not photos of the people or events described. © {year} {NAME}.</p>
 </footer>"""
 
 
-def art(s, size=""):
-    return f'<div class="art {size}" style="--c:{s["color"]}" aria-hidden="true"><span>{s["emoji"]}</span></div>'
+def media(s, cls=""):
+    img = image_for(s)
+    if img:
+        return (f'<div class="media {cls}"><img src="{img}" alt="Illustration for: {e(s["title"])}" '
+                f'loading="lazy" decoding="async"></div>')
+    return (f'<div class="media placeholder {cls}" aria-hidden="true">'
+            f'<span class="ph-emoji">{s["emoji"]}</span></div>')
 
 
-def card(s, lead=False):
+def tag(s):
+    return f'<a class="tag" href="/section/{SECTIONS[s["category"]]}/">{e(s["category"])}</a>'
+
+
+def meta(s):
+    return f'<p class="meta">{e(s["location"])} <span>·</span> {nice_date(s["date"])} <span>·</span> {read_time(s)} min read</p>'
+
+
+def card(s, variant=""):
     url = f'/stories/{s["slug"]}/'
-    cls = "card lead" if lead else "card"
-    return f"""<article class="{cls}">
-  <a href="{url}">{art(s, "big" if lead else "")}</a>
-  <div class="card-text">
-    <a class="kicker" href="/section/{SECTIONS[s["category"]]}/">{e(s["category"])}</a>
-    <h2><a href="{url}">{e(s["title"])}</a></h2>
+    return f"""<article class="card {variant}">
+  <a class="card-media" href="{url}">{media(s)}</a>
+  <div class="card-body">
+    {tag(s)}
+    <h3><a href="{url}">{e(s["title"])}</a></h3>
     <p class="dek">{e(s["dek"])}</p>
-    <p class="meta">{e(s["location"])} · {nice_date(s["date"])}</p>
+    {meta(s)}
   </div>
 </article>"""
 
 
+def hero(s):
+    url = f'/stories/{s["slug"]}/'
+    return f"""<article class="hero">
+  <a class="hero-media" href="{url}">{media(s, "wide")}</a>
+  <div class="hero-body">
+    {tag(s)}
+    <h2><a href="{url}">{e(s["title"])}</a></h2>
+    <p class="dek">{e(s["dek"])}</p>
+    {meta(s)}
+    <a class="read-more" href="{url}">Read the story <span aria-hidden="true">→</span></a>
+  </div>
+</article>"""
+
+
+def trending(items):
+    lis = "".join(
+        f'<li><span class="num">{i}</span><div><a href="/stories/{s["slug"]}/">{e(s["title"])}</a>'
+        f'<p class="meta">{e(s["category"])}</p></div></li>'
+        for i, s in enumerate(items, 1))
+    return f'<aside class="trending"><h2 class="label">Trending</h2><ol>{lis}</ol></aside>'
+
+
 def build_home():
     lead, rest = STORIES[0], STORIES[1:]
-    side = rest[:2]
-    grid = rest[2:]
-    body = f"""<section class="front">
-  {card(lead, lead=True)}
-  <div class="side">{''.join(card(s) for s in side)}</div>
+    body = f"""<section class="top container">
+  {hero(lead)}
+  {trending(rest[:5])}
 </section>
-<h3 class="rule"><span>More Unbelievable Headlines</span></h3>
-<section class="grid">{''.join(card(s) for s in grid)}</section>
-<section class="tipbox">
-  <h3>Seen something only Florida could produce?</h3>
-  <p>Our tip line opens soon. If it's real, wild, and from the Sunshine State, it might be our next headline.</p>
+<section class="container">
+  <div class="section-head"><h2 class="label">Latest Stories</h2></div>
+  <div class="grid">{''.join(card(s) for s in rest)}</div>
+</section>
+<section class="container">
+  <div class="cta">
+    <div>
+      <h2>Seen something only Florida could pull off?</h2>
+      <p>Our tip line opens soon. If it's real, wild and from the Sunshine State, it could be our next headline.</p>
+    </div>
+    <span class="cta-badge">🌴 Tips coming soon</span>
+  </div>
 </section>"""
-    jsonld = {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": NAME,
-        "url": SITE + "/",
-        "description": TAGLINE,
-    }
+    jsonld = {"@context": "https://schema.org", "@type": "WebSite", "name": NAME,
+              "url": SITE + "/", "description": TAGLINE}
     write("index.html", page(
         f"{NAME} | Florida Man News, Weird Florida Stories & Headlines",
         "Florida Man Times covers the latest Florida Man and Florida Woman news: bizarre arrests, wild gator encounters and the weirdest true stories from the Sunshine State.",
-        SITE + "/",
-        body,
+        SITE + "/", body,
         f'<script type="application/ld+json">{json.dumps(jsonld)}</script>',
-    ))
+        og_image=image_for(lead)))
 
 
-def build_story(s, i):
+def share_links(s):
+    url = f'{SITE}/stories/{s["slug"]}/'
+    from urllib.parse import quote
+    u, t = quote(url, safe=""), quote(s["title"], safe="")
+    return f"""<div class="share">
+  <span>Share</span>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={u}" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://twitter.com/intent/tweet?url={u}&text={t}" target="_blank" rel="noopener">X</a>
+  <a href="sms:?&body={t}%20{u}">Text</a>
+  <button type="button" onclick="navigator.clipboard.writeText('{url}');this.textContent='Copied!'">Copy link</button>
+</div>"""
+
+
+def build_story(s):
     url = f'{SITE}/stories/{s["slug"]}/'
     paras = "".join(f"<p>{e(p)}</p>" for p in s["body"])
     related = [x for x in STORIES if x is not s][:3]
+    img = image_for(s)
     jsonld = {
-        "@context": "https://schema.org",
-        "@type": "NewsArticle",
-        "headline": s["title"],
-        "description": s["dek"],
-        "datePublished": s["date"],
-        "dateModified": s["date"],
+        "@context": "https://schema.org", "@type": "NewsArticle",
+        "headline": s["title"], "description": s["dek"],
+        "datePublished": s["date"], "dateModified": s["date"],
         "mainEntityOfPage": url,
-        "image": [SITE + "/og-image.png"],
+        "image": [SITE + (img or "/og-image.png")],
         "author": {"@type": "Organization", "name": NAME},
         "publisher": {"@type": "Organization", "name": NAME,
                       "logo": {"@type": "ImageObject", "url": SITE + "/favicon.svg"}},
         "articleSection": s["category"],
     }
+    caption = '<p class="caption">Illustration. Not a photo of the people or events described.</p>' if img else ""
     body = f"""<article class="story">
-  <a class="kicker" href="/section/{SECTIONS[s["category"]]}/">{e(s["category"])}</a>
-  <h1>{e(s["title"])}</h1>
-  <p class="dek big-dek">{e(s["dek"])}</p>
-  <p class="meta">By the Florida Man Times Desk · {e(s["location"])} · {nice_date(s["date"])}</p>
-  {art(s, "hero")}
+  <header class="story-head">
+    {tag(s)}
+    <h1>{e(s["title"])}</h1>
+    <p class="story-dek">{e(s["dek"])}</p>
+    <div class="byline">
+      <span class="avatar">FM</span>
+      <div><strong>Florida Man Times Desk</strong>{meta(s)}</div>
+    </div>
+  </header>
+  <figure class="story-media">{media(s, "wide")}{caption}</figure>
   <div class="story-body">{paras}</div>
-  <p class="source">Source: <a href="{s["source_url"]}" rel="nofollow noopener" target="_blank">{e(s["source_name"])}</a></p>
+  <div class="source-box">
+    <span class="label">Source</span>
+    <a href="{s["source_url"]}" rel="nofollow noopener" target="_blank">{e(s["source_name"])} ↗</a>
+    <p>This story is based on reporting by {e(s["source_name"])}, retold in our own words.</p>
+  </div>
+  {share_links(s)}
 </article>
-<h3 class="rule"><span>Keep Reading</span></h3>
-<section class="grid">{''.join(card(x) for x in related)}</section>"""
+<section class="container">
+  <div class="section-head"><h2 class="label">Keep Reading</h2></div>
+  <div class="grid">{''.join(card(x) for x in related)}</div>
+</section>"""
     write(f'stories/{s["slug"]}/index.html', page(
-        f'{s["title"]} | {NAME}',
-        s["dek"],
-        url,
-        body,
+        f'{s["title"]} | {NAME}', s["dek"], url, body,
         f'<script type="application/ld+json">{json.dumps(jsonld)}</script>',
-        og_type="article",
-    ))
+        og_type="article", og_image=img))
 
 
 def build_sections():
     for name, slug in SECTIONS.items():
         items = [s for s in STORIES if s["category"] == name]
-        cards = "".join(card(s) for s in items) or "<p>New stories coming soon.</p>"
-        body = f"""<h1 class="section-title">{e(name)}</h1>
-<p class="section-dek">The latest {e(name)} stories, straight from real Florida headlines.</p>
-<section class="grid">{cards}</section>"""
+        cards = "".join(card(s) for s in items) or '<p class="empty">New stories coming soon.</p>'
+        body = f"""<section class="container">
+  <div class="page-head"><span class="tag">Section</span><h1>{e(name)}</h1>
+  <p>The latest {e(name)} stories, straight from real Florida headlines.</p></div>
+  <div class="grid">{cards}</div>
+</section>"""
         write(f"section/{slug}/index.html", page(
             f"{name} News & Stories | {NAME}",
             f"The latest {name} news and weird stories from across Florida.",
-            f"{SITE}/section/{slug}/",
-            body,
-        ))
+            f"{SITE}/section/{slug}/", body))
 
 
 def build_about():
     body = """<article class="story">
-  <h1>About Florida Man Times</h1>
+  <header class="story-head"><span class="tag">About</span><h1>About Florida Man Times</h1></header>
   <div class="story-body">
   <p>Other states have news. Florida has <em>stories</em>. The kind where you read the headline, read it again, and then call someone just to say it out loud.</p>
   <p>Florida Man Times is where those stories live. The stolen school buses. The gators who won't leave the driveway. The 911 calls that probably should have been texts to a friend.</p>
   <p>Here's our deal. Every story starts with a real report from a real news outlet or police agency. We retell it in our own words, with jokes clearly labeled as jokes and facts kept straight. Every story links back to the original source so you can check our homework.</p>
-  <p>We laugh at bad decisions, never at people's suffering. And because an arrest is only an accusation, everyone in our arrest stories is presumed innocent unless a court says otherwise.</p>
+  <p>We laugh at bad decisions, never at people's suffering. And because an arrest is only an accusation, everyone in our arrest stories is presumed innocent unless a court says otherwise. Our story images are illustrations, not photos of the real people involved.</p>
   <p>Based in Sarasota, Florida. Of course.</p>
   </div>
 </article>"""
     write("about/index.html", page(
         f"About | {NAME}",
         "About Florida Man Times, the home of Florida Man news and the weirdest true stories from the Sunshine State.",
-        SITE + "/about/",
-        body,
-    ))
+        SITE + "/about/", body))
 
 
 def build_404():
     body = """<article class="story center">
   <h1>This page wandered off.</h1>
-  <p class="dek big-dek">Probably chasing a gator. Head back to the front page for today's headlines.</p>
-  <p><a class="button" href="/">Back to the Front Page</a></p>
+  <p class="story-dek">Probably chasing a gator. Head back to the front page for today's headlines.</p>
+  <p><a class="button" href="/">Back to the front page</a></p>
 </article>"""
     write("404.html", page(f"Page Not Found | {NAME}", "Page not found.", SITE + "/404.html", body))
 
@@ -246,11 +332,13 @@ if __name__ == "__main__":
     for s in STORIES:
         assert s["category"] in SECTIONS, s["category"]
         assert re.fullmatch(r"[a-z0-9-]+", s["slug"]), s["slug"]
+    os.makedirs(os.path.join(ROOT, "images"), exist_ok=True)
     build_home()
-    for i, s in enumerate(STORIES):
-        build_story(s, i)
+    for s in STORIES:
+        build_story(s)
     build_sections()
     build_about()
     build_404()
     build_feeds()
-    print(f"Built {len(STORIES)} stories.")
+    with_img = sum(1 for s in STORIES if image_for(s))
+    print(f"Built {len(STORIES)} stories ({with_img} with images).")
