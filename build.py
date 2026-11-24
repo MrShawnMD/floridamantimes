@@ -184,11 +184,47 @@ def trending(items):
     return f'<aside class="trending"><h2 class="label">Trending</h2><ol>{lis}</ol></aside>'
 
 
+def arrest_id(a):
+    return a["date"] + "-" + re.sub(r"[^a-z0-9]+", "-", a["place"].lower()).strip("-")
+
+
+def arrest_image(a):
+    for ext in IMG_EXTS:
+        if os.path.exists(os.path.join(ROOT, "images", "arrests", arrest_id(a) + ext)):
+            return f"/images/arrests/{arrest_id(a)}{ext}"
+    if a.get("story"):
+        st = next((x for x in STORIES if x["slug"] == a["story"]), None)
+        if st:
+            return image_for(st)
+    return None
+
+
+def arrest_thumb(a, cls="thumb"):
+    img = arrest_image(a)
+    if img:
+        return f'<div class="{cls}"><img src="{img}" alt="Illustration" loading="lazy" decoding="async"></div>'
+    return f'<div class="{cls} placeholder" aria-hidden="true"><span>{a.get("emoji", "🚨")}</span></div>'
+
+
+def arrest_feed(items):
+    lis = "".join(f"""<li>
+  <a class="feed-item" href="/arrests/#{arrest_id(a)}">{arrest_thumb(a)}
+  <div><span class="feed-place">{e(a["place"])} · {dt.date.fromisoformat(a["date"]).strftime("%b %-d")}</span>
+  <span class="feed-head">{e(a["headline"])}</span></div></a>
+</li>""" for a in items)
+    return f"""<aside class="rail-box arrests-rail">
+  <div class="rail-head"><span class="pill live">Police blotter</span><h2>Tonight's Weirdest Arrests</h2></div>
+  <ol class="feed">{lis}</ol>
+  <a class="rail-more" href="/arrests/">See all arrests →</a>
+</aside>"""
+
+
 def arrest_item(a, compact=False):
     more = f'<a class="arrest-more" href="/stories/{a["story"]}/">Full story →</a>' if a.get("story") else ""
     charge = f'<p class="arrest-charge"><span>Charge</span>{e(a["charge"])}</p>' if a.get("charge") else ""
     blurb = "" if compact else f'<p class="arrest-blurb">{e(a["blurb"])}</p>'
-    return f"""<li class="arrest">
+    return f"""<li class="arrest" id="{arrest_id(a)}">
+  {arrest_thumb(a, "arrest-img")}
   <div class="arrest-meta"><span class="arrest-place">{e(a["place"])}</span><span>{e(a["county"])} County</span><span>{nice_date(a["date"])}</span></div>
   <h3>{e(a["headline"])}</h3>
   {blurb}{charge}
@@ -272,6 +308,14 @@ def events_band():
 </section>"""
 
 
+def events_band_inner():
+    evs = upcoming_events()[:4]
+    if not evs:
+        return ""
+    return f"""<div class="section-head split"><h2 class="label">Coming Up in Weird Florida</h2><a class="see-all" href="/events/">All events →</a></div>
+  <div class="event-list">{"".join(event_card(ev) for ev in evs)}</div>"""
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -320,18 +364,64 @@ def build_eats():
         SITE + "/eats/", body))
 
 
+def mini(s):
+    url = f'/stories/{s["slug"]}/'
+    return f"""<article class="mini">
+  <a class="mini-media" href="{url}">{media(s)}</a>
+  <div>{tag(s)}<h3><a href="{url}">{e(s["title"])}</a></h3><p class="meta">{e(s["location"])}</p></div>
+</article>"""
+
+
+def headline_list(items, title):
+    lis = "".join(
+        f'<li><span class="num">{i}</span><div><a href="/stories/{s["slug"]}/">{e(s["title"])}</a>'
+        f'<p class="meta">{e(s["category"])}</p></div></li>' for i, s in enumerate(items, 1))
+    return f'<aside class="trending"><h2 class="label">{title}</h2><ol>{lis}</ol></aside>'
+
+
+def section_row(name, slug):
+    items = [s for s in STORIES if s["category"] == name][:4]
+    if not items:
+        return ""
+    return f"""<section class="container">
+  <div class="section-head split"><h2 class="label">{e(name)}</h2><a class="see-all" href="/section/{slug}/">More {e(name)} →</a></div>
+  <div class="grid4">{"".join(card(s) for s in items)}</div>
+</section>"""
+
+
+def eats_teaser():
+    on = [x for x in EATS if x["status"] == "menu"][:3]
+    leg = [x for x in EATS if x["status"] != "menu"][:1]
+    lis = "".join(f"""<li><span class="eat-mini">{x["emoji"]}</span><div><strong>{e(x["name"])}</strong>
+<p class="meta">{e(x["city"])} · {e(", ".join(x["eats"][:3]))}</p></div></li>""" for x in on + leg)
+    return f"""<aside class="rail-box">
+  <div class="rail-head"><span class="tag">Weird Eats</span><h2>Gator, frog legs &amp; the lion taco</h2></div>
+  <ul class="eat-list">{lis}</ul>
+  <a class="rail-more" href="/eats/">See the full guide →</a>
+</aside>"""
+
+
 def build_home():
-    lead, rest = STORIES[0], STORIES[1:]
-    body = f"""<section class="top container">
-  {hero(lead)}
-  {trending(rest[:5])}
+    lead = STORIES[0]
+    left = STORIES[1:3]
+    latest = STORIES[3:11]
+    body = f"""<section class="front3 container">
+  <div class="col-left">{"".join(mini(s) for s in left)}</div>
+  <div class="col-lead">{hero(lead)}</div>
+  <div class="col-right">{arrest_feed(ARRESTS[:6])}</div>
 </section>
-{arrests_band()}
-{events_band()}
 <section class="container">
-  <div class="section-head"><h2 class="label">Latest Stories</h2></div>
-  <div class="grid">{''.join(card(s) for s in rest)}</div>
+  <div class="section-head split"><h2 class="label">Latest Headlines</h2><a class="see-all" href="/section/florida-man/">All stories →</a></div>
+  <div class="latest-wrap">
+    <div class="grid4">{"".join(card(s) for s in (latest or STORIES[1:]))}</div>
+  </div>
 </section>
+
+<section class="container two-up">
+  <div>{events_band_inner()}</div>
+  <div>{eats_teaser()}{headline_list(STORIES[:5], "Most Read")}</div>
+</section>
+{"".join(section_row(n, sl) for n, sl in SECTIONS.items())}
 <section class="container">
   <div class="cta">
     <div>
