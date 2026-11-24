@@ -77,3 +77,19 @@ Quick-hit police-blotter items, newest first. Add 3–6 per day when good ones e
   crises, homelessness, and deaths. Weird and harmless only: absurd choices, odd thefts, silly
   getaways, bizarre excuses, animals behaving badly.
 - Never repeat an item already in arrests.py (check source_url and headline).
+
+## Weird Florida Events (events.py)
+Oddball Florida festivals, fairs, livestock shows and competitions (frog legs, mullet toss,
+swamp cabbage, skunk ape, python challenge, worm gruntin', county fairs, rodeos...).
+- Only add events with a real official or reputable source link. Never guess a date: if exact
+  dates aren't announced, set confirmed=False with a date_note (e.g. "Held every July; dates
+  announced in May") and use the month range.
+- Past events drop off automatically. When a TBA event's dates get announced, update it and set
+  confirmed=True.
+- Blurb: 1–3 lines in the house voice, facts from the source.
+
+## Weird Eats (eats.py)
+Places to eat strange Florida food (gator, frog legs, wild game, swamp cabbage, python...).
+- status "menu" only when a recent (last ~12 months) source shows it's served now; otherwise
+  "legend". Never claim a place serves something you can't source.
+- Blurb: 1–3 lines in the house voice. Link the source.

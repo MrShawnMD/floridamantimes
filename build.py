@@ -15,6 +15,8 @@ import re
 
 from stories import STORIES
 from arrests import ARRESTS
+from events import EVENTS
+from eats import EATS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -99,7 +101,7 @@ def logo(cls="logo"):
 
 
 def header():
-    nav = '<a href="/arrests/">Weirdest Arrests</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = '<a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
@@ -117,7 +119,7 @@ def header():
 
 def footer():
     year = dt.date.today().year
-    nav = '<a href="/arrests/">Weirdest Arrests</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = '<a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     return f"""<footer class="site-footer">
   <div class="footer-inner">
     <div>
@@ -227,6 +229,97 @@ def build_arrests():
         SITE + "/arrests/", body))
 
 
+def upcoming_events():
+    today = dt.date.today().isoformat()
+    return sorted([ev for ev in EVENTS if ev["end"] >= today], key=lambda ev: ev["start"])
+
+
+def event_when(ev):
+    a, b = dt.date.fromisoformat(ev["start"]), dt.date.fromisoformat(ev["end"])
+    if not ev.get("confirmed", True) and (b - a).days >= 27:
+        return a.strftime("%B %Y")
+    if a == b:
+        return a.strftime("%b %-d, %Y")
+    if a.month == b.month:
+        return f"{a.strftime('%b %-d')}–{b.day}, {b.year}"
+    return f"{a.strftime('%b %-d')} – {b.strftime('%b %-d, %Y')}"
+
+
+def event_card(ev):
+    a = dt.date.fromisoformat(ev["start"])
+    tags = "".join(f'<span class="mini-tag">{e(t)}</span>' for t in ev.get("tags", []))
+    badge = '<span class="tba">Confirm dates</span>' if not ev.get("confirmed", True) else ""
+    note = f'<p class="ev-note">{e(ev["date_note"])}</p>' if ev.get("date_note") else ""
+    return f"""<article class="event">
+  <div class="ev-date"><span class="ev-mon">{a.strftime("%b")}</span><span class="ev-day">{a.day if ev.get("confirmed", True) or (dt.date.fromisoformat(ev["end"]) - a).days < 27 else "TBA"}</span></div>
+  <div class="ev-body">
+    <div class="ev-tags">{tags}{badge}</div>
+    <h3><span class="ev-emoji">{ev["emoji"]}</span>{e(ev["name"])}</h3>
+    <p class="meta">{e(ev["city"])} <span>·</span> {event_when(ev)}</p>
+    <p class="ev-blurb">{e(ev["blurb"])}</p>{note}
+    <a class="ev-link" href="{ev["link"]}" rel="noopener" target="_blank">Details ↗</a>
+  </div>
+</article>"""
+
+
+def events_band():
+    evs = upcoming_events()[:4]
+    if not evs:
+        return ""
+    return f"""<section class="container">
+  <div class="section-head split"><h2 class="label">Coming Up in Weird Florida</h2><a class="see-all" href="/events/">All events →</a></div>
+  <div class="event-grid">{"".join(event_card(ev) for ev in evs)}</div>
+</section>"""
+
+
+def build_events():
+    evs = upcoming_events()
+    body = f"""<section class="container">
+  <div class="page-head"><span class="tag">Calendar</span><h1>Weird Florida Events</h1>
+  <p>Frog legs, flying mullet, swamp cabbage, skunk apes and livestock. The oddball festivals, fairs and competitions coming up around Florida. Dates change, so check the official link before you go.</p></div>
+  <div class="event-list">{"".join(event_card(ev) for ev in evs) or '<p class="empty">New events coming soon.</p>'}</div>
+</section>"""
+    write("events/index.html", page(
+        f"Weird Florida Events & Festivals Calendar | {NAME}",
+        "Upcoming weird Florida festivals and events: Frog Leg Festival, Swamp Cabbage Festival, Mullet Toss, Skunk Ape Festival, Python Challenge, county fairs and livestock shows.",
+        SITE + "/events/", body))
+
+
+def eat_card(x):
+    eats = "".join(f'<span class="mini-tag">{e(t)}</span>' for t in x["eats"])
+    status = ('<span class="status on">On the menu</span>' if x["status"] == "menu"
+              else '<span class="status legend">Florida food legend</span>')
+    return f"""<article class="eat">
+  <div class="eat-emoji" aria-hidden="true">{x["emoji"]}</div>
+  <div class="eat-body">
+    {status}
+    <h3>{e(x["name"])}</h3>
+    <p class="meta">{e(x["place"])} <span>·</span> {e(x["city"])}</p>
+    <div class="ev-tags">{eats}</div>
+    <p class="ev-blurb">{e(x["blurb"])}</p>
+    <a class="ev-link" href="{x["source_url"]}" rel="nofollow noopener" target="_blank">Source: {e(x["source_name"])} ↗</a>
+  </div>
+</article>"""
+
+
+def build_eats():
+    on = [x for x in EATS if x["status"] == "menu"]
+    legends = [x for x in EATS if x["status"] != "menu"]
+    body = f"""<section class="container">
+  <div class="page-head"><span class="tag">Food</span><h1>Weird Eats in Florida</h1>
+  <p>Gator tail, frog legs, elk, swamp cabbage, and the time a Tampa taco shop sold lion. Where to eat the strangest things in the Sunshine State. Menus change, so call ahead.</p></div>
+  <div class="section-head"><h2 class="label">On the menu now</h2></div>
+  <div class="eat-grid">{"".join(eat_card(x) for x in on)}</div>
+  <div class="section-head"><h2 class="label">Florida food legends</h2></div>
+  <p class="section-sub">No longer served, but never forgotten.</p>
+  <div class="eat-grid">{"".join(eat_card(x) for x in legends)}</div>
+</section>"""
+    write("eats/index.html", page(
+        f"Weird Eats in Florida: Gator, Frog Legs, Python & More | {NAME}",
+        "Where to eat gator tail, frog legs, elk, swamp cabbage and other strange foods in Florida, plus legendary lion tacos and python pizza.",
+        SITE + "/eats/", body))
+
+
 def build_home():
     lead, rest = STORIES[0], STORIES[1:]
     body = f"""<section class="top container">
@@ -234,6 +327,7 @@ def build_home():
   {trending(rest[:5])}
 </section>
 {arrests_band()}
+{events_band()}
 <section class="container">
   <div class="section-head"><h2 class="label">Latest Stories</h2></div>
   <div class="grid">{''.join(card(s) for s in rest)}</div>
@@ -359,7 +453,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today)]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today)]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -385,6 +479,8 @@ if __name__ == "__main__":
         build_story(s)
     build_sections()
     build_arrests()
+    build_events()
+    build_eats()
     build_about()
     build_404()
     build_feeds()
