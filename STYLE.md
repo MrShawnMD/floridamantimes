@@ -97,3 +97,9 @@ Places to eat strange Florida food (gator, frog legs, wild game, swamp cabbage, 
   (e.g. images/arrests/2026-06-24-thonotosassa.jpg). Same image rules as stories: invented
   people, never a mugshot or the real person. Arrests linked to a full story reuse its image.
   In the daily report, include an image prompt + file name for each new arrest.
+
+## Automatic images (generate_images.py + GitHub Action)
+Every new story, arrest and eats item gets an `image_prompt` field (one paragraph, following the
+Images rules above). When it is pushed, the "Generate missing images" GitHub Action asks OpenAI
+for the picture, crops it to 16:9 and publishes it. Items that already have an image file are
+skipped, so a hand-made image always wins: drop a file at the right path to override.

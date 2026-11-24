@@ -1,0 +1,45 @@
+name: Generate missing images
+
+on:
+  push:
+    branches: [main]
+    paths: ["stories.py", "arrests.py", "eats.py"]
+  schedule:
+    - cron: "30 12 * * *"   # daily backstop, after the morning story scan
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: images
+  cancel-in-progress: false
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - name: Generate images
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL }}
+        run: python generate_images.py
+      - name: Rebuild site
+        run: python build.py
+      - name: Commit and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "floridamantimes-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
+          git commit -m "Add generated images"
+          git push
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

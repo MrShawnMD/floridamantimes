@@ -10,6 +10,7 @@ EATS = [
     {
         "name": "The Yearling Restaurant",
         "slug": "the-yearling",
+        "image_prompt": "Ultra-realistic food photo: a rustic wooden table in an old Florida cracker restaurant with a heaping platter of golden fried gator tail bites, crispy frog legs and a venison steak, honey mustard dipping sauce, sweet tea in a mason jar, warm window light, mounted antlers blurred in the background.",
         "address": "14531 East County Road 325, Hawthorne, FL 32640",
         "place": "Restaurant",
         "city": "Hawthorne",
@@ -23,6 +24,7 @@ EATS = [
     {
         "name": "Red Wing Restaurant",
         "slug": "red-wing",
+        "image_prompt": "Ultra-realistic food photo: a thick grilled elk chop beside fried gator tail and frog legs on a heavy country plate, steam rising, on a checkered tablecloth in a rustic dining room.",
         "address": "12500 State Road 33, Groveland, FL 34736",
         "place": "Restaurant",
         "city": "Groveland",
@@ -36,6 +38,7 @@ EATS = [
     {
         "name": "Marsh Landing Restaurant",
         "slug": "marsh-landing",
+        "image_prompt": "Ultra-realistic close-up food photo: a towering pile of crispy golden fried frog legs with lemon wedges, hush puppies and coleslaw on a vintage plate, warm Southern light, old cypress wood background.",
         "address": "44 N Broadway St, Fellsmere, FL 32948",
         "place": "Restaurant",
         "city": "Fellsmere",
@@ -49,6 +52,7 @@ EATS = [
     {
         "name": "Lone Cabbage Fish Camp",
         "slug": "lone-cabbage",
+        "image_prompt": "Ultra-realistic food photo: a paper boat overflowing with fried gator bites, frog legs and catfish with hush puppies on a weathered picnic table beside a Florida river, an airboat blurred in the background, sunny day.",
         "address": "8199 W King St (SR 520), Cocoa, FL 32926",
         "place": "Fish camp",
         "city": "Cocoa",
@@ -62,6 +66,7 @@ EATS = [
     {
         "name": "Swamp Cabbage Fritters",
         "slug": "swamp-cabbage-fritters",
+        "image_prompt": "Ultra-realistic food photo: golden deep-fried swamp cabbage fritters stacked in a paper tray at a small-town Florida festival, cabbage palm trees and festival tents blurred behind, bright afternoon sun.",
         "place": "Festival food",
         "city": "LaBelle",
         "emoji": "🌴",
@@ -74,6 +79,7 @@ EATS = [
     {
         "name": "Lion Chop at Spoto's Steak Joint",
         "slug": "lion-chop",
+        "image_prompt": "Ultra-realistic dramatic food photo: a massive char-grilled rib chop on a cast-iron platter with flames flickering behind it, a game sampler of skewered meats beside it, moody over-the-top steakhouse lighting, no animals shown.",
         "place": "Restaurant",
         "city": "Dunedin",
         "emoji": "🦁",
@@ -86,6 +92,7 @@ EATS = [
     {
         "name": "$35 Lion Tacos at Taco Fusion",
         "slug": "lion-tacos",
+        "image_prompt": "Ultra-realistic food photo: three gourmet street tacos piled with grilled exotic meat, lime and cilantro on a tin tray under a dramatic spotlight like a museum display, no animals shown.",
         "place": "Restaurant",
         "city": "Tampa",
         "emoji": "🌮",
@@ -98,6 +105,7 @@ EATS = [
     {
         "name": "The $45 Python Pizza",
         "slug": "python-pizza",
+        "image_prompt": "Ultra-realistic over-the-top food photo: a wild Everglades pizza topped with coiled strips of grilled snake meat, gator sausage, frog legs and hearts of palm on a wooden peel in a pizzeria, steam rising, no live animals.",
         "place": "Pizzeria",
         "city": "Fort Myers",
         "emoji": "🐍",
