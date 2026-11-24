@@ -216,6 +216,7 @@ def arrest_feed(items):
   <div class="rail-head"><span class="pill live">Police blotter</span><h2>Tonight's Weirdest Arrests</h2></div>
   <ol class="feed">{lis}</ol>
   <a class="rail-more" href="/arrests/">See all arrests →</a>
+  <a class="rail-lookup" href="/arrest-lookup/">🔎 Look up a local arrest (official records)</a>
 </aside>"""
 
 
@@ -257,7 +258,7 @@ def build_arrests():
     body = f"""<section class="container">
   <div class="page-head"><span class="pill live">Police blotter</span><h1>Tonight's Weirdest Arrests</h1>
   <p>The strangest arrests from across Florida, straight from sheriff's reports and local news. We never post names or mugshots, and everyone is presumed innocent unless proven guilty in court.</p></div>
-  {days}
+  <div class="arrests-layout"><div>{days}</div><aside>{lookup_box()}</aside></div>
 </section>"""
     write("arrests/index.html", page(
         f"Tonight's Weirdest Arrests in Florida | {NAME}",
@@ -314,6 +315,39 @@ def events_band_inner():
         return ""
     return f"""<div class="section-head split"><h2 class="label">Coming Up in Weird Florida</h2><a class="see-all" href="/events/">All events →</a></div>
   <div class="event-list">{"".join(event_card(ev) for ev in evs)}</div>"""
+
+
+LOOKUPS = [
+    ("Hillsborough County", "Tampa · Brandon · Plant City", "Arrest Inquiry", "https://webapps.hcso.tampa.fl.us/ArrestInquiry/Home/"),
+    ("Polk County", "Lakeland · Winter Haven · Bartow", "Jail Inquiry", "https://mugshots.polksheriff.org/detention/jail-inquiry"),
+    ("Sarasota County", "Sarasota · Venice · North Port", "Arrests & Inmate Search", "https://www.sarasotasheriff.org/arrest-reports/"),
+    ("Pinellas County", "St. Pete · Clearwater · Largo", "Inmate Booking Search", "https://pinellassheriff.gov/InmateBooking"),
+    ("Every other Florida county", "Manatee, Charlotte, Lee, Pasco and more", "Florida Dept. of State county jail directory", "https://dos.myflorida.com/library-archives/research/florida-information/government/local-resources/county-jails-and-inmate-searches"),
+]
+
+
+def lookup_box(compact=False):
+    items = "".join(f"""<li><a class="lookup" href="{u}" target="_blank" rel="noopener">
+  <span class="lk-county">{e(c)}</span><span class="lk-towns">{e(t)}</span><span class="lk-go">{e(label)} ↗</span></a></li>""" for c, t, label, u in LOOKUPS)
+    return f"""<section class="lookup-box">
+  <div class="lookup-head"><span class="tag">Official records</span>
+  <h2>Look Up a Local Arrest</h2>
+  <p>Search the sheriff's own booking records, with charges, bond and booking photos, straight from the official source. An arrest or booking does not establish guilt.</p></div>
+  <ul class="lookup-list">{items}</ul>
+</section>"""
+
+
+def build_lookup():
+    body = f"""<section class="container" style="max-width:900px">
+  <div class="page-head"><span class="pill live">Public records</span><h1>Florida Arrest Lookup</h1>
+  <p>Who got booked last night? Every link below goes to an official sheriff's office or state government search, so the information comes straight from the source and stays up to date. Florida Man Times doesn't host or copy booking records.</p></div>
+  {lookup_box()}
+  <p class="section-sub" style="margin-top:20px">Booking information is an arrest record, not a conviction. For the final outcome of a case, check the county Clerk of Court.</p>
+</section>"""
+    write("arrest-lookup/index.html", page(
+        f"Florida Arrest Lookup: Official County Booking Searches | {NAME}",
+        "Look up recent arrests and jail bookings in Hillsborough, Polk, Sarasota, Pinellas and every Florida county using official sheriff's office search tools.",
+        SITE + "/arrest-lookup/", body))
 
 
 def build_events():
@@ -543,7 +577,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today)]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today)]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -570,6 +604,7 @@ if __name__ == "__main__":
     build_sections()
     build_arrests()
     build_events()
+    build_lookup()
     build_eats()
     build_about()
     build_404()
