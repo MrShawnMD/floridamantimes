@@ -52,3 +52,13 @@ never claim any outside writer wrote for us. Byline is always "Florida Man Times
 slug, title, dek, category ("Florida Man" | "Florida Woman" | "Wild Florida"), location,
 date (date of the incident or report, YYYY-MM-DD), emoji, color (hex for the art tile),
 body (list of paragraphs), source_name, source_url.
+
+## Images
+- Save as `images/<slug>.jpg` (or .png/.webp). The build picks it up automatically; no code changes.
+- Wide 16:9, about 1600x900, under ~400 KB (compress before adding).
+- Look: bright, over-the-top cartoon or editorial illustration that exaggerates the story's
+  absurd moment. Clean white/light backgrounds fit the site.
+- Never a realistic image of the actual person involved, and nothing that looks like a real
+  photo of the event. Cartoon characters only, no recognizable faces.
+- No brand logos or trademarks (no Target bullseye, no Nissan badge, no mascots), no text in the image.
+- Every image is captioned on the site as an illustration automatically.
