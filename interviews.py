@@ -15,7 +15,7 @@ Entry format (newest first):
   "city": "Everglades City",
   "date": "2026-12-01",
   "emoji": "🐍",
-  "video": "https://youtu.be/XXXXXXXXXXX",  # YouTube link (best), or "/videos/<slug>.mp4" for a small file
+  "video": "https://youtu.be/XXXXXXXXXXX",  # YouTube, Instagram (reel/post), TikTok or Facebook video link, or "/videos/<slug>.mp4"
   "vertical": False,                     # True for phone-style 9:16 (Shorts/Reels)
   "intro": ["Short write-up under the video.", "..."],
   "quotes": [("Question we asked?", "Their best answer."), ...],   # 3-6 best moments

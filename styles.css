@@ -501,3 +501,5 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .logo-text { white-space: nowrap; }
 @media (min-width: 761px) and (max-width: 1240px) { .nav a { padding: 8px 9px; font-size: 13.5px; } .bar { gap: 14px; } }
 @media (min-width: 761px) and (max-width: 1060px) { .nav { justify-content: flex-end; } }
+.video.social { background: #fff; border: 1px solid var(--gray-200); aspect-ratio: auto; height: min(760px, 85vh); max-width: 420px; }
+@media (max-width: 760px) { .video.social { height: 82vh; margin: 0 16px; max-width: none; border-radius: var(--radius); } }

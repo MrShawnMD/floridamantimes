@@ -575,6 +575,19 @@ def video_player(iv):
     if yt:
         return (f'<div class="video{vert}"><iframe src="https://www.youtube-nocookie.com/embed/{yt.group(1)}?rel=0&modestbranding=1" '
                 f'title="{e(iv["title"])}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>')
+    ig = re.search(r"instagram\.com/(?:[\w.]+/)?(reel|reels|p|tv)/([\w-]+)", v)
+    if ig:
+        kind = "reel" if ig.group(1) in ("reel", "reels") else ig.group(1)
+        return (f'<div class="video vertical social"><iframe src="https://www.instagram.com/{kind}/{ig.group(2)}/embed/captioned/" '
+                f'title="{e(iv["title"])}" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe></div>')
+    tt = re.search(r"tiktok\.com/.*?/video/(\d+)", v)
+    if tt:
+        return (f'<div class="video vertical social"><iframe src="https://www.tiktok.com/embed/v2/{tt.group(1)}" '
+                f'title="{e(iv["title"])}" loading="lazy" allow="encrypted-media; fullscreen" allowfullscreen></iframe></div>')
+    if "facebook.com" in v or "fb.watch" in v:
+        from urllib.parse import quote
+        return (f'<div class="video{vert}"><iframe src="https://www.facebook.com/plugins/video.php?href={quote(v, safe="")}&show_text=false" '
+                f'title="{e(iv["title"])}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>')
     if v:
         poster = feat_image("interviews", iv["slug"]) or ""
         return f'<div class="video{vert}"><video controls playsinline preload="metadata" poster="{poster}" src="{e(v)}"></video></div>'
