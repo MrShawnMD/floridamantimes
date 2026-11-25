@@ -141,6 +141,9 @@ def logo(cls="logo"):
 CONTACT_EMAIL = ""   # set to e.g. "ads@floridamantimes.com" to turn on all contact buttons
 
 
+COUNTY_URLS = []
+
+
 HUB = [
     ("/", "🏠", "Home", "Today's weirdest Florida news"),
     ("/best-of/", "🏆", "Top 10", "The most-read Florida Man stories"),
@@ -150,6 +153,7 @@ HUB = [
     ("/effd-up/", "🎥", "Eff'd Up With…", "Video interviews with wild Floridians"),
     ("/cams/", "📹", "Florida Man Cams", "Live cams: manatees, Duval Street, rockets"),
     ("/roach-report/", "🪳", "Roach Report", "Restaurants the state just shut down"),
+    ("/clean-plate-club/", "🍽️", "Clean Plate Club", "Restaurants with perfect inspections"),
     ("/dispensaries/", "🌿", "Dispensaries", "Florida's medical marijuana guide"),
     ("/rentals/", "🛸", "Rentals", "Sleep in a UFO or a helicopter"),
     ("/artist-of-the-week/", "🎨", "Artist", "Florida's wildest creative minds"),
@@ -801,7 +805,7 @@ def load_writeups():
 
 RR_JS = r"""
 (function(){
-var WU=[],shownR='all',shownC='all',kind='both',page=0,PER=30;
+var WU=[],CLN=[],shownR='all',shownC='all',kind='both',page=0,PER=30;
 var bs=document.querySelectorAll('.rr-chip'),ks=document.querySelectorAll('.rr-kind'),sel=document.getElementById('rr-county'),
 cs=document.querySelectorAll('.rr-card'),out=document.getElementById('rr-showing'),wl=document.getElementById('wu-list'),
 more=document.getElementById('wu-more'),secC=document.getElementById('sec-closed'),secW=document.getElementById('sec-written'),
@@ -826,6 +830,15 @@ function render(push){
  out.textContent=where+': '+nc+' shut down · '+f.length+' written up';
  bs.forEach(function(b){b.classList.toggle('on',shownC==='all'&&b.dataset.r===shownR);});
  ks.forEach(function(b){b.classList.toggle('on',b.dataset.k===kind);});
+ var el=document.getElementById('ei-list'),et=document.getElementById('ei-title');
+ if(el){var cf=CLN.filter(function(c){return match(c.county,c.region);}),hh2=shownC!=='all'?shownC+' County':(shownR!=='all'?shownR:'Florida');
+  et.textContent='✨ Where to eat instead in '+hh2;
+  el.innerHTML=cf.slice(0,8).map(function(c){var q=encodeURIComponent(c.name+' '+c.address+' '+c.city+' FL');
+   return '<article class="cp-card"><span class="cp-badge" aria-hidden="true">✨</span><div><h3>'+esc(c.name)+'</h3><p class="meta"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" rel="noopener" target="_blank">'+esc(c.address)+', '+esc(c.city)+'</a> · Perfect inspection</p></div></article>';}).join('')+
+   (cf.length>8?'<a class="cp-countylink" style="display:block;margin-top:8px;font-weight:800;color:var(--accent-ink)" href="/clean-plate-club/'+(shownC!=='all'?'#'+encodeURIComponent(shownC):(shownR!=='all'?'#'+encodeURIComponent(shownR):''))+'">See all '+cf.length+' →</a>':'');}
+ var cl=document.getElementById('rr-countylink'),cx=document.getElementById('rr-cleanlink');
+ if(cl)cl.innerHTML=shownC!=='all'?'<a href="/restaurant-inspections/'+shownC.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-county/">Open the full '+esc(shownC)+' County page →</a>':'';
+ if(cx){var hh=shownC!=='all'?shownC:(shownR!=='all'?shownR:'');cx.href='/clean-plate-club/'+(hh?'#'+encodeURIComponent(hh):'');cx.textContent='✨ Want somewhere clean instead? See the cleanest restaurants in '+(hh?(shownC!=='all'?hh+' County':hh):'Florida')+' →';}
  if(push){var h=shownC!=='all'?shownC:(shownR!=='all'?shownR:'');history.replaceState(null,'',h?'#'+encodeURIComponent(h):location.pathname);}
 }
 bs.forEach(function(b){b.addEventListener('click',function(){shownR=b.dataset.r;shownC='all';sel.value='all';page=0;render(true);});});
@@ -835,6 +848,8 @@ more.addEventListener('click',function(){page++;render(false);});
 var h=decodeURIComponent(location.hash.slice(1));
 if(h){if([].some.call(bs,function(b){return b.dataset.r===h;}))shownR=h;else if([].some.call(sel.options,function(o){return o.value===h;})){shownC=h;sel.value=h;}}
 render(false);
+fetch('/roach-report/clean.json?v='+(window.RR_V||'')).then(function(r){return r.json();}).then(function(d){
+ CLN=(d.items||[]).map(function(w){w.region=(window.RR_REGION||{})[w.county]||'North Florida & Panhandle';return w;});render(false);});
 fetch('/roach-report/writeups.json?v='+(window.RR_V||'')).then(function(r){return r.json();}).then(function(d){
  WU=(d.items||[]).map(function(w){w.region=(window.RR_REGION||{})[w.county]||'North Florida & Panhandle';return w;});render(false);});
 })();
@@ -873,6 +888,8 @@ def build_roach():
   <label class="rr-select"><span>County</span><select id="rr-county">{opts}</select></label>
   <div class="rr-kinds"><button class="rr-kind on" data-k="both">Both</button><button class="rr-kind" data-k="closed">🚫 Shut down</button><button class="rr-kind" data-k="written">⚠️ Written up</button></div>
   <p class="rr-showing" id="rr-showing"></p>
+  <p class="cp-countylink" id="rr-countylink"></p>
+  <a class="cp-cross" href="/clean-plate-club/" id="rr-cleanlink">✨ Want somewhere clean instead? See the Clean Plate Club →</a>
 
   <div id="sec-closed">
     <div class="section-head"><h2 class="label">🚫 Shut down by the state · last {weeks} weeks</h2></div>
@@ -888,6 +905,14 @@ def build_roach():
     <button class="rr-kind" id="wu-more" hidden style="margin-top:14px">Show more</button>
   </div>
 
+  <div class="eat-instead" style="margin-top:38px"><span class="ei-kicker">Okay, now you're hungry and nervous</span>
+  <h2 id="ei-title">✨ Where to eat instead</h2>
+  <p>Restaurants that aced their most recent state inspection with zero violations this month.</p></div>
+  <div class="sponsor-slot"><span class="sponsor-tag">Sponsored · Featured clean restaurant</span>
+  <h3>Your restaurant here</h3><p>Passed your inspection with flying colors? Get the featured spot on this list.</p>
+  <a class="cam-btn" href="/advertise/#clean">Feature my restaurant →</a></div>
+  <div class="cp-list" id="ei-list" style="margin-top:14px"></div>
+
   <div class="source-box" style="margin-top:28px"><span class="label">How this works</span>
   <p><strong>Shut down</strong> means a state inspector found an immediate health risk, most often roaches or rodents, and ordered the restaurant closed until it passed a follow-up. Most reopen within a day.</p>
   <p><strong>High-priority violations</strong> are the most serious category on a Florida inspection (things like food held at unsafe temperatures, no handwashing, or pests). <strong>Fixed on the spot</strong> means the problem was corrected during the visit. A warning or recommended complaint is not a final judgment.</p>
@@ -898,6 +923,151 @@ def build_roach():
     write("roach-report/index.html", page(f"The Roach Report: Florida Restaurant Closures & Health Violations by County | {NAME}",
         "Florida restaurants state inspectors shut down or wrote up for serious violations, by county, from official DBPR records. Updated daily.",
         SITE + "/roach-report/", body))
+
+
+def county_slug(c):
+    return re.sub(r"[^a-z0-9]+", "-", c.lower()).strip("-") + "-county"
+
+
+def load_clean():
+    try:
+        return json.load(open(os.path.join(ROOT, "roach-report", "clean.json")))
+    except Exception:
+        return {"items": [], "days": 30}
+
+
+def wu_card_html(w):
+    cls = "rr-bad" if "Admin" in w["result"] else ("rr-warn" if "Warning" in w["result"] else ("rr-ok" if "Fixed" in w["result"] else "rr-pending"))
+    maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f'{w["name"]} {w["address"]} {w["city"]} FL')
+    d = dt.date.fromisoformat(w["date"]).strftime("%a, %b %-d")
+    return f"""<article class="rr-card wu"><div class="rr-emoji" aria-hidden="true">⚠️</div><div class="rr-body"><h3>{e(w["name"])}</h3>
+<p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(w["address"])}, {e(w["city"])}</a></p>
+<p class="rr-why"><strong>{w["hp"]} high-priority violation{"s" if w["hp"] != 1 else ""}</strong> ({w["total"]} total) · Inspected {d}</p>
+<span class="{cls}">{e(w["result"])}</span></div></article>"""
+
+
+def clean_card_html(c):
+    maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f'{c["name"]} {c["address"]} {c["city"]} FL')
+    d = dt.date.fromisoformat(c["date"]).strftime("%b %-d")
+    return f"""<article class="cp-card"><span class="cp-badge" aria-hidden="true">✨</span><div><h3>{e(c["name"])}</h3>
+<p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a> · Perfect inspection {d}</p></div></article>"""
+
+
+def clean_sponsor(where):
+    return f"""<div class="sponsor-slot"><span class="sponsor-tag">Sponsored · Featured clean restaurant</span>
+<h3>Your restaurant here</h3><p>Passed your inspection with flying colors? Get the featured spot for {e(where)} on the Clean Plate Club.</p>
+<a class="cam-btn" href="/advertise/#clean">Feature my restaurant →</a></div>"""
+
+
+CP_JS = r"""
+(function(){
+var CL=[],R='all',C='all',page=0,PER=40,bs=document.querySelectorAll('.rr-chip'),sel=document.getElementById('cp-county'),
+list=document.getElementById('cp-list'),more=document.getElementById('cp-more'),out=document.getElementById('cp-showing'),cty=document.getElementById('cp-countylink');
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function slug(c){return c.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-county';}
+function card(c){var q=encodeURIComponent(c.name+' '+c.address+' '+c.city+' FL'),d=new Date(c.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});
+return '<article class="cp-card"><span class="cp-badge" aria-hidden="true">✨</span><div><h3>'+esc(c.name)+'</h3><p class="meta"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" rel="noopener" target="_blank">'+esc(c.address)+', '+esc(c.city)+'</a> · '+esc(c.county)+' County · Perfect inspection '+d+'</p></div></article>';}
+function render(push){var f=CL.filter(function(c){return C!=='all'?c.county===C:(R==='all'||c.region===R);});
+list.innerHTML=f.slice(0,(page+1)*PER).map(card).join('')||'<p class="rr-empty">No perfect inspections listed here in the last 30 days yet. Check back soon.</p>';
+more.hidden=f.length<=(page+1)*PER;more.textContent='Show more ('+(f.length-(page+1)*PER)+' left)';
+var where=C!=='all'?C+' County':(R==='all'?'Florida':R);out.textContent=f.length+' restaurants with a perfect inspection in '+where;
+cty.innerHTML=C!=='all'?'<a href="/restaurant-inspections/'+slug(C)+'/">See everything for '+esc(C)+' County: closures, write-ups and clean spots →</a>':'';
+bs.forEach(function(b){b.classList.toggle('on',C==='all'&&b.dataset.r===R);});
+if(push){var h=C!=='all'?C:(R!=='all'?R:'');history.replaceState(null,'',h?'#'+encodeURIComponent(h):location.pathname);}}
+bs.forEach(function(b){b.addEventListener('click',function(){R=b.dataset.r;C='all';sel.value='all';page=0;render(true);});});
+sel.addEventListener('change',function(){C=sel.value;R='all';page=0;render(true);});
+more.addEventListener('click',function(){page++;render(false);});
+var h=decodeURIComponent(location.hash.slice(1));
+if(h){if([].some.call(bs,function(b){return b.dataset.r===h;}))R=h;else if([].some.call(sel.options,function(o){return o.value===h;})){C=h;sel.value=h;}}
+fetch('/roach-report/clean.json?v='+(window.RR_V||'')).then(function(r){return r.json();}).then(function(d){
+CL=(d.items||[]).map(function(c){c.region=(window.RR_REGION||{})[c.county]||'North Florida & Panhandle';return c;});render(false);});
+})();
+"""
+
+
+def build_clean_plate():
+    cd = load_clean()
+    items = cd.get("items", [])
+    from collections import Counter
+    counts = Counter(c["county"] for c in items)
+    rc = Counter()
+    for k, v in counts.items():
+        rc[REGION_OF.get(k, "North Florida & Panhandle")] += v
+    chips = (f'<button class="rr-chip on" data-r="all">All Florida <b>{len(items)}</b></button>'
+             + "".join(f'<button class="rr-chip" data-r="{e(r)}">{e(r)} <b>{rc.get(r, 0)}</b></button>' for r in REGIONS))
+    opts = '<option value="all">All 67 counties</option>' + "".join(
+        f'<option value="{e(k)}">{e(k)} ({counts.get(k, 0)})</option>' for k in ALL_COUNTIES)
+    write("clean-plate-club/cp.js", CP_JS)
+    upd = load_closures().get("updated", "")
+    body = f"""<section class="effd-hero cp-hero"><div class="container">
+  <span class="effd-logo big">The Clean Plate <em>Club</em></span>
+  <p class="effd-tag">The good news side of the Roach Report: Florida restaurants that just aced their state health inspection with zero violations. Pick your county and eat with confidence.</p>
+</div></section>
+<section class="container" style="margin-top:28px;max-width:900px">
+  <div class="rr-filter" role="toolbar" aria-label="Filter by region">{chips}</div>
+  <label class="rr-select"><span>County</span><select id="cp-county">{opts}</select></label>
+  <p class="rr-showing" id="cp-showing"></p>
+  <p class="cp-countylink" id="cp-countylink"></p>
+  {clean_sponsor("your county")}
+  <div class="cp-list" id="cp-list" style="margin-top:18px"><p class="section-sub">Loading inspections…</p></div>
+  <button class="rr-kind" id="cp-more" hidden style="margin-top:14px">Show more</button>
+  <a class="cp-cross" href="/roach-report/">🪳 Morbidly curious? See who got shut down in the Roach Report →</a>
+  <div class="source-box" style="margin-top:24px"><span class="label">How this works</span>
+  <p>A restaurant makes the Clean Plate Club when its most recent routine state inspection in the last {cd.get("days", 30)} days found zero violations. It's a snapshot of one visit, not a guarantee, and plenty of great restaurants with a minor write-up won't appear. Featured spots are paid and always labeled.</p>
+  <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR inspection records ↗</a>. Updated daily.</p></div>
+</section>
+<script>window.RR_REGION={json.dumps(REGION_OF)};window.RR_V="{upd}";</script>
+<script src="/clean-plate-club/cp.js?v={upd}" defer></script>"""
+    write("clean-plate-club/index.html", page(f"Clean Plate Club: Florida Restaurants With Perfect Health Inspections | {NAME}",
+        "Florida restaurants that just passed their state health inspection with zero violations, by county. Updated daily from official DBPR records.",
+        SITE + "/clean-plate-club/", body))
+
+
+def build_county_pages():
+    cl = load_closures()
+    wu = load_writeups()
+    cd = load_clean()
+    urls = []
+    for county in ALL_COUNTIES:
+        slug = county_slug(county)
+        closed = [c for c in cl["closures"] if (c.get("county") or county_for(c["city"])) == county]
+        written = [w for w in wu.get("items", []) if w["county"] == county]
+        clean = [c for c in cd.get("items", []) if c["county"] == county]
+        cities = sorted({x["city"] for x in closed + written + clean if x.get("city")})[:6]
+        closed_html = "".join(closure_card(c) for c in closed) or f'<p class="rr-empty">🎉 No emergency closures in {e(county)} County in the last 8 weeks.</p>'
+        written_html = "".join(wu_card_html(w) for w in written) or f'<p class="rr-empty">🎉 No serious write-ups in {e(county)} County in the last 2 weeks.</p>'
+        clean_html = "".join(clean_card_html(c) for c in clean[:40]) or '<p class="section-sub">No perfect inspections listed in the last 30 days yet.</p>'
+        intro = (f"{len(closed)} restaurant{'s' if len(closed) != 1 else ''} shut down in the last 8 weeks, "
+                 f"{len(written)} written up for serious violations in the last 2 weeks, and {len(clean)} with a perfect inspection this month.")
+        body = f"""<section class="effd-hero"><div class="container">
+  <span class="tag" style="background:rgba(255,255,255,.1);color:#d4d4d4">Restaurant inspections</span>
+  <h1 class="effd-logo big" style="margin-top:10px">{e(county)} <em>County</em></h1>
+  <p class="effd-tag">{intro} Straight from Florida's official inspection records, updated daily.{(" Includes " + ", ".join(cities) + ".") if cities else ""}</p>
+  <div class="rr-stats"><div><b>{len(closed)}</b><span>🚫 shut down</span></div><div><b>{len(written)}</b><span>⚠️ written up</span></div><div><b>{len(clean)}</b><span>✨ perfect scores</span></div></div>
+</div></section>
+<section class="container" style="margin-top:28px;max-width:900px">
+  <div class="section-head"><h2 class="label">🚫 Shut down by the state · last 8 weeks</h2></div><div class="rr-list">{closed_html}</div>
+  <div class="section-head" style="margin-top:34px"><h2 class="label">⚠️ Written up: 3+ high-priority violations · last 2 weeks</h2></div><div class="rr-list">{written_html}</div>
+  <div class="eat-instead"><span class="ei-kicker">Okay, now you're hungry and nervous</span>
+  <h2>✨ Where to eat instead in {e(county)} County</h2>
+  <p>Restaurants that aced their most recent state inspection with zero violations this month.</p></div>
+  {clean_sponsor(county + " County")}
+  <div class="cp-list" style="margin-top:16px">{clean_html}</div>
+  <div class="cp-links"><a href="/roach-report/#{quote_plus(county)}">All of the Roach Report →</a><a href="/clean-plate-club/#{quote_plus(county)}">All clean restaurants →</a><a href="/eats/">Florida's Weird Eats →</a></div>
+  <div class="source-box" style="margin-top:24px"><span class="label">About these records</span>
+  <p>Shut down means a state inspector ordered an emergency closure until a follow-up passed; most reopen within a day. A write-up or warning is not a final judgment. Perfect scores reflect one routine visit. Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR ↗</a>.</p></div>
+</section>"""
+        write(f"restaurant-inspections/{slug}/index.html", page(
+            f"{county} County Restaurant Inspections: Closures, Violations & Cleanest Restaurants | {NAME}",
+            f"{county} County, Florida restaurant inspections: {intro}", SITE + f"/restaurant-inspections/{slug}/", body))
+        urls.append(SITE + f"/restaurant-inspections/{slug}/")
+    links = "".join(f'<a class="rr-chip" href="/restaurant-inspections/{county_slug(c)}/">{e(c)}</a>' for c in ALL_COUNTIES)
+    write("restaurant-inspections/index.html", page(f"Florida Restaurant Inspections by County | {NAME}",
+        "Pick any of Florida's 67 counties to see restaurant closures, serious violations and the cleanest restaurants.",
+        SITE + "/restaurant-inspections/", f"""<section class="container" style="max-width:900px"><div class="page-head"><span class="tag">All 67 counties</span>
+<h1>Florida Restaurant Inspections by County</h1><p>Closures, serious write-ups and perfect scores, from official state records.</p></div>
+<div class="county-grid">{links}</div></section>"""))
+    return urls
 
 
 def roach_teaser():
@@ -1003,6 +1173,7 @@ SPONSOR_SLOTS = [
      "/dispensaries/"),
     ("roach-report", "🪳", "The Roach Report", "\"Presented by\" sponsorship, a natural fit for pest control, cleaning and restaurant-supply companies. Updated daily, built to be shared.",
      "/roach-report/"),
+    ("clean", "🍽️", "Clean Plate Club", "Featured spot for your county on our list of restaurants with perfect state inspections. Readers come here right after the Roach Report.", "/clean-plate-club/"),
     ("eats", "🐊", "Weird Eats", "Feature your restaurant, food truck or bar next to Florida's strangest menus.", "/eats/"),
     ("events", "🎪", "Weird Florida Events", "Promote your festival, fair or event on our upcoming-events calendar.", "/events/"),
     ("cams", "📹", "Florida Man Cams", "Sponsor the live cams page, or get your own business cam featured.", "/cams/"),
@@ -1293,7 +1464,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/advertise/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/advertise/", today), (SITE + "/clean-plate-club/", today), (SITE + "/restaurant-inspections/", today)] + [(u, today) for u in COUNTY_URLS] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -1331,6 +1502,8 @@ if __name__ == "__main__":
     build_social()
     build_dispensaries()
     build_advertise()
+    build_clean_plate()
+    COUNTY_URLS[:] = build_county_pages()
     build_eats()
     build_about()
     build_404()

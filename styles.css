@@ -627,3 +627,22 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .rr-card.closed { border-left: 4px solid #ef4444; }
 .rr-card.wu { border-left: 4px solid #f59e0b; }
 .rr-stats { flex-wrap: wrap; }
+
+/* ---------- Clean Plate Club & county pages ---------- */
+.cp-hero { background: linear-gradient(135deg, #14532d, #111813); }
+.cp-list { display: grid; gap: 10px; }
+.cp-card { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--gray-200); border-left: 4px solid var(--accent); background: #fff; }
+.cp-card h3 { margin: 0 0 2px; font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
+.cp-card .meta a { color: var(--gray-600); text-decoration: underline; text-underline-offset: 2px; }
+.cp-badge { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); display: grid; place-items: center; font-size: 22px; }
+.cp-cross { display: block; margin: 18px 0 6px; padding: 14px 16px; border-radius: 14px; background: var(--ink); color: #fff; font-weight: 800; }
+.cp-cross:hover { background: #1f2a1f; }
+.cp-countylink a { font-weight: 800; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+.cp-links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 22px; font-weight: 800; }
+.cp-links a { color: var(--accent-ink); }
+.county-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.county-grid .rr-chip { text-decoration: none; }
+.eat-instead { margin-top: 38px; padding: 22px; border-radius: var(--radius); background: linear-gradient(135deg, #14532d, #111813); color: #fff; }
+.eat-instead h2 { margin: 6px 0 6px; font-size: 26px; font-weight: 900; letter-spacing: -.03em; }
+.eat-instead p { margin: 0; color: #d4d4d4; }
+.ei-kicker { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }

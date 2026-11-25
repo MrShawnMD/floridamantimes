@@ -24,6 +24,9 @@ WRITEUP_DAYS = 14
 WRITEUP_MIN_HP = 3
 INSP_URL = "https://www2.myfloridalicense.com/sto/file_download/extracts/{}fdinspi.csv"
 WRITEUPS_OUT = os.path.join(ROOT, "roach-report", "writeups.json")
+CLEAN_OUT = os.path.join(ROOT, "roach-report", "clean.json")
+CLEAN_DAYS = 30
+CLEAN_PER_COUNTY = 60
 SKIP_REASONS = ("unlicensed",)  # paperwork, not grossness
 
 
@@ -117,8 +120,10 @@ def plain_disposition(d):
 
 
 def nice_name(n):
+    import string
     n = " ".join(n.split())
-    return n.title() if n.isupper() else n
+    n = re.sub(r"\s+(ZWS|#\s*\d+|\d{3,})$", "", n, flags=re.I).strip()
+    return string.capwords(n.lower()) if n.isupper() else n
 
 
 def writeups():
@@ -126,7 +131,8 @@ def writeups():
     not emergency closures), statewide, from DBPR's current-fiscal-year district inspection files."""
     import csv
     cut = dt.date.today() - dt.timedelta(days=WRITEUP_DAYS)
-    best = {}
+    ccut = dt.date.today() - dt.timedelta(days=CLEAN_DAYS)
+    best, latest = {}, {}
     for d in range(1, 8):
         try:
             text = get(INSP_URL.format(d), timeout=180).decode("latin-1")
@@ -143,6 +149,12 @@ def writeups():
             except ValueError:
                 continue
             disp = r[13].strip()
+            lic0 = re.sub(r"\D", "", r[4]) or r[5]
+            if day >= ccut and "routine" in r[12].lower():
+                tot = int(r[17] or 0)
+                prev = latest.get(lic0)
+                if not prev or day > prev[0]:
+                    latest[lic0] = (day, tot, r)
             if day < cut or hp < WRITEUP_MIN_HP or "emergency" in disp.lower() or r[10].strip() not in ("1", ""):
                 continue
             lic = re.sub(r"\D", "", r[4])
@@ -158,6 +170,24 @@ def writeups():
         json.dump({"updated": dt.date.today().isoformat(), "days": WRITEUP_DAYS, "min_hp": WRITEUP_MIN_HP, "items": out},
                   open(WRITEUPS_OUT, "w"), separators=(",", ":"))
     print(f"Saved {len(out)} write-ups")
+    # Clean Plate Club: latest routine inspection in the last CLEAN_DAYS had zero violations
+    by_county = {}
+    for day, tot, r in latest.values():
+        if tot != 0 or r[11].strip().lower() != "food":
+            continue
+        name = nice_name(r[5])
+        if not name or any(k in name.lower() for k in ("vending", "commissary", "catering truck")):
+            continue
+        c = fix_county(r[2].strip().title())
+        by_county.setdefault(c, []).append({"name": name, "address": " ".join(r[6].split()).title(),
+                                            "city": r[7].strip().title(), "county": c, "date": day.isoformat()})
+    clean = []
+    for c, lst in by_county.items():
+        clean += sorted(lst, key=lambda x: x["date"], reverse=True)[:CLEAN_PER_COUNTY]
+    if clean:
+        json.dump({"updated": dt.date.today().isoformat(), "days": CLEAN_DAYS, "items": clean},
+                  open(CLEAN_OUT, "w"), separators=(",", ":"))
+    print(f"Saved {len(clean)} clean-plate restaurants")
 
 
 def main():
