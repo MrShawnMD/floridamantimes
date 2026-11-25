@@ -575,3 +575,18 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .cam-btn { margin-top: 4px; display: inline-block; background: var(--ink); color: #fff; font-weight: 800; font-size: 14px; padding: 10px 16px; border-radius: 999px; }
 .cam-btn:hover { background: var(--accent); color: var(--ink); }
 .hub-inner { scroll-snap-type: none; }
+
+/* ---------- Roach Report ---------- */
+.rr-stats { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.rr-stats div { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 14px; padding: 10px 16px; display: grid; }
+.rr-stats b { font-size: 28px; font-weight: 900; color: var(--accent); line-height: 1.1; }
+.rr-stats span { font-size: 13px; color: #d4d4d4; }
+.rr-list { display: grid; gap: 12px; }
+.rr-card { display: grid; grid-template-columns: 58px 1fr; gap: 14px; padding: 16px; border: 1px solid var(--gray-200); border-radius: 14px; background: #fff; align-items: start; }
+.rr-emoji { width: 58px; height: 58px; border-radius: 14px; background: var(--gray-100); display: grid; place-items: center; font-size: 24px; letter-spacing: -4px; }
+.rr-body h3 { margin: 0 0 2px; font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
+.rr-body .meta a { color: var(--gray-600); text-decoration: underline; text-underline-offset: 2px; }
+.rr-why { margin: 6px 0 8px; font-size: 14.5px; }
+.rr-ok { display: inline-block; font-size: 13px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); padding: 4px 10px; border-radius: 999px; }
+.rr-pending { display: inline-block; font-size: 13px; font-weight: 700; color: #9a3412; background: #ffedd5; padding: 4px 10px; border-radius: 999px; }
+@media (max-width: 760px) { .rr-card { grid-template-columns: 46px 1fr; gap: 12px; padding: 14px; } .rr-emoji { width: 46px; height: 46px; font-size: 20px; } .rr-stats b { font-size: 24px; } }

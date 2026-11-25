@@ -11,6 +11,7 @@ import datetime as dt
 import html
 import json
 import os
+from urllib.parse import quote_plus
 import re
 
 from stories import STORIES
@@ -142,6 +143,7 @@ HUB = [
     ("/eats/", "🐊", "Weird Eats", "Gator, frog legs and lion tacos"),
     ("/effd-up/", "🎥", "Eff'd Up With…", "Video interviews with wild Floridians"),
     ("/cams/", "📹", "Florida Man Cams", "Live cams: manatees, Duval Street, rockets"),
+    ("/roach-report/", "🪳", "Roach Report", "Restaurants the state just shut down"),
     ("/rentals/", "🛸", "Rentals", "Sleep in a UFO or a helicopter"),
     ("/artist-of-the-week/", "🎨", "Artist", "Florida's wildest creative minds"),
     ("/gives-back/", "🍋", "Gives Back", "The LEMONADE charity drag race"),
@@ -733,6 +735,72 @@ def build_cams():
         SITE + "/cams/", body))
 
 
+def load_closures():
+    try:
+        return json.load(open(os.path.join(ROOT, "closures.json")))
+    except Exception:
+        return {"updated": "", "weeks": [], "closures": []}
+
+
+def reason_emoji(r):
+    r = r.lower()
+    out = ""
+    if "roach" in r: out += "🪳"
+    if "rodent" in r: out += "🐀"
+    if "fly" in r: out += "🪰"
+    if "sewage" in r: out += "🚽"
+    if "water" in r: out += "🚱"
+    return out or "⚠️"
+
+
+def closure_card(c):
+    d = dt.date.fromisoformat(c["date"])
+    status = (f'<span class="rr-ok">✓ Passed follow-up, cleared to reopen</span>' if c.get("reopened_at")
+              else '<span class="rr-pending">Reopen time not listed yet</span>')
+    maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f'{c["name"]} {c["address"]} {c["city"]} FL')
+    return f"""<article class="rr-card">
+  <div class="rr-emoji" aria-hidden="true">{reason_emoji(c["reason"])}</div>
+  <div class="rr-body"><h3>{e(c["name"].title() if c["name"].isupper() else c["name"])}</h3>
+  <p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a></p>
+  <p class="rr-why"><strong>{e(c["reason"])}</strong> · Closed {d.strftime("%a, %b %-d")}{(" at " + e(c["closed_at"])) if c.get("closed_at") else ""}</p>
+  {status}</div>
+</article>"""
+
+
+def build_roach():
+    data = load_closures()
+    cl = data["closures"]
+    n = len(cl)
+    roach = sum("roach" in c["reason"].lower() for c in cl)
+    rodent = sum("rodent" in c["reason"].lower() for c in cl)
+    cards = "".join(closure_card(c) for c in cl) or '<p class="empty">No closures in the latest state files. Enjoy your lunch.</p>'
+    upd = nice_date(data["updated"]) if data.get("updated") else ""
+    body = f"""<section class="effd-hero"><div class="container">
+  <span class="effd-logo big">The Roach <em>Report</em></span>
+  <p class="effd-tag">Tampa Bay and Southwest Florida restaurants the state ordered shut over the last month, straight from official inspection records. Updated daily.</p>
+  <div class="rr-stats"><div><b>{n}</b><span>closures</span></div><div><b>{roach}</b><span>🪳 roaches</span></div><div><b>{rodent}</b><span>🐀 rodents</span></div></div>
+</div></section>
+<section class="container" style="margin-top:28px;max-width:900px">
+  <div class="rr-list">{cards}</div>
+  <div class="source-box" style="margin-top:28px"><span class="label">How this works</span>
+  <p>Florida's Division of Hotels and Restaurants (DBPR) can order an emergency closure when an inspector finds an immediate health risk, most often roach or rodent activity. A closure is not a fine or a final judgment, and a restaurant has to pass a follow-up inspection before it reopens. Most reopen within a day. This list shows the state's records as published; conditions may have changed since.</p>
+  <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR weekly emergency closure reports ↗</a>{(" · Last updated " + upd) if upd else ""}. Owners: to check or correct a record, contact DBPR. Want to report a problem? File a complaint with DBPR.</p></div>
+</section>"""
+    write("roach-report/index.html", page(f"The Roach Report: Tampa Bay & SW Florida Restaurant Closures | {NAME}",
+        "Restaurants in Tampa Bay and Southwest Florida that state inspectors ordered closed this month for roaches, rodents and more, from official DBPR records.",
+        SITE + "/roach-report/", body))
+
+
+def roach_teaser():
+    cl = load_closures()["closures"][:4]
+    if not cl:
+        return ""
+    lis = "".join(f"""<li><a href="/roach-report/"><span class="eat-mini">{reason_emoji(c["reason"])}</span><div><strong>{e(c["name"].title() if c["name"].isupper() else c["name"])}</strong>
+<p class="meta">{e(c["city"])} · {e(c["reason"])}</p></div></a></li>""" for c in cl)
+    return f"""<aside class="rail-box"><div class="rail-head"><span class="tag">The Roach Report</span><h2>Shut down by the state this week</h2></div>
+<ul class="eat-list rental-mini">{lis}</ul><a class="rail-more" href="/roach-report/">See the full Roach Report →</a></aside>"""
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -852,7 +920,7 @@ def build_home():
 </section>
 
 <section class="container two-up">
-  <div>{events_band_inner()}</div>
+  <div>{events_band_inner()}<div style="margin-top:22px">{roach_teaser()}</div></div>
   <div>{eats_teaser()}{headline_list(top_stories(5), "Best of Florida Man")}<a class="rail-more" href="/best-of/">See the Top 10 →</a></div>
 </section>
 {lemonade_promo()}
@@ -994,7 +1062,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -1028,6 +1096,7 @@ if __name__ == "__main__":
     build_artist()
     build_interviews()
     build_cams()
+    build_roach()
     build_eats()
     build_about()
     build_404()

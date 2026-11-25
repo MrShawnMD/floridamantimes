@@ -1,0 +1,341 @@
+{
+ "updated": "2026-11-24",
+ "weeks": [
+  "2026-11-22",
+  "2026-11-15",
+  "2026-11-08",
+  "2026-11-01"
+ ],
+ "closures": [
+  {
+   "name": "Panda Rest (The)",
+   "address": "806 S 6 Ave",
+   "city": "Wauchula",
+   "date": "2026-11-19",
+   "closed_at": "2:30 PM",
+   "reason": "Roach activity",
+   "reopened_at": "3:57 PM",
+   "license": "3500201",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "El Patio",
+   "address": "4444 Cleveland Ave Ste E&F",
+   "city": "Fort Myers",
+   "date": "2026-11-19",
+   "closed_at": "1:40 PM",
+   "reason": "Roach activity",
+   "reopened_at": "12:50 PM",
+   "license": "4605796",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "Halong Bay Vietnamese Cuisine",
+   "address": "5944 34 St N Ste 39-43",
+   "city": "St Petersburg",
+   "date": "2026-11-17",
+   "closed_at": "1:12 PM",
+   "reason": "Rodent, Roach & Fly activity",
+   "reopened_at": "10:23 AM",
+   "license": "6214063",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "Pofolks",
+   "address": "2001 34 St N",
+   "city": "St Petersburg",
+   "date": "2026-11-16",
+   "closed_at": "4:45 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:20 AM",
+   "license": "6213950",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "Siam Garden Thai Restaurant",
+   "address": "3125 N 9 St",
+   "city": "St Petersburg",
+   "date": "2026-11-16",
+   "closed_at": "4:12 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "2:29 PM",
+   "license": "6209503",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "Nuevo Asados Al Carbon",
+   "address": "7212 N Armenia Ave",
+   "city": "Tampa",
+   "date": "2026-11-16",
+   "closed_at": "2:28 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "4:40 PM",
+   "license": "3911717",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "Mi Carreta Restaurant & Bakery",
+   "address": "2705 54 Ave N",
+   "city": "St Petersburg",
+   "date": "2026-11-16",
+   "closed_at": "12:08 PM",
+   "reason": "Fly activity",
+   "reopened_at": "3:58 PM",
+   "license": "6217560",
+   "week": "2026-11-22"
+  },
+  {
+   "name": "Engine No 9",
+   "address": "56 Dr MLK Jr Blvd",
+   "city": "St Petersburg",
+   "date": "2026-11-12",
+   "closed_at": "12:44 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "3:59 PM",
+   "license": "6216893",
+   "week": "2026-11-15"
+  },
+  {
+   "name": "King Buffet",
+   "address": "1319 E Oak St",
+   "city": "Arcadia",
+   "date": "2026-11-10",
+   "closed_at": "1:32 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "3:34 PM",
+   "license": "2400268",
+   "week": "2026-11-15"
+  },
+  {
+   "name": "Chill Restaurant",
+   "address": "363 Corey Ave",
+   "city": "St Petersburg",
+   "date": "2026-11-09",
+   "closed_at": "3:45 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:29 AM",
+   "license": "6216220",
+   "week": "2026-11-15"
+  },
+  {
+   "name": "Beefobradys",
+   "address": "110 Plaza Ave",
+   "city": "Lake Placid",
+   "date": "2026-11-09",
+   "closed_at": "3:20 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "10:34 AM",
+   "license": "3801024",
+   "week": "2026-11-15"
+  },
+  {
+   "name": "Mademoiselle Paris",
+   "address": "2937 Beach Blvd",
+   "city": "Gulfport",
+   "date": "2026-11-09",
+   "closed_at": "1:23 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "2:53 PM",
+   "license": "6215437",
+   "week": "2026-11-15"
+  },
+  {
+   "name": "Chick-Fil-A Airside A",
+   "address": "4100 George J Bean Pkwy",
+   "city": "Tampa",
+   "date": "2026-11-09",
+   "closed_at": "12:19 PM",
+   "reason": "Fly activity",
+   "reopened_at": "2:09 PM",
+   "license": "3917851",
+   "week": "2026-11-15"
+  },
+  {
+   "name": "Le Goute",
+   "address": "3533 Fowler St",
+   "city": "Fort Myers",
+   "date": "2026-11-06",
+   "closed_at": "12:21 PM",
+   "reason": "Roach activity",
+   "reopened_at": "4:17 PM",
+   "license": "4606375",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "Madfish",
+   "address": "5200 Gulf Blvd",
+   "city": "St Pete Beach",
+   "date": "2026-11-05",
+   "closed_at": "1:35 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "4:26 PM",
+   "license": "6214169",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "Wooden Spoon",
+   "address": "712 S Collins St",
+   "city": "Plant City",
+   "date": "2026-11-05",
+   "closed_at": "10:22 AM",
+   "reason": "Rodent & fly activity",
+   "reopened_at": "10:34 AM",
+   "license": "3900935",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "Mix Latino",
+   "address": "11770A Metro Pkwy",
+   "city": "Fort Myers",
+   "date": "2026-11-04",
+   "closed_at": "2:37 PM",
+   "reason": "No potable water",
+   "reopened_at": "3:27 PM",
+   "license": "4651043",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "Ayoki",
+   "address": "222042 State Rd 54",
+   "city": "Lutz",
+   "date": "2026-11-03",
+   "closed_at": "4:18 PM",
+   "reason": "Roach activity",
+   "reopened_at": "10:38 AM",
+   "license": "6102535",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "Taipei Taipei Tea House",
+   "address": "322 N Broad St",
+   "city": "Brooksville",
+   "date": "2026-11-03",
+   "closed_at": "2:06 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "3:24 PM",
+   "license": "3701151",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "McDonalds 26483",
+   "address": "16701 Fishhawk Blvd",
+   "city": "Lithia",
+   "date": "2026-11-02",
+   "closed_at": "4:04 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:37 AM",
+   "license": "3912674",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "Rotis Indian Restaurant",
+   "address": "13025 US Hwy 301S Ste 102",
+   "city": "Riverview",
+   "date": "2026-11-02",
+   "closed_at": "3:29 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "2:22 PM",
+   "license": "3918296",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "La Casa Catracha",
+   "address": "8502 N Armenia Ave Ste 1G",
+   "city": "Tampa",
+   "date": "2026-11-02",
+   "closed_at": "3:12 PM",
+   "reason": "Roach activity",
+   "reopened_at": "8:58 AM",
+   "license": "3917313",
+   "week": "2026-11-08"
+  },
+  {
+   "name": "La Vitanuova Sports Bar and Grill",
+   "address": "8502 N Armenia Ave Ste 1H",
+   "city": "Tampa",
+   "date": "2026-10-29",
+   "closed_at": "4:41 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "",
+   "license": "3919428",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "Mickeys Bar and Billards",
+   "address": "770 NE 5 St",
+   "city": "Crystal River",
+   "date": "2026-10-29",
+   "closed_at": "1:52 PM",
+   "reason": "Roach activity",
+   "reopened_at": "8:48 AM",
+   "license": "1901321",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "Taste of Lagos",
+   "address": "11130 S US Hwy 41",
+   "city": "Gibsonton",
+   "date": "2026-10-28",
+   "closed_at": "4:30 PM",
+   "reason": "Sewage leaks",
+   "reopened_at": "4:04 PM",
+   "license": "3954326",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "Hanley Sport Inc",
+   "address": "8218 Hanley Rd",
+   "city": "Tampa",
+   "date": "2026-10-27",
+   "closed_at": "1:57 PM",
+   "reason": "Roach activity",
+   "reopened_at": "",
+   "license": "3910922",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "Tuscan Italian Restaurant & Pizzeria",
+   "address": "3200 E Bay Dr Ste K",
+   "city": "Largo",
+   "date": "2026-10-27",
+   "closed_at": "1:52 PM",
+   "reason": "Roach activity",
+   "reopened_at": "11:33 AM",
+   "license": "6217266",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "Rib City",
+   "address": "10431 Corkscrew Commons Dr",
+   "city": "Estero",
+   "date": "2026-10-27",
+   "closed_at": "12:47 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "4:17 PM",
+   "license": "4606459",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "El Toque Latin Restaurant",
+   "address": "43418 Hwy 27 Unit 3",
+   "city": "Davenport",
+   "date": "2026-10-27",
+   "closed_at": "11:26 AM",
+   "reason": "Roach activity",
+   "reopened_at": "1:35 PM",
+   "license": "6308738",
+   "week": "2026-11-01"
+  },
+  {
+   "name": "Frank's Pizza",
+   "address": "1600 Achieva Way",
+   "city": "Dunedin",
+   "date": "2026-10-26",
+   "closed_at": "3:24 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "9:35 AM",
+   "license": "6214116",
+   "week": "2026-11-01"
+  }
+ ]
+}
