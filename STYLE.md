@@ -129,3 +129,9 @@ skipped, so a hand-made image always wins: drop a file at the right path to over
 - Only Shawn's team adds these. The daily bot must NEVER write, invent, or edit an interview or its quotes.
 - Each episode: a YouTube link (or a small /videos/<slug>.mp4), a short write-up, and 3–6 real quotes taken from the video.
 - Guests: adults, sober on camera, signed release, in on the joke. No one in crisis (addiction, homelessness, mental health) as the subject.
+
+## The Roach Report (closures.json) — automatic, hands off
+- Built every day by the GitHub Action from Florida DBPR's official weekly emergency-closure files (fetch_closures.py).
+- Never edit closures.json by hand and never add jokes to the list itself. The page shows only what the state published:
+  name, address, date, reason, and reopen status. A closure is not a conviction or a fine; most reopen within a day.
+- A Roach Report *story* is fine (e.g. "Most roach-filled week of the year"), but stick to the state record and say they reopened.
