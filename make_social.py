@@ -166,7 +166,7 @@ def make(s):
     has_audio = tts(script_for(s), audio)
     secs = (duration(audio) + 1.2) if has_audio else 12.0
     frames = int(secs * 30)
-    vf = (f"scale=1188:2112,zoompan=z='min(zoom+0.0004,1.06)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+    vf = (f"scale=1188:2112,zoompan=z='min(zoom+0.0002,1.03)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
           f":d={frames}:s={W}x{H}:fps=30,format=yuv420p")
     cmd = [ffmpeg(), "-y", "-loop", "1", "-i", still_png]
     if has_audio:
