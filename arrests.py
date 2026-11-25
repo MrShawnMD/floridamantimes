@@ -45,7 +45,7 @@ ARRESTS = [
         "story": "florida-man-steals-school-bus-drives-it-all-day",
     },
     {
-        "date": "2026-10-27",
+        "date": "2025-10-27",
         "place": "Sanibel",
         "county": "Lee",
         "emoji": "🚽",
@@ -69,7 +69,7 @@ ARRESTS = [
         "source_url": "https://www.mysuncoast.com/2026/06/25/man-arrested-impersonating-law-enforcement",
     },
     {
-        "date": "2026-06-02",
+        "date": "2026-05-28",
         "place": "Ocala",
         "county": "Marion",
         "emoji": "🍸",
@@ -81,3 +81,5 @@ ARRESTS = [
         "story": "florida-woman-calls-911-over-jello-shot",
     },
 ]
+
+ARRESTS.sort(key=lambda a: a["date"], reverse=True)

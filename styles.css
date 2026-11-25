@@ -503,3 +503,20 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 @media (min-width: 761px) and (max-width: 1060px) { .nav { justify-content: flex-end; } }
 .video.social { background: #fff; border: 1px solid var(--gray-200); aspect-ratio: auto; height: min(760px, 85vh); max-width: 420px; }
 @media (max-width: 760px) { .video.social { height: 82vh; margin: 0 16px; max-width: none; border-radius: var(--radius); } }
+
+/* ---------- Story: quick take + keep reading ---------- */
+.quick-take { max-width: 720px; margin: 26px auto 0; padding: 18px 22px; border-radius: var(--radius); background: var(--accent-soft); border-left: 5px solid var(--accent); }
+.quick-take .label { display: block; margin-bottom: 6px; }
+.quick-take p { margin: 0; font-size: 17.5px; line-height: 1.55; font-weight: 500; color: var(--ink); }
+.story-body h2 { font-family: var(--sans); font-size: 23px; font-weight: 900; letter-spacing: -.02em; line-height: 1.2; margin: 1.6em 0 .55em; color: var(--ink); }
+.story-rest { display: none; }
+.story-rest.open { display: block; animation: fadeIn .35s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.keep-reading { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin: 8px 0 0; padding: 15px 20px; font: inherit; font-family: var(--sans); font-size: 16px; font-weight: 800; color: var(--ink); background: var(--accent); border: 0; border-radius: 999px; cursor: pointer; box-shadow: 0 10px 24px rgba(163,230,53,.35); }
+.keep-reading:hover { filter: brightness(.96); }
+.src-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+@media (max-width: 760px) {
+  .quick-take { margin: 20px 0 0; padding: 15px 16px; }
+  .quick-take p { font-size: 16px; }
+  .story-body h2 { font-size: 20px; }
+}

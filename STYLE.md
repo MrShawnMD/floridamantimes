@@ -17,7 +17,17 @@ never claim any outside writer wrote for us. Byline is always "Florida Man Times
 - **Talk to the reader** ("you") and occasionally to the subject itself
   (the gator, the porta-potty, the Jell-O shot).
 - **Close on a zinger** that ties back to the opening.
-- 250–450 words. Clean language: no profanity, nothing crude or sexual.
+- 400–700 words, but only real facts. Never pad. If a story only has 3 facts, find more sources or skip it.
+- Clean language: no profanity, nothing crude or sexual.
+
+## Story structure (how it shows on the page)
+- `quick`: 2–3 plain sentences with the whole story (who, what, where, what happened next). Shown at the top in a "quick take" box.
+- `body`: the first 2 paragraphs are the hook and show right away; everything after sits behind a "Keep reading" button.
+- After the hook, break the story up with 3–5 subheads: a paragraph that starts with "## " becomes a subhead
+  (e.g. "## The heist", "## What happens next"). Keep paragraphs short (1–4 sentences).
+- Add real depth: step-by-step timeline, the charges and what they mean under Florida law (penalty range, from an
+  official or reliable source), local color, past similar Florida cases, and what happens next (bond, court date).
+- `sources`: list of (name, url). Use 2–3 sources when possible; the first is the main one.
 
 ## The news part (non-negotiable)
 - Every fact comes from the source article. Do not invent quotes, details, ages, charges,
@@ -51,9 +61,14 @@ never claim any outside writer wrote for us. Byline is always "Florida Man Times
 ## Story fields (see stories.py)
 slug, title, dek, category ("Florida Man" | "Florida Woman" | "Wild Florida"), location,
 date (date of the incident or report, YYYY-MM-DD), emoji, color (hex for the art tile),
-body (list of paragraphs), source_name, source_url.
+quick, body (list of paragraphs, "## " for subheads), sources [(name, url), ...].
+Optional: photo_credit (only for an official agency photo, see Images).
 
 ## Images
+- **Real photos:** only official government photos (sheriff's office, police, FWC, city/county) of a scene, animal,
+  vehicle or object, saved as images/<slug>.jpg with `photo_credit` set (e.g. "Lee County Sheriff's Office").
+  NEVER use photos from news sites, AP/Getty, or private people's social posts (they're copyrighted), and NEVER use
+  booking photos or photos showing an arrested person's face. If there's no official photo, use an AI illustration.
 - Save as `images/<slug>.jpg` (or .png/.webp). The build picks it up automatically; no code changes.
 - Wide 16:9, about 1600x900, under ~400 KB (compress before adding).
 - Look: photorealistic but over the top. Cinematic lighting, vivid Florida color, the absurd

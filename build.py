@@ -813,7 +813,18 @@ def share_links(s, url=None):
 
 def build_story(s):
     url = f'{SITE}/stories/{s["slug"]}/'
-    paras = "".join(f"<p>{e(p)}</p>" for p in s["body"])
+    def para(p):
+        return f"<h2>{e(p[3:])}</h2>" if p.startswith("## ") else f"<p>{e(p)}</p>"
+    lead, rest = s["body"][:2], s["body"][2:]
+    paras = "".join(para(p) for p in lead)
+    if rest:
+        paras += (f'<div class="story-rest" id="rest">{"".join(para(p) for p in rest)}</div>'
+                  '<button class="keep-reading" type="button" onclick="document.getElementById(\'rest\').classList.add(\'open\');this.remove()">'
+                  'Keep reading <span aria-hidden="true">↓</span></button>')
+    quick = f'<aside class="quick-take"><span class="label">The quick take</span><p>{e(s["quick"])}</p></aside>' if s.get("quick") else ""
+    srcs = s.get("sources") or [(s["source_name"], s["source_url"])]
+    src_links = "".join(f'<li><a href="{u}" rel="nofollow noopener" target="_blank">{e(n)} ↗</a></li>' for n, u in srcs)
+    src_names = ", ".join(e(n) for n, _ in srcs[:2])
     related = [x for x in STORIES if x is not s][:3]
     img = image_for(s)
     jsonld = {
@@ -828,6 +839,8 @@ def build_story(s):
         "articleSection": s["category"],
     }
     caption = '<p class="caption">Illustration. Not a photo of the people or events described.</p>' if img else ""
+    if img and s.get("photo_credit"):
+        caption = f'<p class="caption">Photo: {e(s["photo_credit"])}</p>'
     body = f"""<article class="story">
   <header class="story-head">
     {tag(s)}
@@ -839,16 +852,17 @@ def build_story(s):
     </div>
   </header>
   <figure class="story-media">{media(s, "wide")}{caption}</figure>
+  {quick}
   <div class="story-body">{paras}</div>
   <div class="source-box">
-    <span class="label">Source</span>
-    <a href="{s["source_url"]}" rel="nofollow noopener" target="_blank">{e(s["source_name"])} ↗</a>
-    <p>This story is based on reporting by {e(s["source_name"])}, retold in our own words.</p>
+    <span class="label">{"Sources" if len(srcs) > 1 else "Source"}</span>
+    <ul class="src-list">{src_links}</ul>
+    <p>Based on reporting by {src_names}, retold in our own words.</p>
   </div>
   {share_links(s)}
 </article>
 <section class="container">
-  <div class="section-head"><h2 class="label">Keep Reading</h2></div>
+  <div class="section-head"><h2 class="label">More Stories</h2></div>
   <div class="grid">{''.join(card(x) for x in related)}</div>
 </section>"""
     write(f'stories/{s["slug"]}/index.html', page(
