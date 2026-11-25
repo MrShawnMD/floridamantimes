@@ -20,6 +20,7 @@ from eats import EATS
 from giving import LEMONADE
 from features import ARTISTS, RENTALS
 from interviews import INTERVIEWS, WANTED, STANDARD_QS
+from cams import CAMS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -140,6 +141,7 @@ HUB = [
     ("/events/", "🎪", "Events", "Fairs, festivals and python hunts"),
     ("/eats/", "🐊", "Weird Eats", "Gator, frog legs and lion tacos"),
     ("/effd-up/", "🎥", "Eff'd Up With…", "Video interviews with wild Floridians"),
+    ("/cams/", "📹", "Florida Man Cams", "Live cams: manatees, Duval Street, rockets"),
     ("/rentals/", "🛸", "Rentals", "Sleep in a UFO or a helicopter"),
     ("/artist-of-the-week/", "🎨", "Artist", "Florida's wildest creative minds"),
     ("/gives-back/", "🍋", "Gives Back", "The LEMONADE charity drag race"),
@@ -149,8 +151,17 @@ HUB = [
 
 def hub_strip():
     chips = "".join(f'<a class="chip" href="{u}"><span aria-hidden="true">{em}</span>{e(n)}</a>' for u, em, n, _ in HUB)
-    return f"""<nav class="hub" aria-label="Sections"><div class="hub-inner">{chips}</div></nav>
-<script>(function(){{var p=location.pathname,best=null;document.querySelectorAll('.hub .chip').forEach(function(a){{var h=a.getAttribute('href');if((h==='/'&&p==='/')||(h!=='/'&&p.indexOf(h)===0))best=a;}});if(best){{best.classList.add('on');best.scrollIntoView({{inline:'center',block:'nearest'}});window.scrollTo(0,0);}}}})();</script>"""
+    dupes = "".join(f'<a class="chip dupe" href="{u}" tabindex="-1" aria-hidden="true"><span>{em}</span>{e(n)}</a>' for u, em, n, _ in HUB)
+    drift = """<script>(function(){var s=document.querySelector('.hub-inner');if(!s||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+var on=true,t,x=0;function half(){return s.scrollWidth/2;}
+function go(){if(on&&s.scrollWidth>s.clientWidth+40){x+=0.35;if(x>=half())x-=half();s.scrollLeft=x;}requestAnimationFrame(go);}
+function stop(){on=false;clearTimeout(t);}function later(){clearTimeout(t);t=setTimeout(function(){x=s.scrollLeft;on=true;},3500);}
+['pointerdown','touchstart','wheel','mouseenter'].forEach(function(ev){s.addEventListener(ev,stop,{passive:true});});
+['pointerup','touchend','mouseleave'].forEach(function(ev){s.addEventListener(ev,later,{passive:true});});
+s.addEventListener('scroll',function(){if(!on){if(s.scrollLeft>=half())s.scrollLeft-=half();}},{passive:true});
+setTimeout(function(){x=s.scrollLeft;requestAnimationFrame(go);},1200);})();</script>"""
+    return f"""<nav class="hub" aria-label="Sections"><div class="hub-inner">{chips}{dupes}</div></nav>{drift}
+<script>(function(){{var p=location.pathname,best=null;document.querySelectorAll('.hub .chip:not(.dupe)').forEach(function(a){{var h=a.getAttribute('href');if((h==='/'&&p==='/')||(h!=='/'&&p.indexOf(h)===0))best=a;}});if(best){{best.classList.add('on');best.scrollIntoView({{inline:'center',block:'nearest'}});window.scrollTo(0,0);}}}})();</script>"""
 
 
 def explore_grid():
@@ -698,6 +709,30 @@ def effd_promo():
     return f"""<section class="container"><a class="effd-promo" href="{link}">{effd_logo()}<p>{e(line)}</p><span class="effd-cta">{cta}</span></a></section>"""
 
 
+def cam_card(c):
+    return f"""<article class="rental cam">
+  <div class="ep-thumb">{feat_pic("cams", c)}<span class="live-dot">● LIVE</span></div>
+  <div class="rental-body"><span class="tag">{e(c["tag"])} · {e(c["city"])}</span><h3>{c["emoji"]} {e(c["name"])}</h3>
+  <p class="ev-blurb">{e(c["blurb"])}</p>
+  <p class="meta"><strong>Best time:</strong> {e(c["best"])}</p>
+  <a class="cam-btn" href="{c["link"]}" rel="noopener" target="_blank">Watch live on {e(c["link_name"])} ↗</a></div>
+</article>"""
+
+
+def build_cams():
+    body = f"""<section class="effd-hero"><div class="container">
+  <span class="effd-logo big">Florida Man <em>Cams</em></span>
+  <p class="effd-tag">Live, right now, somewhere in Florida: manatees piling into a power plant, a party on Duval Street, a rocket about to leave the planet. Pull up a chair.</p>
+</div></section>
+<section class="container" style="margin-top:32px">
+  <div class="rental-grid">{"".join(cam_card(c) for c in CAMS)}</div>
+  <p class="section-sub" style="margin-top:22px">Cams are run by the organizations linked on each card, so they may go offline for weather, maintenance or the off-season. Pictures here are illustrations; tap through for the real live view.</p>
+</section>"""
+    write("cams/index.html", page(f"Florida Man Cams: Live Florida Webcams | {NAME}",
+        "Live Florida webcams: manatee cams at Blue Spring and a power plant, Sloppy Joe's and Mallory Square in Key West, Space Coast rocket launches and more.",
+        SITE + "/cams/", body))
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -959,7 +994,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -992,6 +1027,7 @@ if __name__ == "__main__":
     build_rentals()
     build_artist()
     build_interviews()
+    build_cams()
     build_eats()
     build_about()
     build_404()

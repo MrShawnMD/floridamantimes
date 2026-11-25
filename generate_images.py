@@ -25,6 +25,7 @@ from arrests import ARRESTS  # noqa: E402
 from eats import EATS  # noqa: E402
 from giving import LEMONADE  # noqa: E402
 from features import ARTISTS, RENTALS  # noqa: E402
+from cams import CAMS  # noqa: E402
 import build  # noqa: E402
 
 KEY = os.environ.get("OPENAI_API_KEY", "").strip()
@@ -47,7 +48,7 @@ def jobs():
     hero = LEMONADE["hero_image"].lstrip("/")
     if LEMONADE.get("image_prompt") and not os.path.exists(os.path.join(ROOT, hero)):
         yield hero, LEMONADE["image_prompt"]
-    for folder, items in (("artists", ARTISTS), ("rentals", RENTALS)):
+    for folder, items in (("artists", ARTISTS), ("rentals", RENTALS), ("cams", CAMS)):
         for x in items:
             if x.get("image_prompt") and not build.feat_image(folder, x["slug"]):
                 yield os.path.join("images", folder, x["slug"] + ".jpg"), x["image_prompt"]

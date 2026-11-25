@@ -569,3 +569,9 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .hub::after { content: ""; position: absolute; right: 0; top: 0; bottom: 1px; width: 36px; pointer-events: none;
     background: linear-gradient(to right, rgba(255,255,255,0), #fff 85%); }
 }
+
+/* ---------- Florida Man Cams ---------- */
+.live-dot { position: absolute; left: 12px; top: 12px; background: #e11d48; color: #fff; font-size: 11.5px; font-weight: 800; letter-spacing: .06em; padding: 4px 9px; border-radius: 999px; }
+.cam-btn { margin-top: 4px; display: inline-block; background: var(--ink); color: #fff; font-weight: 800; font-size: 14px; padding: 10px 16px; border-radius: 999px; }
+.cam-btn:hover { background: var(--accent); color: var(--ink); }
+.hub-inner { scroll-snap-type: none; }
