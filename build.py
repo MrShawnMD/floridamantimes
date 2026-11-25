@@ -354,21 +354,32 @@ def events_band_inner():
 
 
 LOOKUPS = [
-    ("Hillsborough County", "Tampa · Brandon · Plant City", "Arrest Inquiry", "https://webapps.hcso.tampa.fl.us/ArrestInquiry/Home/"),
-    ("Polk County", "Lakeland · Winter Haven · Bartow", "Jail Inquiry", "https://mugshots.polksheriff.org/detention/jail-inquiry"),
-    ("Sarasota County", "Sarasota · Venice · North Port", "Arrests & Inmate Search", "https://www.sarasotasheriff.org/arrest-reports/"),
-    ("Pinellas County", "St. Pete · Clearwater · Largo", "Inmate Booking Search", "https://pinellassheriff.gov/InmateBooking"),
-    ("Every other Florida county", "Manatee, Charlotte, Lee, Pasco and more", "Florida Dept. of State county jail directory", "https://dos.myflorida.com/library-archives/research/florida-information/government/local-resources/county-jails-and-inmate-searches"),
+    ("Hillsborough County", "Tampa · Brandon · Plant City", "HCSO Arrest Inquiry", "https://webapps.hcso.tampa.fl.us/ArrestInquiry/Home/",
+     "No name needed: enter today's date in Booking Date, sort by Booking Date. (Brand-new arrests can take up to 24 hours to show.)"),
+    ("Polk County", "Lakeland · Winter Haven · Bartow", "Polk Sheriff Jail Inquiry", "https://mugshots.polksheriff.org/detention/jail-inquiry",
+     "No name needed: tap the Booking Date tab, pick a day, hit Search."),
+    ("Pinellas County", "St. Pete · Clearwater · Largo", "Who's In Jail", "https://pinellassheriff.gov/InmateBooking",
+     "No name needed: search by Booking Date."),
+    ("Lee County", "Fort Myers · Cape Coral · Bonita Springs", "LCSO Arrest Search", "https://www.sheriffleefl.org/arrest-search/",
+     "No name needed: set the Booking Date range and search."),
+    ("Sarasota County", "Sarasota · Venice · North Port", "Arrests & Inmate Search", "https://www.sarasotasheriff.org/arrest-reports/",
+     "Search by date or name in the sheriff's search box."),
+    ("Orange County", "Orlando · Winter Park · Apopka", "Daily Booking List", "https://apps.ocfl.net/Bailbond/",
+     "Ready-made list: tap Daily Booking List for everyone booked in the last 24 hours."),
+    ("Broward County", "Fort Lauderdale · Hollywood · Pompano", "BSO Booking Blotter", "https://bookingblotter.sheriff.org/",
+     "Ready-made list of recent bookings. No search needed."),
+    ("Every other Florida county", "Manatee, Charlotte, Pasco, Miami-Dade and more", "Florida Dept. of State jail directory", "https://dos.myflorida.com/library-archives/research/florida-information/government/local-resources/county-jails-and-inmate-searches",
+     "Links to every county jail's official search."),
 ]
 
 
 def lookup_box(compact=False):
     items = "".join(f"""<li><a class="lookup" href="{u}" target="_blank" rel="noopener">
-  <span class="lk-county">{e(c)}</span><span class="lk-towns">{e(t)}</span><span class="lk-go">{e(label)} ↗</span></a></li>""" for c, t, label, u in LOOKUPS)
+  <span class="lk-county">{e(c)}</span><span class="lk-towns">{e(t)}</span><span class="lk-tip">{e(tip)}</span><span class="lk-go">{e(label)} ↗</span></a></li>""" for c, t, label, u, tip in LOOKUPS)
     return f"""<section class="lookup-box">
   <div class="lookup-head"><span class="tag">Official records</span>
   <h2>Look Up a Local Arrest</h2>
-  <p>Search the sheriff's own booking records, with charges, bond and booking photos, straight from the official source. An arrest or booking does not establish guilt.</p></div>
+  <p>See who got booked, with photos, charges and bond, straight from each sheriff's own records. Most let you browse by booking date, so you don't need a name. An arrest or booking does not establish guilt.</p></div>
   <ul class="lookup-list">{items}</ul>
 </section>"""
 
@@ -382,7 +393,7 @@ def build_lookup():
 </section>"""
     write("arrest-lookup/index.html", page(
         f"Florida Arrest Lookup: Official County Booking Searches | {NAME}",
-        "Look up recent arrests and jail bookings in Hillsborough, Polk, Sarasota, Pinellas and every Florida county using official sheriff's office search tools.",
+        "Browse recent arrests and booking photos in Hillsborough, Polk, Pinellas, Lee, Sarasota, Orange, Broward and every Florida county using official sheriff's office tools.",
         SITE + "/arrest-lookup/", body))
 
 

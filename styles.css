@@ -520,3 +520,4 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .quick-take p { font-size: 16px; }
   .story-body h2 { font-size: 20px; }
 }
+.lk-tip { font-size: 13.5px; line-height: 1.4; color: var(--ink); background: var(--accent-soft); border-radius: 8px; padding: 6px 9px; margin: 4px 0 2px; }
