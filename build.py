@@ -594,6 +594,15 @@ def video_player(iv):
     return interview_pic(iv, "media wide")
 
 
+def credit_line(iv):
+    if not iv.get("credit"):
+        return ""
+    who = e(iv["credit"])
+    if iv.get("credit_url"):
+        who = f'<a href="{iv["credit_url"]}" rel="noopener" target="_blank">{who} ↗</a>'
+    return f'<p class="caption">Video by {who}. Originally posted on Instagram; embedded with credit.</p>'
+
+
 def effd_logo(size=""):
     return f'<span class="effd-logo {size}">Eff\'d Up <em>With…</em></span>'
 
@@ -630,7 +639,7 @@ def build_interviews():
         intro = "".join(f"<p>{e(p)}</p>" for p in iv["intro"])
         b = f"""<article class="story"><header class="story-head">{effd_logo()}<h1>{e(iv["title"])}</h1>
 <p class="story-dek">{e(iv["dek"])}</p><p class="meta">{e(iv["guest"])} · {e(iv["city"])} · {nice_date(iv["date"])}</p></header>
-<figure class="story-media">{video_player(iv)}</figure>
+<figure class="story-media">{video_player(iv)}{credit_line(iv)}</figure>
 <div class="story-body">{intro}{('<h2>Best moments</h2>' + qa) if qa else ''}</div>{share_links(iv, SITE + "/effd-up/" + iv["slug"] + "/")}</article>"""
         write(f"effd-up/{iv['slug']}/index.html", page(f"Eff'd Up With {iv['guest']}: {iv['title']} | {NAME}", iv["dek"],
             SITE + f"/effd-up/{iv['slug']}/", b, og_type="article"))

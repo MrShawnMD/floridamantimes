@@ -23,7 +23,26 @@ Entry format (newest first):
 }
 """
 
-INTERVIEWS = []
+INTERVIEWS = [
+    {
+        "slug": "quarantine-check-in",
+        "guest": "All Gas No Brakes",
+        "title": "A Florida Quarantine Check-In",
+        "dek": "Remember spring 2020? Florida does. Kind of.",
+        "city": "Florida",
+        "date": "2026-11-24",
+        "emoji": "🎥",
+        "video": "https://www.instagram.com/p/CBgTbKbg4TM/",
+        "vertical": True,
+        "credit": "All Gas No Brakes (Andrew Callaghan)",
+        "credit_url": "https://www.instagram.com/allgasnobrakesshow/",
+        "intro": [
+            "Back in 2020, while the rest of the country was baking sourdough and learning Zoom, Andrew Callaghan's All Gas No Brakes rolled through Florida to see how the Sunshine State was handling lockdown.",
+            "The answer, as usual, was: in its own way. Press play.",
+        ],
+        "quotes": [],
+    },
+]
 
 # Who we're looking for (shown while there are no interviews yet)
 WANTED = [
