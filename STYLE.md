@@ -155,7 +155,7 @@ psychic towns, cryptid HQs, folk-art castles, weird cemeteries, odd ruins).
 
 ## Where to Eat This Week (weekly story, Fridays)
 A weekly statewide story built from the state's own inspection data: who got shut down, and a couple of
-spotless places worth a visit. It's a normal story in stories.py (category "Wild Florida", slug
+spotless places worth a visit. Title format (keep the brand name every week): "Roaches' Choice: Where Florida's Bugs Ate This Week (and Where You Should Instead)" — you may swap the part after the colon for a fresh pun that week, but always start with "Roaches' Choice:". It's a normal story in stories.py (category "Wild Florida", slug
 where-to-eat-florida-week-of-<YYYY-MM-DD of the DBPR week>).
 - "Don't eat" half: use only closures.json (DBPR emergency closures) for the latest week. Name the
   restaurant, city and the state's stated reason, nothing more. Jokes go at the bugs, never at the owners

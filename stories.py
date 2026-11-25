@@ -14,7 +14,7 @@ Fields:
 STORIES = [
     {
         "slug": "where-to-eat-florida-week-of-2026-11-22",
-        "title": "Where to Eat (and Where the Roaches Ate First): Florida's Week in Health Inspections",
+        "title": "Roaches' Choice: Where Florida's Bugs Ate This Week (and Where You Should Instead)",
         "dek": "17 restaurants got shut down by the state this week. Over a thousand others aced it. Here's the scoreboard.",
         "category": "Wild Florida",
         "location": "Statewide",

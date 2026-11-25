@@ -666,3 +666,26 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .follow-btns a { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-weight: 800; font-size: 15px; text-decoration: none; background: var(--accent); color: #111; }
 .follow-btns a:hover { filter: brightness(1.08); }
 @media (max-width: 640px) { .follow-btns { width: 100%; } .follow-btns a { flex: 1; justify-content: center; } }
+
+/* homepage county block */
+.county-block { margin-top: 28px; border: 1px solid var(--gray-200); border-radius: 16px; padding: 18px; background: #f7fdec; }
+.cb-head h2 { font-size: 22px; font-weight: 900; margin: 8px 0 4px; }
+.cb-head p { font-size: 14px; color: var(--gray-600); margin: 0 0 12px; }
+.cb-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.cb-chip { display: block; background: #fff; border: 1px solid var(--gray-200); border-radius: 12px; padding: 9px 10px; text-decoration: none; color: var(--ink); }
+.cb-chip:hover { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.cb-chip strong { display: block; font-size: 14px; font-weight: 800; }
+.cb-chip span { display: block; font-size: 12px; color: var(--gray-600); margin-top: 2px; }
+.cb-foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.cb-foot select { font: inherit; font-size: 15px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--gray-200); background: #fff; min-width: 220px; }
+.cb-key { font-size: 12px; color: var(--gray-600); }
+@media (max-width: 640px) { .cb-grid { grid-template-columns: repeat(2, 1fr); } .cb-foot select { width: 100%; } }
+/* story -> county link */
+.cty-link { display: block; margin-top: 18px; padding: 14px 16px; border-radius: 14px; background: #f7fdec; border: 1px solid var(--gray-200); text-decoration: none; color: var(--ink); }
+.cty-link span { display: block; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-ink, #3f6212); }
+.cty-link strong { display: block; font-size: 17px; margin-top: 3px; }
+.cty-link:hover { border-color: var(--accent); }
+/* FAQ */
+.faq { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; background: #fff; }
+.faq summary { font-weight: 800; cursor: pointer; }
+.faq p { margin: 8px 0 0; color: var(--gray-700, #333); }

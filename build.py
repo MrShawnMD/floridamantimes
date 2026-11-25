@@ -1096,6 +1096,10 @@ def build_county_pages():
         sections.append(f"""<section id="eat" class="cty-sec"><div class="eat-instead"><span class="ei-kicker">Okay, now you're hungry and nervous</span>
   <h2>✨ Where to eat instead in {e(county)} County</h2><p>Restaurants that aced their most recent state inspection with zero violations this month.</p></div>
   {clean_sponsor(county + " County")}<div class="cp-list" style="margin-top:16px">{clean_html}</div></section>""")
+        loc_artists = [a for a in ARTISTS if county_of_place(a.get("city", "")) == county]
+        if loc_artists:
+            sec("artist", "🎨 Local artist", "".join(
+                f"""<a class="artist-feature" href="/artist-of-the-week/">{feat_pic("artists", a)}<div class="af-body"><span class="pill live">Artist of the Week</span><h2>{e(a["headline"])}</h2><p class="meta">{e(a["name"])} · {e(a["city"])}</p></div></a>""" for a in loc_artists[:2]))
         if loc_eats:
             sec("weird-eats", "🐊 Weird local eats", f'<div class="eats-grid">{"".join(eat_card(x) for x in loc_eats)}</div>')
         if loc_events:
@@ -1105,12 +1109,34 @@ def build_county_pages():
             sec("odd", "🛸 Strange stays, cams & odd spots", f'<div class="rental-grid">{html}</div>')
         sibs = [c for c in ALL_COUNTIES if REGION_OF.get(c, "North Florida & Panhandle") == region and c != county]
         sib_html = "".join(f'<a class="rr-chip" href="/restaurant-inspections/{county_slug(c)}/">{e(c)}</a>' for c in sibs)
+        def nm(x):
+            n = x.get("name", "")
+            return n.title() if n.isupper() else n
+        q_closed = (f"In the last 8 weeks the state ordered {len(closed)} {county} County restaurant{'s' if len(closed) != 1 else ''} to close temporarily: "
+                    + "; ".join(f"{nm(c)} in {c.get('city','').title()}" for c in closed[:6]) + ". Most reopen within a day once they pass a follow-up inspection."
+                    ) if closed else f"No {county} County restaurants were ordered closed by the state in the last 8 weeks."
+        q_clean = (f"{len(clean)} {county} County restaurants passed their latest routine state inspection with zero violations in the last 30 days, including "
+                   + ", ".join(f"{nm(c)} ({c.get('city','').title()})" for c in clean[:6]) + ".") if clean else f"We haven't seen a perfect-score inspection in {county} County in the last 30 days yet."
+        faqs = [
+            (f"Which {county} County restaurants were shut down recently?", q_closed),
+            (f"Where can I eat in {county} County with a clean inspection?", q_clean),
+            (f"How do I check a {county} County restaurant's health inspection?",
+             f"Florida's Division of Hotels and Restaurants (DBPR) inspects restaurants and posts every result online. This page pulls the state's records for {county} County every day, or you can search any restaurant on the DBPR website."),
+        ]
+        faq_html = "".join(f'<details class="faq"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in faqs)
+        sections.append(f'<section id="faq" class="cty-sec"><div class="section-head"><h2 class="label">❓ {e(county)} County restaurant inspection questions</h2></div>{faq_html}</section>')
+        ld = [{"@context": "https://schema.org", "@type": "FAQPage",
+               "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+              {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                  {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
+                  {"@type": "ListItem", "position": 2, "name": "Florida counties", "item": SITE + "/restaurant-inspections/"},
+                  {"@type": "ListItem", "position": 3, "name": f"{county} County", "item": SITE + f"/restaurant-inspections/{slug}/"}]}]
         intro = (f"{len(closed)} restaurant{'s' if len(closed) != 1 else ''} shut down in the last 8 weeks, "
                  f"{len(written)} written up for serious violations, and {len(clean)} with a perfect inspection this month.")
         body = f"""<section class="effd-hero"><div class="container">
   <span class="tag" style="background:rgba(255,255,255,.1);color:#d4d4d4">📍 Your local Florida Man Times</span>
   <h1 class="effd-logo big" style="margin-top:10px">{e(county)} <em>County</em></h1>
-  <p class="effd-tag">Weird local news, arrests, the Roach Report and where to eat in {e(county)} County{(", including " + ", ".join(cities)) if cities else ""}. Updated daily.</p>
+  <p class="effd-tag">{e(county)} County restaurant inspections, closures and clean-plate winners, plus weird local news, arrests and things to do in {e(county)} County{(", including " + ", ".join(cities)) if cities else ""}. Updated daily.</p>
   <div class="rr-stats"><div><b>{len(loc_stories)}</b><span>📰 local stories</span></div><div><b>{len(closed)}</b><span>🚫 shut down</span></div><div><b>{len(written)}</b><span>⚠️ written up</span></div><div><b>{len(clean)}</b><span>✨ perfect scores</span></div></div>
 </div></section>
 <nav class="cty-nav" aria-label="On this page"><div class="hub-inner">{"".join(nav)}</div></nav>
@@ -1122,8 +1148,10 @@ def build_county_pages():
 <p>Inspection data comes from <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR ↗</a>. Shut down means an emergency closure until a follow-up passed; most reopen within a day. A write-up or warning is not a final judgment. Perfect scores reflect one routine visit. Everyone arrested is presumed innocent.</p></div>
 </div>"""
         write(f"restaurant-inspections/{slug}/index.html", page(
-            f"{county} County, FL: Weird News, Arrests & Restaurant Inspections | {NAME}",
-            f"{county} County, Florida: local weird news, arrests and restaurant inspections. {intro}", SITE + f"/restaurant-inspections/{slug}/", body))
+            f"{county} County Restaurant Inspections, Closures & Local News | {NAME}",
+            f"{county} County, FL restaurant inspections updated daily: {intro} Plus local weird news, arrests and things to do.",
+            SITE + f"/restaurant-inspections/{slug}/", body,
+            "".join(f'<script type="application/ld+json">{json.dumps(x)}</script>' for x in ld)))
         urls.append(SITE + f"/restaurant-inspections/{slug}/")
     by_region = "".join(
         f'<div class="section-head" style="margin-top:22px"><h2 class="label">{e(r)}</h2></div><div class="county-grid">'
@@ -1134,6 +1162,27 @@ def build_county_pages():
         SITE + "/restaurant-inspections/", f"""<section class="container" style="max-width:900px"><div class="page-head"><span class="tag">All 67 counties</span>
 <h1>📍 Pick your county</h1><p>Your local Florida Man news, arrests, Roach Report and where to eat.</p></div>{by_region}</section>"""))
     return urls
+
+
+POPULAR_COUNTIES = ["Sarasota", "Manatee", "Hillsborough", "Pinellas", "Pasco", "Polk", "Lee", "Charlotte",
+                    "Orange", "Miami-Dade", "Broward", "Palm Beach"]
+
+
+def county_block():
+    cl = load_closures()["closures"]
+    cd = load_clean().get("items", [])
+    chips = ""
+    for c in POPULAR_COUNTIES:
+        shut = sum(1 for x in cl if (x.get("county") or county_for(x["city"])) == c)
+        good = sum(1 for x in cd if x["county"] == c)
+        chips += (f'<a class="cb-chip" href="/restaurant-inspections/{county_slug(c)}/"><strong>{e(c)}</strong>'
+                  f'<span>🚫 {shut} · ✨ {good}{"+" if good >= 60 else ""}</span></a>')
+    opts = "".join(f'<option value="/restaurant-inspections/{county_slug(c)}/">{e(c)} County</option>' for c in ALL_COUNTIES)
+    return f"""<section class="county-block"><div class="cb-head"><span class="tag">📍 Your county</span>
+<h2>Florida Man, but local</h2><p>Pick your county for local weird news, arrests, restaurant inspections and where to eat.</p></div>
+<div class="cb-grid">{chips}</div>
+<div class="cb-foot"><select onchange="if(this.value)location.href=this.value" aria-label="Pick your county"><option value="">All 67 counties…</option>{opts}</select>
+<span class="cb-key">🚫 shut down (8 wks) · ✨ perfect inspections (30 days)</span></div></section>"""
 
 
 def county_picker():
@@ -1379,11 +1428,11 @@ def eats_teaser():
 
 def build_home():
     lead = STORIES[0]
-    left = STORIES[1:3]
-    latest = STORIES[3:11]
-    body = f"""{county_picker()}<section class="front3 container">
+    left = STORIES[1:4]
+    latest = STORIES[4:12]
+    body = f"""<section class="front3 container">
   <div class="col-left">{"".join(mini(s) for s in left)}</div>
-  <div class="col-lead">{hero(lead)}</div>
+  <div class="col-lead">{hero(lead)}{county_block()}</div>
   <div class="col-right">{arrest_feed(ARRESTS[:6])}</div>
 </section>
 <section class="container">
@@ -1447,7 +1496,11 @@ def build_story(s):
     srcs = s.get("sources") or [(s["source_name"], s["source_url"])]
     src_links = "".join(f'<li><a href="{u}" rel="nofollow noopener" target="_blank">{e(n)} ↗</a></li>' for n, u in srcs)
     src_names = ", ".join(e(n) for n, _ in srcs[:2])
-    related = [x for x in STORIES if x is not s][:3]
+    cty = county_of_place(s.get("location", ""))
+    same = [x for x in STORIES if x is not s and cty and county_of_place(x.get("location", "")) == cty]
+    related = (same + [x for x in STORIES if x is not s and x not in same])[:3]
+    cty_link = (f'<a class="cty-link" href="/restaurant-inspections/{county_slug(cty)}/"><span>📍 More from {e(cty)} County</span>'
+                f'<strong>Local news, arrests, restaurant inspections &amp; where to eat →</strong></a>') if cty else ""
     img = image_for(s)
     jsonld = {
         "@context": "https://schema.org", "@type": "NewsArticle",
@@ -1482,6 +1535,7 @@ def build_story(s):
     <p>Based on reporting by {src_names}, retold in our own words.</p>
   </div>
   {share_links(s)}
+  {cty_link}
 </article>
 <section class="container">
   <div class="section-head"><h2 class="label">More Stories</h2></div>
