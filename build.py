@@ -132,11 +132,13 @@ def header():
     nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a>'
            '<a href="/eats/">Weird Eats</a><a href="/rentals/">Crazy Rentals</a><a href="/artist-of-the-week/">Artist of the Week</a>'
            '<a href="/gives-back/">Gives Back</a>')
+    sections = "".join(f'<a class="nav-extra" href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
     {logo()}
-    <nav class="nav">{nav}<a href="/about/">About</a></nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" onclick="var h=this.closest('.site-header'),o=h.classList.toggle('menu-open');this.setAttribute('aria-expanded',o);document.body.classList.toggle('no-scroll',o)"><span class="burger" aria-hidden="true"></span>Menu</button>
+    <nav class="nav" id="site-nav"><a href="/">Home</a>{nav}<a href="/arrest-lookup/">Arrest Lookup</a>{sections}<a href="/about/">About</a></nav>
   </div>
   <div class="breaking">
     <div class="breaking-inner">
