@@ -138,6 +138,9 @@ def logo(cls="logo"):
     return f'<a class="{cls}" href="/" aria-label="{NAME} home"><span class="logo-mark">FM</span><span class="logo-text">Florida Man <b>Times</b></span></a>'
 
 
+CONTACT_EMAIL = ""   # set to e.g. "ads@floridamantimes.com" to turn on all contact buttons
+
+
 HUB = [
     ("/", "🏠", "Home", "Today's weirdest Florida news"),
     ("/best-of/", "🏆", "Top 10", "The most-read Florida Man stories"),
@@ -213,7 +216,7 @@ def footer():
       {logo("logo logo-footer")}
       <p class="footer-tag">{TAGLINE}. Real reports, retold our way, always linked to the source.</p>
     </div>
-    <nav class="footer-nav">{nav}<a href="/about/">About</a><a href="/feed.xml">RSS</a></nav>
+    <nav class="footer-nav">{nav}<a href="/about/">About</a><a href="/advertise/">Advertise</a><a href="/feed.xml">RSS</a></nav>
   </div>
   <p class="fine">People in arrest stories are presumed innocent unless proven guilty in court. Story images are illustrations, not photos of the people or events described. © {year} {NAME}.</p>
 </footer>"""
@@ -867,12 +870,18 @@ def build_dispensaries():
 
   <div class="section-head" style="margin-top:36px"><h2 class="label">How to get a card</h2></div>
   <ol class="how-list" style="list-style:none;padding:0">
-    <li><span class="how-n" style="background:var(--accent)">1</span><div><h3>See a qualified doctor</h3><p>Only doctors registered with the state can certify you. Visits usually run about $150 to $250 and many are done by video.</p></div></li>
+    <li><span class="how-n" style="background:var(--accent)">1</span><div><h3>See a qualified doctor</h3><p>Only doctors registered with the state can certify you. Your first visit has to be an in-person exam; renewals can often be done by video. Visits usually run about $150 to $250.</p></div></li>
     <li><span class="how-n" style="background:var(--accent)">2</span><div><h3>Doctor adds you to the registry</h3><p>If you qualify, the doctor enters you into Florida's Medical Marijuana Use Registry.</p></div></li>
     <li><span class="how-n" style="background:var(--accent)">3</span><div><h3>Apply and pay the state fee</h3><p>You finish the application online and pay the state's $75 card fee. You'll get an email you can use while the plastic card is in the mail.</p></div></li>
     <li><span class="how-n" style="background:var(--accent)">4</span><div><h3>Renew on time</h3><p>Doctor certifications and the card both have to be renewed, and the state fee applies each time. Set a reminder.</p></div></li>
   </ol>
   <p class="section-sub" style="margin-top:16px"><a href="https://knowthefactsmmj.com/" rel="noopener" target="_blank">Official Florida Office of Medical Marijuana Use site ↗</a></p>
+  <div class="sponsor-slot">
+    <span class="sponsor-tag">Sponsored · Featured card doctors</span>
+    <h3>Need your card? Featured doctors coming soon.</h3>
+    <p>Are you a Florida-qualified medical marijuana physician or clinic? Get in front of Floridians looking for a card, right on this page.</p>
+    <a class="cam-btn" href="/advertise/#weed-guide">Get your practice listed →</a>
+  </div>
 
   <div class="section-head" style="margin-top:40px"><h2 class="label">Find one near you</h2></div>
   <div class="ex-grid">{areas}</div>
@@ -895,11 +904,45 @@ def build_dispensaries():
     <div class="award"><span>🧾</span><h3>Keep it in the package</h3><p>Carry your card and keep products in their original dispensary packaging.</p></div>
     <div class="award"><span>🗺️</span><h3>Don't cross state lines</h3><p>Marijuana is still illegal under federal law, so it can't leave Florida with you, even to a legal state.</p></div>
   </div>
-  <p class="section-sub" style="margin-top:20px">For patients 18+ with a valid Florida card (minors need a caregiver). This guide is general information, not medical or legal advice. Florida Man Times isn't paid by any dispensary listed.</p>
+  <p class="section-sub" style="margin-top:20px">For patients 18+ with a valid Florida card (minors need a caregiver). This guide is general information, not medical or legal advice. Paid placements are always labeled Sponsored; everything else on this page is unpaid.</p>
 </section>"""
     write("dispensaries/index.html", page(f"Florida Dispensary Guide: Medical Marijuana Card & Best-Known Dispensaries | {NAME}",
         "How to get a Florida medical marijuana card, where to find dispensaries near you, the big Florida chains and the rules to know.",
         SITE + "/dispensaries/", body))
+
+
+SPONSOR_SLOTS = [
+    ("weed-guide", "🌿", "The Florida Weed Guide", "Featured card doctors and clinics, plus a dispensary partner spot. Readers here are actively looking for a card or a store.",
+     "/dispensaries/"),
+    ("roach-report", "🪳", "The Roach Report", "\"Presented by\" sponsorship, a natural fit for pest control, cleaning and restaurant-supply companies. Updated daily, built to be shared.",
+     "/roach-report/"),
+    ("eats", "🐊", "Weird Eats", "Feature your restaurant, food truck or bar next to Florida's strangest menus.", "/eats/"),
+    ("events", "🎪", "Weird Florida Events", "Promote your festival, fair or event on our upcoming-events calendar.", "/events/"),
+    ("cams", "📹", "Florida Man Cams", "Sponsor the live cams page, or get your own business cam featured.", "/cams/"),
+    ("lemonade", "🍋", "LEMONADE Charity Drag Race", "Sponsor a lemon car: tiers from $2,500 to $25,000, all for local charities.", "/gives-back/lemonade/"),
+    ("site", "📰", "Sitewide & social", "Banner spots on stories, plus sponsored mentions in our daily videos on TikTok, Reels and Facebook.", "/"),
+]
+
+
+def build_advertise():
+    tiles = "".join(f"""<article class="rental" id="{sid}"><div class="rental-body"><h3>{em} {e(n)}</h3><p class="ev-blurb">{e(d)}</p>
+<a class="ev-link" href="{u}">See the page →</a></div></article>""" for sid, em, n, d, u in SPONSOR_SLOTS)
+    contact = (f'<a class="cam-btn" href="mailto:{CONTACT_EMAIL}?subject=Advertising%20on%20Florida%20Man%20Times">Email {CONTACT_EMAIL}</a>'
+               if CONTACT_EMAIL else '<span class="cam-btn" style="opacity:.6">Advertising inquiries open soon</span>')
+    body = f"""<section class="effd-hero"><div class="container">
+  <span class="effd-logo big">Advertise with <em>Florida Man</em></span>
+  <p class="effd-tag">Put your business in front of people who love Florida at its weirdest. Every sponsored spot is clearly labeled, and we only take sponsors we'd send our own friends to.</p>
+  <div style="margin-top:20px">{contact}</div>
+</div></section>
+<section class="container" style="margin-top:32px">
+  <div class="section-head"><h2 class="label">Sponsor spots</h2></div>
+  <div class="rental-grid">{tiles}</div>
+  <div class="source-box" style="margin-top:28px"><span class="label">The fine print</span>
+  <p>Sponsored placements are labeled. Sponsors never get a say in our news stories, arrests or the Roach Report, which come straight from public records. Medical marijuana physicians are responsible for following Florida's advertising rules for qualified physicians, and doctor and dispensary listings are kept separate.</p></div>
+</section>"""
+    write("advertise/index.html", page(f"Advertise on Florida Man Times | {NAME}",
+        "Sponsor the Florida Weed Guide, Roach Report, Weird Eats, events, live cams or the LEMONADE charity drag race.",
+        SITE + "/advertise/", body))
 
 
 def build_events():
@@ -1163,7 +1206,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/advertise/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -1200,6 +1243,7 @@ if __name__ == "__main__":
     build_roach()
     build_social()
     build_dispensaries()
+    build_advertise()
     build_eats()
     build_about()
     build_404()
