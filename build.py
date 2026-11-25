@@ -129,18 +129,48 @@ def logo(cls="logo"):
     return f'<a class="{cls}" href="/" aria-label="{NAME} home"><span class="logo-mark">FM</span><span class="logo-text">Florida Man <b>Times</b></span></a>'
 
 
+HUB = [
+    ("/", "🏠", "Home", "Today's weirdest Florida news"),
+    ("/best-of/", "🏆", "Top 10", "The most-read Florida Man stories"),
+    ("/arrests/", "🚔", "Arrests", "Tonight's weirdest arrests"),
+    ("/events/", "🎪", "Events", "Fairs, festivals and python hunts"),
+    ("/eats/", "🐊", "Weird Eats", "Gator, frog legs and lion tacos"),
+    ("/effd-up/", "🎥", "Eff'd Up With…", "Video interviews with wild Floridians"),
+    ("/rentals/", "🛸", "Rentals", "Sleep in a UFO or a helicopter"),
+    ("/artist-of-the-week/", "🎨", "Artist", "Florida's wildest creative minds"),
+    ("/gives-back/", "🍋", "Gives Back", "The LEMONADE charity drag race"),
+    ("/arrest-lookup/", "🔎", "Arrest Lookup", "Official county booking searches"),
+]
+
+
+def hub_strip():
+    chips = "".join(f'<a class="chip" href="{u}"><span aria-hidden="true">{em}</span>{e(n)}</a>' for u, em, n, _ in HUB)
+    return f"""<nav class="hub" aria-label="Sections"><div class="hub-inner">{chips}</div></nav>
+<script>(function(){{var p=location.pathname,best=null;document.querySelectorAll('.hub .chip').forEach(function(a){{var h=a.getAttribute('href');if((h==='/'&&p==='/')||(h!=='/'&&p.indexOf(h)===0))best=a;}});if(best){{best.classList.add('on');best.scrollIntoView({{inline:'center',block:'nearest'}});window.scrollTo(0,0);}}}})();</script>"""
+
+
+def explore_grid():
+    tiles = "".join(f'<a class="ex-tile" href="{u}"><span class="ex-emoji" aria-hidden="true">{em}</span><strong>{e(n)}</strong><span>{e(d)}</span></a>'
+                    for u, em, n, d in HUB[1:])
+    return f"""<section class="explore"><div class="container">
+  <div class="section-head"><h2 class="label">Explore Florida Man Times</h2></div>
+  <div class="ex-grid">{tiles}</div>
+</div></section>"""
+
+
 def header():
-    nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Arrests</a><a href="/events/">Events</a>'
-           '<a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Rentals</a>'
-           '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>')
+    nav = ('<a class="nav-feat" href="/best-of/">Top 10</a><a class="nav-feat" href="/arrests/">Arrests</a><a class="nav-feat" href="/events/">Events</a>'
+           '<a class="nav-feat" href="/eats/">Weird Eats</a><a class="nav-feat" href="/effd-up/">Eff\'d Up With…</a><a class="nav-feat" href="/rentals/">Rentals</a>'
+           '<a class="nav-feat" href="/artist-of-the-week/">Artist of the Week</a><a class="nav-feat" href="/gives-back/">Gives Back</a>')
     sections = "".join(f'<a class="nav-extra" href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
     {logo()}
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" onclick="var h=this.closest('.site-header'),o=h.classList.toggle('menu-open');this.setAttribute('aria-expanded',o);document.body.classList.toggle('no-scroll',o)"><span class="burger" aria-hidden="true"></span>Menu</button>
-    <nav class="nav" id="site-nav"><a href="/">Home</a>{nav}<a href="/arrest-lookup/">Arrest Lookup</a>{sections}<a href="/about/">About</a></nav>
+    <nav class="nav" id="site-nav"><a href="/">Home</a>{nav}<a class="nav-feat" href="/arrest-lookup/">Arrest Lookup</a>{sections}<a href="/about/">About</a></nav>
   </div>
+  {hub_strip()}
   <div class="breaking">
     <div class="breaking-inner">
       <span class="pill live">Latest</span>
@@ -156,7 +186,7 @@ def footer():
            '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Crazy Rentals</a>'
            '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>'
            + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items()))
-    return f"""<footer class="site-footer">
+    return f"""{explore_grid()}<footer class="site-footer">
   <div class="footer-inner">
     <div>
       {logo("logo logo-footer")}
