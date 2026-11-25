@@ -23,6 +23,7 @@ from features import ARTISTS, RENTALS
 from interviews import INTERVIEWS, WANTED, STANDARD_QS
 from cams import CAMS
 from counties import county_for
+from dispensaries import BRANDS, AREAS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -146,6 +147,7 @@ HUB = [
     ("/effd-up/", "🎥", "Eff'd Up With…", "Video interviews with wild Floridians"),
     ("/cams/", "📹", "Florida Man Cams", "Live cams: manatees, Duval Street, rockets"),
     ("/roach-report/", "🪳", "Roach Report", "Restaurants the state just shut down"),
+    ("/dispensaries/", "🌿", "Dispensaries", "Florida's medical marijuana guide"),
     ("/rentals/", "🛸", "Rentals", "Sleep in a UFO or a helicopter"),
     ("/artist-of-the-week/", "🎨", "Artist", "Florida's wildest creative minds"),
     ("/gives-back/", "🍋", "Gives Back", "The LEMONADE charity drag race"),
@@ -848,6 +850,58 @@ navigator.clipboard.writeText(b.dataset.t).then(function(){{var o=b.textContent;
           extra_head='<meta name="robots" content="noindex,nofollow">'))
 
 
+def build_dispensaries():
+    mq = lambda q: "https://www.google.com/maps/search/" + quote_plus(q)
+    brands = "".join(f"""<article class="rental"><div class="rental-body">
+  <span class="tag">{e(b["tag"])}</span><h3>{b["emoji"]} {e(b["name"])}</h3><p class="ev-blurb">{e(b["blurb"])}</p>
+  <a class="cam-btn" href="{mq(b["name"] + " dispensary Florida")}" rel="noopener" target="_blank">Find a {e(b["name"])} near you ↗</a></div></article>""" for b in BRANDS)
+    areas = "".join(f"""<a class="ex-tile" href="{mq("medical marijuana dispensary " + q)}" rel="noopener" target="_blank">
+<span class="ex-emoji" aria-hidden="true">📍</span><strong>{e(n)}</strong><span>Dispensaries on the map, with ratings ↗</span></a>""" for n, q in AREAS)
+    body = f"""<section class="effd-hero"><div class="container">
+  <span class="effd-logo big">The Florida <em>Weed Guide</em></span>
+  <p class="effd-tag">Where Florida's medical marijuana patients shop, how to get your card, and the rules that keep you out of our Weirdest Arrests page.</p>
+</div></section>
+<section class="container" style="margin-top:32px">
+  <div class="source-box" style="border-left:5px solid var(--accent)"><span class="label">First things first</span>
+  <p><strong>Florida is medical-only.</strong> Recreational marijuana fell short of the 60% it needed in 2024, and the 2026 version didn't make the ballot. To buy at a dispensary you need a state Medical Marijuana Use Registry card.</p></div>
+
+  <div class="section-head" style="margin-top:36px"><h2 class="label">How to get a card</h2></div>
+  <ol class="how-list" style="list-style:none;padding:0">
+    <li><span class="how-n" style="background:var(--accent)">1</span><div><h3>See a qualified doctor</h3><p>Only doctors registered with the state can certify you. Visits usually run about $150 to $250 and many are done by video.</p></div></li>
+    <li><span class="how-n" style="background:var(--accent)">2</span><div><h3>Doctor adds you to the registry</h3><p>If you qualify, the doctor enters you into Florida's Medical Marijuana Use Registry.</p></div></li>
+    <li><span class="how-n" style="background:var(--accent)">3</span><div><h3>Apply and pay the state fee</h3><p>You finish the application online and pay the state's $75 card fee. You'll get an email you can use while the plastic card is in the mail.</p></div></li>
+    <li><span class="how-n" style="background:var(--accent)">4</span><div><h3>Renew on time</h3><p>Doctor certifications and the card both have to be renewed, and the state fee applies each time. Set a reminder.</p></div></li>
+  </ol>
+  <p class="section-sub" style="margin-top:16px"><a href="https://knowthefactsmmj.com/" rel="noopener" target="_blank">Official Florida Office of Medical Marijuana Use site ↗</a></p>
+
+  <div class="section-head" style="margin-top:40px"><h2 class="label">Find one near you</h2></div>
+  <div class="ex-grid">{areas}</div>
+
+  <div class="section-head" style="margin-top:40px"><h2 class="label">The big names</h2></div>
+  <div class="rental-grid">{brands}</div>
+
+  <div class="section-head" style="margin-top:40px"><h2 class="label">Picking the good stuff</h2></div>
+  <div class="awards">
+    <div class="award"><span>🧑‍🔬</span><h3>Ask the budtender</h3><p>Staff know what just came in and what patients keep coming back for. Tell them what you're after.</p></div>
+    <div class="award"><span>🏷️</span><h3>Read the label</h3><p>Florida products list THC and CBD content and a harvest or packaging date. Fresher flower is usually better.</p></div>
+    <div class="award"><span>💸</span><h3>Watch the deals</h3><p>Chains run daily and first-time patient discounts. Sign up for texts at the ones you like.</p></div>
+    <div class="award"><span>⭐</span><h3>Check live ratings</h3><p>Ratings change constantly, so use the map links above to see what local patients say this week.</p></div>
+  </div>
+
+  <div class="section-head" style="margin-top:40px"><h2 class="label">Rules that keep you off our front page</h2></div>
+  <div class="awards">
+    <div class="award"><span>🚗</span><h3>Don't drive high</h3><p>A medical card is not a DUI pass. Florida's DUI law covers drugs too, and yes, that includes golf carts and lawn mowers.</p></div>
+    <div class="award"><span>🏖️</span><h3>Not in public</h3><p>Smoking medical marijuana in public places is not allowed. Keep it at home.</p></div>
+    <div class="award"><span>🧾</span><h3>Keep it in the package</h3><p>Carry your card and keep products in their original dispensary packaging.</p></div>
+    <div class="award"><span>🗺️</span><h3>Don't cross state lines</h3><p>Marijuana is still illegal under federal law, so it can't leave Florida with you, even to a legal state.</p></div>
+  </div>
+  <p class="section-sub" style="margin-top:20px">For patients 18+ with a valid Florida card (minors need a caregiver). This guide is general information, not medical or legal advice. Florida Man Times isn't paid by any dispensary listed.</p>
+</section>"""
+    write("dispensaries/index.html", page(f"Florida Dispensary Guide: Medical Marijuana Card & Best-Known Dispensaries | {NAME}",
+        "How to get a Florida medical marijuana card, where to find dispensaries near you, the big Florida chains and the rules to know.",
+        SITE + "/dispensaries/", body))
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -1109,7 +1163,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -1145,6 +1199,7 @@ if __name__ == "__main__":
     build_cams()
     build_roach()
     build_social()
+    build_dispensaries()
     build_eats()
     build_about()
     build_404()
