@@ -656,3 +656,13 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .county-picker span { font-weight: 800; font-size: 14.5px; }
 .county-picker select { font: inherit; font-size: 15px; font-weight: 700; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--gray-200); background: #fff; flex: 1; min-width: 200px; max-width: 320px; }
 @media (max-width: 760px) { .cty-nav { top: 53px; } .county-picker { margin-top: 10px; } }
+
+/* follow box */
+.follow-box { background: var(--ink, #111); color: #fff; padding: 22px 0; }
+.follow-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.follow-inner strong { display: block; font-size: 20px; font-weight: 900; }
+.follow-inner span { display: block; font-size: 14px; opacity: .8; margin-top: 2px; }
+.follow-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.follow-btns a { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font-weight: 800; font-size: 15px; text-decoration: none; background: var(--accent); color: #111; }
+.follow-btns a:hover { filter: brightness(1.08); }
+@media (max-width: 640px) { .follow-btns { width: 100%; } .follow-btns a { flex: 1; justify-content: center; } }

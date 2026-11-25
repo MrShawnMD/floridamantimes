@@ -180,6 +180,13 @@ setTimeout(function(){x=s.scrollLeft;requestAnimationFrame(go);},1200);})();</sc
 <script>(function(){{var p=location.pathname,best=null;document.querySelectorAll('.hub .chip:not(.dupe)').forEach(function(a){{var h=a.getAttribute('href');if((h==='/'&&p==='/')||(h!=='/'&&p.indexOf(h)===0))best=a;}});if(best){{best.classList.add('on');best.scrollIntoView({{inline:'center',block:'nearest'}});window.scrollTo(0,0);}}}})();</script>"""
 
 
+def follow_box():
+    return """<section class="follow-box"><div class="container follow-inner">
+  <div><strong>Follow Florida Man Times</strong><span>Weird, true Florida in your feed every day.</span></div>
+  <div class="follow-btns"><a class="fb" href="https://www.facebook.com/floridamantimes" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>Facebook</a><a class="ig" href="https://www.instagram.com/floridaman.times/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 4.9a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm0 8.1a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.1-8.3a1.15 1.15 0 1 0 0-2.3 1.15 1.15 0 0 0 0 2.3z"/></svg>Instagram</a></div>
+</div></section>"""
+
+
 def explore_grid():
     tiles = "".join(f'<a class="ex-tile" href="{u}"><span class="ex-emoji" aria-hidden="true">{em}</span><strong>{e(n)}</strong><span>{e(d)}</span></a>'
                     for u, em, n, d in HUB[1:])
@@ -217,7 +224,7 @@ def footer():
            '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Crazy Rentals</a><a href="/odd-places/">Spooky &amp; Odd Places</a>'
            '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>'
            + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items()))
-    return f"""{explore_grid()}<footer class="site-footer">
+    return f"""{follow_box()}{explore_grid()}<footer class="site-footer">
   <div class="footer-inner">
     <div>
       {logo("logo logo-footer")}
