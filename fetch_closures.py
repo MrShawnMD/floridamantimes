@@ -19,7 +19,11 @@ OUT = os.path.join(ROOT, "closures.json")
 URL = "https://www2.myfloridalicense.com/hr/inspections/documents/EOS_Weekly_Extract_{}.xlsx"
 DISTRICTS = None            # None = every district (all of Florida)
 LICENSE_URL = "https://www2.myfloridalicense.com/sto/file_download/extracts/hrfood{}.csv"
-WEEKS = 4
+WEEKS = 8
+WRITEUP_DAYS = 14
+WRITEUP_MIN_HP = 3
+INSP_URL = "https://www2.myfloridalicense.com/sto/file_download/extracts/{}fdinspi.csv"
+WRITEUPS_OUT = os.path.join(ROOT, "roach-report", "writeups.json")
 SKIP_REASONS = ("unlicensed",)  # paperwork, not grossness
 
 
@@ -99,6 +103,63 @@ def fix_county(c):
     return {"Desoto": "DeSoto", "St. Johns": "St. Johns", "St Johns": "St. Johns", "St Lucie": "St. Lucie", "St. Lucie": "St. Lucie"}.get(c, c)
 
 
+def plain_disposition(d):
+    d = d.lower()
+    if "admin" in d:
+        return "Admin complaint recommended"
+    if "warning" in d:
+        return "Warning issued"
+    if "extension" in d or "pending" in d:
+        return "Follow-up inspection set"
+    if "no further action" in d or "complied" in d:
+        return "Fixed on the spot"
+    return d.title()
+
+
+def nice_name(n):
+    n = " ".join(n.split())
+    return n.title() if n.isupper() else n
+
+
+def writeups():
+    """Restaurants with WRITEUP_MIN_HP+ high-priority violations in the last WRITEUP_DAYS days (initial visits,
+    not emergency closures), statewide, from DBPR's current-fiscal-year district inspection files."""
+    import csv
+    cut = dt.date.today() - dt.timedelta(days=WRITEUP_DAYS)
+    best = {}
+    for d in range(1, 8):
+        try:
+            text = get(INSP_URL.format(d), timeout=180).decode("latin-1")
+        except Exception:
+            continue
+        rows = csv.reader(io.StringIO(text))
+        next(rows, None)
+        for r in rows:
+            if len(r) < 21:
+                continue
+            try:
+                day = dt.datetime.strptime(r[14].strip(), "%m/%d/%Y").date()
+                hp = int(r[18] or 0)
+            except ValueError:
+                continue
+            disp = r[13].strip()
+            if day < cut or hp < WRITEUP_MIN_HP or "emergency" in disp.lower() or r[10].strip() not in ("1", ""):
+                continue
+            lic = re.sub(r"\D", "", r[4])
+            item = {"name": nice_name(r[5]), "address": " ".join(r[6].split()).title(), "city": r[7].strip().title(),
+                    "county": fix_county(r[2].strip().title()), "date": day.isoformat(), "hp": hp,
+                    "total": int(r[17] or 0), "result": plain_disposition(disp)}
+            k = lic or (item["name"], item["address"])
+            if k not in best or (item["date"], item["hp"]) > (best[k]["date"], best[k]["hp"]):
+                best[k] = item
+    out = sorted(best.values(), key=lambda x: (x["date"], x["hp"]), reverse=True)
+    if out:
+        os.makedirs(os.path.dirname(WRITEUPS_OUT), exist_ok=True)
+        json.dump({"updated": dt.date.today().isoformat(), "days": WRITEUP_DAYS, "min_hp": WRITEUP_MIN_HP, "items": out},
+                  open(WRITEUPS_OUT, "w"), separators=(",", ":"))
+    print(f"Saved {len(out)} write-ups")
+
+
 def main():
     items, weeks = [], []
     for sat in saturdays(WEEKS):
@@ -151,3 +212,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    try:
+        writeups()
+    except Exception as ex:
+        print("Write-ups failed:", ex)

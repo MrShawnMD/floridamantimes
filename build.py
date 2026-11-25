@@ -783,7 +783,7 @@ def closure_card(c):
               else '<span class="rr-pending">Reopen time not listed yet</span>')
     maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f'{c["name"]} {c["address"]} {c["city"]} FL')
     cty = c.get("county") or county_for(c["city"])
-    return f"""<article class="rr-card" data-county="{e(cty)}" data-region="{e(REGION_OF.get(cty, "North Florida & Panhandle"))}">
+    return f"""<article class="rr-card closed" data-county="{e(cty)}" data-region="{e(REGION_OF.get(cty, "North Florida & Panhandle"))}">
   <div class="rr-emoji" aria-hidden="true">{reason_emoji(c["reason"])}</div>
   <div class="rr-body"><h3>{e(c["name"].title() if c["name"].isupper() else c["name"])}</h3>
   <p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a> · {e(cty)} County</p>
@@ -792,55 +792,111 @@ def closure_card(c):
 </article>"""
 
 
+def load_writeups():
+    try:
+        return json.load(open(os.path.join(ROOT, "roach-report", "writeups.json")))
+    except Exception:
+        return {"items": [], "days": 14, "min_hp": 3}
+
+
+RR_JS = r"""
+(function(){
+var WU=[],shownR='all',shownC='all',kind='both',page=0,PER=30;
+var bs=document.querySelectorAll('.rr-chip'),ks=document.querySelectorAll('.rr-kind'),sel=document.getElementById('rr-county'),
+cs=document.querySelectorAll('.rr-card'),out=document.getElementById('rr-showing'),wl=document.getElementById('wu-list'),
+more=document.getElementById('wu-more'),secC=document.getElementById('sec-closed'),secW=document.getElementById('sec-written'),
+emC=document.getElementById('empty-closed'),emW=document.getElementById('empty-written');
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function match(county,region){return (shownC!=='all')?county===shownC:(shownR==='all'||region===shownR);}
+function fmt(d){var x=new Date(d+'T12:00:00');return x.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+function cls(r){return r.indexOf('Admin')>=0?'rr-bad':(r.indexOf('Warning')>=0?'rr-warn':(r.indexOf('Fixed')>=0?'rr-ok':'rr-pending'));}
+function wcard(w){var q=encodeURIComponent(w.name+' '+w.address+' '+w.city+' FL');
+return '<article class="rr-card wu"><div class="rr-emoji" aria-hidden="true">⚠️</div><div class="rr-body"><h3>'+esc(w.name)+'</h3>'+
+'<p class="meta"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" rel="noopener" target="_blank">'+esc(w.address)+', '+esc(w.city)+'</a> · '+esc(w.county)+' County</p>'+
+'<p class="rr-why"><strong>'+w.hp+' high-priority violation'+(w.hp===1?'':'s')+'</strong> ('+w.total+' total) · Inspected '+fmt(w.date)+'</p>'+
+'<span class="'+cls(w.result)+'">'+esc(w.result)+'</span></div></article>';}
+function render(push){
+ var nc=0;cs.forEach(function(x){var s=match(x.dataset.county,x.dataset.region);x.style.display=s?'':'none';if(s)nc++;});
+ var f=WU.filter(function(w){return match(w.county,w.region);});
+ wl.innerHTML=f.slice(0,(page+1)*PER).map(wcard).join('');
+ more.hidden=f.length<=(page+1)*PER; more.textContent='Show more ('+(f.length-(page+1)*PER)+' left)';
+ secC.hidden=kind==='written'; secW.hidden=kind==='closed';
+ emC.hidden=nc>0; emW.hidden=f.length>0;
+ var where=shownC!=='all'?shownC+' County':(shownR==='all'?'Florida':shownR);
+ out.textContent=where+': '+nc+' shut down · '+f.length+' written up';
+ bs.forEach(function(b){b.classList.toggle('on',shownC==='all'&&b.dataset.r===shownR);});
+ ks.forEach(function(b){b.classList.toggle('on',b.dataset.k===kind);});
+ if(push){var h=shownC!=='all'?shownC:(shownR!=='all'?shownR:'');history.replaceState(null,'',h?'#'+encodeURIComponent(h):location.pathname);}
+}
+bs.forEach(function(b){b.addEventListener('click',function(){shownR=b.dataset.r;shownC='all';sel.value='all';page=0;render(true);});});
+sel.addEventListener('change',function(){shownC=sel.value;shownR='all';page=0;render(true);});
+ks.forEach(function(b){b.addEventListener('click',function(){kind=b.dataset.k;render(false);});});
+more.addEventListener('click',function(){page++;render(false);});
+var h=decodeURIComponent(location.hash.slice(1));
+if(h){if([].some.call(bs,function(b){return b.dataset.r===h;}))shownR=h;else if([].some.call(sel.options,function(o){return o.value===h;})){shownC=h;sel.value=h;}}
+render(false);
+fetch('/roach-report/writeups.json?v='+(window.RR_V||'')).then(function(r){return r.json();}).then(function(d){
+ WU=(d.items||[]).map(function(w){w.region=(window.RR_REGION||{})[w.county]||'North Florida & Panhandle';return w;});render(false);});
+})();
+"""
+
+
 def build_roach():
     data = load_closures()
     cl = data["closures"]
-    n = len(cl)
+    wu = load_writeups()
+    items = wu.get("items", [])
+    n, nw = len(cl), len(items)
     roach = sum("roach" in c["reason"].lower() for c in cl)
     rodent = sum("rodent" in c["reason"].lower() for c in cl)
     from collections import Counter
     counts = Counter((c.get("county") or county_for(c["city"])) for c in cl)
-    rcounts = Counter(REGION_OF.get(k, "North Florida & Panhandle") for k in counts.elements())
-    chips = (f'<button class="rr-chip on" data-r="all">All Florida <b>{n}</b></button>'
+    counts.update(w["county"] for w in items)
+    rcounts = Counter()
+    for k, v in counts.items():
+        rcounts[REGION_OF.get(k, "North Florida & Panhandle")] += v
+    chips = (f'<button class="rr-chip on" data-r="all">All Florida <b>{n + nw}</b></button>'
              + "".join(f'<button class="rr-chip" data-r="{e(r)}">{e(r)} <b>{rcounts.get(r, 0)}</b></button>' for r in REGIONS))
     opts = '<option value="all">All 67 counties</option>' + "".join(
         f'<option value="{e(k)}">{e(k)} ({counts.get(k, 0)})</option>' for k in ALL_COUNTIES)
-    filt = f"""<div class="rr-filter" role="toolbar" aria-label="Filter by region">{chips}</div>
-<label class="rr-select"><span>County</span><select id="rr-county">{opts}</select></label>
-<p class="rr-showing" id="rr-showing">Showing all {n} closures in Florida</p>
-<p class="rr-empty" id="rr-empty" hidden>🎉 No restaurant closures here in the last 4 weeks. Eat freely (and still wash your hands).</p>
-<script>document.addEventListener('DOMContentLoaded',function(){{
-var bs=document.querySelectorAll('.rr-chip'),sel=document.getElementById('rr-county'),cs=document.querySelectorAll('.rr-card'),
-out=document.getElementById('rr-showing'),empty=document.getElementById('rr-empty');
-function apply(kind,val,push){{var k=0;
-bs.forEach(function(b){{b.classList.toggle('on',kind==='r'?b.dataset.r===val:(val==='all'&&b.dataset.r==='all'));}});
-if(kind==='r')sel.value='all';
-cs.forEach(function(x){{var show=val==='all'||(kind==='r'?x.dataset.region===val:x.dataset.county===val);x.style.display=show?'':'none';if(show)k++;}});
-var where=val==='all'?'Florida':(kind==='c'?val+' County':val);
-out.textContent='Showing '+k+' closure'+(k===1?'':'s')+' in '+where;empty.hidden=k>0;
-if(push)history.replaceState(null,'',val==='all'?location.pathname:'#'+encodeURIComponent(val));}}
-bs.forEach(function(b){{b.addEventListener('click',function(){{apply('r',b.dataset.r,true);}});}});
-sel.addEventListener('change',function(){{apply('c',sel.value,true);}});
-var h=decodeURIComponent(location.hash.slice(1));
-if(h){{if([].some.call(bs,function(b){{return b.dataset.r===h;}}))apply('r',h,false);
-else if([].some.call(sel.options,function(o){{return o.value===h;}})){{sel.value=h;apply('c',h,false);}}}}
-}});</script>"""
-    cards = "".join(closure_card(c) for c in cl) or '<p class="empty">No closures in the latest state files. Enjoy your lunch.</p>'
-    upd = nice_date(data["updated"]) if data.get("updated") else ""
+    cards = "".join(closure_card(c) for c in cl)
+    weeks = len(data.get("weeks", [])) or 8
+    region_js = json.dumps(REGION_OF)
+    write("roach-report/rr.js", RR_JS)
     body = f"""<section class="effd-hero"><div class="container">
   <span class="effd-logo big">The Roach <em>Report</em></span>
-  <p class="effd-tag">Florida restaurants the state ordered shut over the last month, straight from official inspection records. Pick your county. Updated daily.</p>
-  <div class="rr-stats"><div><b>{n}</b><span>closures</span></div><div><b>{roach}</b><span>🪳 roaches</span></div><div><b>{rodent}</b><span>🐀 rodents</span></div></div>
+  <p class="effd-tag">Every Florida restaurant the state shut down, plus the ones inspectors wrote up for serious violations, straight from official inspection records. Pick your county. Updated daily.</p>
+  <div class="rr-stats"><div><b>{n}</b><span>🚫 shut down</span></div><div><b>{nw}</b><span>⚠️ written up</span></div><div><b>{roach}</b><span>🪳 roach closures</span></div><div><b>{rodent}</b><span>🐀 rodent closures</span></div></div>
 </div></section>
 <section class="container" style="margin-top:28px;max-width:900px">
-  {filt if cl else ""}
-  <div class="rr-list">{cards}</div>
+  <div class="rr-filter" role="toolbar" aria-label="Filter by region">{chips}</div>
+  <label class="rr-select"><span>County</span><select id="rr-county">{opts}</select></label>
+  <div class="rr-kinds"><button class="rr-kind on" data-k="both">Both</button><button class="rr-kind" data-k="closed">🚫 Shut down</button><button class="rr-kind" data-k="written">⚠️ Written up</button></div>
+  <p class="rr-showing" id="rr-showing"></p>
+
+  <div id="sec-closed">
+    <div class="section-head"><h2 class="label">🚫 Shut down by the state · last {weeks} weeks</h2></div>
+    <p class="rr-empty" id="empty-closed" hidden>🎉 No emergency closures here in the last {weeks} weeks.</p>
+    <div class="rr-list">{cards}</div>
+  </div>
+
+  <div id="sec-written" style="margin-top:34px">
+    <div class="section-head"><h2 class="label">⚠️ Written up: {wu.get("min_hp", 3)}+ high-priority violations · last {wu.get("days", 14)} days</h2></div>
+    <p class="section-sub">These restaurants stayed open. An inspector found serious problems and either had them fixed on the spot, issued a warning, or recommended a formal complaint.</p>
+    <p class="rr-empty" id="empty-written" hidden>🎉 No serious write-ups here in the last {wu.get("days", 14)} days.</p>
+    <div class="rr-list" id="wu-list"><p class="section-sub">Loading inspections…</p></div>
+    <button class="rr-kind" id="wu-more" hidden style="margin-top:14px">Show more</button>
+  </div>
+
   <div class="source-box" style="margin-top:28px"><span class="label">How this works</span>
-  <p>Florida's Division of Hotels and Restaurants (DBPR) can order an emergency closure when an inspector finds an immediate health risk, most often roach or rodent activity. A closure is not a fine or a final judgment, and a restaurant has to pass a follow-up inspection before it reopens. Most reopen within a day. This list shows the state's records as published; conditions may have changed since.</p>
-  <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR weekly emergency closure reports ↗</a>{(" · Last updated " + upd) if upd else ""}. Owners: to check or correct a record, contact DBPR. Want to report a problem? File a complaint with DBPR.</p></div>
-</section>"""
-    write("roach-report/index.html", page(f"The Roach Report: Florida Restaurant Closures by County | {NAME}",
-        "Every Florida restaurant state inspectors ordered closed this month for roaches, rodents and more, by county, from official DBPR records.",
+  <p><strong>Shut down</strong> means a state inspector found an immediate health risk, most often roaches or rodents, and ordered the restaurant closed until it passed a follow-up. Most reopen within a day.</p>
+  <p><strong>High-priority violations</strong> are the most serious category on a Florida inspection (things like food held at unsafe temperatures, no handwashing, or pests). <strong>Fixed on the spot</strong> means the problem was corrected during the visit. A warning or recommended complaint is not a final judgment.</p>
+  <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR inspection and emergency closure records ↗</a>{(" · Last updated " + nice_date(data["updated"])) if data.get("updated") else ""}. Conditions may have changed since. Owners: to check or correct a record, contact DBPR.</p></div>
+</section>
+<script>window.RR_REGION={region_js};window.RR_V="{data.get("updated", "")}";</script>
+<script src="/roach-report/rr.js?v={data.get("updated", "")}" defer></script>"""
+    write("roach-report/index.html", page(f"The Roach Report: Florida Restaurant Closures & Health Violations by County | {NAME}",
+        "Florida restaurants state inspectors shut down or wrote up for serious violations, by county, from official DBPR records. Updated daily.",
         SITE + "/roach-report/", body))
 
 

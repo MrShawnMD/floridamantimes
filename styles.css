@@ -619,3 +619,11 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .rr-select span { font-size: 13px; font-weight: 800; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; }
 .rr-select select { font: inherit; font-size: 15px; font-weight: 700; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--gray-200); background: #fff; min-width: 230px; }
 .rr-empty { padding: 18px; border-radius: 14px; background: var(--accent-soft); font-weight: 700; }
+.rr-kinds { display: flex; gap: 8px; margin: 10px 0 4px; flex-wrap: wrap; }
+.rr-kind { font: inherit; font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--gray-200); background: #fff; cursor: pointer; }
+.rr-kind.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+.rr-warn { display: inline-block; font-size: 13px; font-weight: 700; color: #92400e; background: #fef3c7; padding: 4px 10px; border-radius: 999px; }
+.rr-bad { display: inline-block; font-size: 13px; font-weight: 700; color: #991b1b; background: #fee2e2; padding: 4px 10px; border-radius: 999px; }
+.rr-card.closed { border-left: 4px solid #ef4444; }
+.rr-card.wu { border-left: 4px solid #f59e0b; }
+.rr-stats { flex-wrap: wrap; }
