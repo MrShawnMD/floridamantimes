@@ -3,7 +3,7 @@ name: Generate missing images and update Top 10
 on:
   push:
     branches: [main]
-    paths: ["stories.py", "arrests.py", "eats.py", "giving.py"]
+    paths: ["stories.py", "arrests.py", "eats.py", "giving.py", "features.py"]
   schedule:
     - cron: "30 12 * * *"   # daily backstop, after the morning story scan
   workflow_dispatch: {}

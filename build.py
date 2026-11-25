@@ -18,6 +18,7 @@ from arrests import ARRESTS
 from events import EVENTS
 from eats import EATS
 from giving import LEMONADE
+from features import ARTISTS, RENTALS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -128,7 +129,9 @@ def logo(cls="logo"):
 
 
 def header():
-    nav = '<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/gives-back/">Gives Back</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a>'
+           '<a href="/eats/">Weird Eats</a><a href="/rentals/">Crazy Rentals</a><a href="/artist-of-the-week/">Artist of the Week</a>'
+           '<a href="/gives-back/">Gives Back</a>')
     latest = STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
@@ -146,7 +149,10 @@ def header():
 
 def footer():
     year = dt.date.today().year
-    nav = '<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/gives-back/">Gives Back</a>' + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
+    nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/arrest-lookup/">Arrest Lookup</a>'
+           '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/rentals/">Crazy Rentals</a>'
+           '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>'
+           + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items()))
     return f"""<footer class="site-footer">
   <div class="footer-inner">
     <div>
@@ -476,6 +482,82 @@ def build_giving():
         f"{SITE}/gives-back/{L['slug']}/", body, og_image=L["hero_image"] if os.path.exists(os.path.join(ROOT, L["hero_image"].lstrip("/"))) else None))
 
 
+def feat_image(folder, slug):
+    for ext in IMG_EXTS:
+        if os.path.exists(os.path.join(ROOT, "images", folder, slug + ext)):
+            return f"/images/{folder}/{slug}{ext}"
+    return None
+
+
+def feat_pic(folder, item, cls="feat-photo"):
+    img = feat_image(folder, item["slug"])
+    if img:
+        return f'<div class="{cls}"><img src="{img}" alt="Illustration" loading="lazy" decoding="async"></div>'
+    return f'<div class="{cls} placeholder" aria-hidden="true"><span>{item["emoji"]}</span></div>'
+
+
+def rental_card(r):
+    return f"""<article class="rental">
+  {feat_pic("rentals", r)}
+  <div class="rental-body"><span class="tag">{e(r["city"])}</span><h3>{e(r["name"])}</h3>
+  <p class="ev-blurb">{e(r["blurb"])}</p>
+  <a class="ev-link" href="{r["source_url"]}" rel="noopener" target="_blank">See it on {e(r["source_name"])} ↗</a></div>
+</article>"""
+
+
+def build_rentals():
+    body = f"""<section class="container">
+  <div class="page-head"><span class="tag">Stay weird</span><h1>Crazy Florida Rentals</h1>
+  <p>UFOs, military helicopters, school buses and bowling-ball art houses. The strangest places you can actually book a night in Florida. Pictures are illustrations; follow each link for the real listing details and photos.</p></div>
+  <div class="rental-grid">{"".join(rental_card(r) for r in RENTALS)}</div>
+</section>"""
+    write("rentals/index.html", page(
+        f"Crazy Florida Rentals: The Weirdest Airbnbs in Florida | {NAME}",
+        "Sleep in a UFO, a Chinook helicopter, a school bus or an art house: the weirdest vacation rentals in Florida.",
+        SITE + "/rentals/", body))
+
+
+def build_artist():
+    cur, past = ARTISTS[0], ARTISTS[1:]
+    links = " · ".join(f'<a href="{u}" rel="noopener" target="_blank">{e(n)} ↗</a>' for n, u in cur["links"])
+    paras = "".join(f"<p>{e(p)}</p>" for p in cur["body"])
+    archive = ""
+    if past:
+        archive = '<div class="section-head"><h2 class="label">Past artists</h2></div><div class="rental-grid">' + "".join(
+            f"""<article class="rental">{feat_pic("artists", a)}<div class="rental-body"><span class="tag">{e(a["city"])}</span>
+<h3>{e(a["name"])}</h3><p class="ev-blurb">{e(a["headline"])}</p></div></article>""" for a in past) + "</div>"
+    body = f"""<article class="story">
+  <header class="story-head"><span class="pill live">Artist of the Week</span>
+  <h1>{e(cur["headline"])}</h1>
+  <p class="story-dek">{e(cur["name"])}, aka “{e(cur["nickname"])}” · {e(cur["city"])} · {e(cur["medium"])}</p></header>
+  <figure class="story-media">{feat_pic("artists", cur, "media wide")}<p class="caption">Illustration inspired by the artists' work. See the links below for real photos.</p></figure>
+  <div class="story-body">{paras}</div>
+  <div class="source-box"><span class="label">Visit</span><p>{e(cur["visit"])}</p><p>Read more: {links}</p></div>
+  <div class="source-box" style="margin-top:14px"><span class="label">Know a wild Florida artist?</span>
+  <p>Artist nominations open soon. We're looking for the strangest, most wonderful creative minds in the state.</p></div>
+</article>
+<section class="container">{archive}</section>"""
+    write("artist-of-the-week/index.html", page(
+        f"Florida Man Artist of the Week: {cur['name']} | {NAME}",
+        f"This week: {cur['name']} of {cur['city']}. {cur['headline']}",
+        SITE + "/artist-of-the-week/", body))
+
+
+def features_row():
+    a = ARTISTS[0]
+    rentals = "".join(f"""<li><a href="/rentals/"><span class="eat-mini">{r["emoji"]}</span><div><strong>{e(r["name"])}</strong>
+<p class="meta">{e(r["city"])}</p></div></a></li>""" for r in RENTALS[:4])
+    return f"""<section class="container feat-row">
+  <a class="artist-feature" href="/artist-of-the-week/">
+    {feat_pic("artists", a)}
+    <div class="af-body"><span class="pill live">Artist of the Week</span><h2>{e(a["headline"])}</h2>
+    <p class="meta">{e(a["name"])} · {e(a["city"])}</p></div>
+  </a>
+  <aside class="rail-box"><div class="rail-head"><span class="tag">Crazy Rentals</span><h2>Sleep in a UFO. Or a helicopter.</h2></div>
+  <ul class="eat-list rental-mini">{rentals}</ul><a class="rail-more" href="/rentals/">See all crazy rentals →</a></aside>
+</section>"""
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -599,6 +681,7 @@ def build_home():
   <div>{eats_teaser()}{headline_list(top_stories(5), "Best of Florida Man")}<a class="rail-more" href="/best-of/">See the Top 10 →</a></div>
 </section>
 {lemonade_promo()}
+{features_row()}
 {"".join(section_row(n, sl) for n, sl in SECTIONS.items())}
 <section class="container">
   <div class="cta">
@@ -721,7 +804,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today)]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today)]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -751,6 +834,8 @@ if __name__ == "__main__":
     build_lookup()
     build_best_of()
     build_giving()
+    build_rentals()
+    build_artist()
     build_eats()
     build_about()
     build_404()

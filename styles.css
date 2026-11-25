@@ -402,3 +402,28 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .lemon-facts, .how-list, .tiers, .awards { grid-template-columns: 1fr; }
   .lemon-intro { font-size: 17px; }
 }
+
+/* ---------- Rentals & Artist ---------- */
+.rental-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.rental { border: 1px solid var(--gray-200); border-radius: var(--radius); overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.feat-photo { aspect-ratio: 16 / 10; background: radial-gradient(circle at 30% 30%, var(--accent-soft), var(--gray-100)); display: grid; place-items: center; overflow: hidden; }
+.feat-photo img { width: 100%; height: 100%; object-fit: cover; }
+.feat-photo.placeholder span, .media.placeholder span { font-size: 64px; }
+.rental-body { padding: 16px 18px 18px; display: grid; gap: 7px; justify-items: start; }
+.rental-body h3 { margin: 0; font-size: 19px; letter-spacing: -.02em; font-weight: 800; line-height: 1.25; }
+.feat-row { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; margin-top: 48px; align-items: stretch; }
+.artist-feature { display: grid; grid-template-columns: 1.1fr 1fr; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-200); background: var(--gray-50); }
+.artist-feature .feat-photo { aspect-ratio: auto; min-height: 260px; height: 100%; }
+.af-body { padding: 24px; display: grid; align-content: center; gap: 10px; justify-items: start; }
+.af-body h2 { margin: 0; font-size: 24px; line-height: 1.15; letter-spacing: -.03em; font-weight: 900; }
+.artist-feature:hover h2 { color: var(--accent-ink); }
+.rental-mini a { display: flex; gap: 12px; align-items: center; }
+.rental-mini a:hover strong { color: var(--accent-ink); }
+@media (max-width: 980px) { .rental-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .rental-grid, .feat-row, .artist-feature { grid-template-columns: 1fr; }
+  .artist-feature .feat-photo { min-height: 190px; }
+  .af-body { padding: 18px; }
+  .af-body h2 { font-size: 20px; }
+  .feat-row { margin-top: 32px; gap: 16px; }
+}

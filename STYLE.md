@@ -103,3 +103,9 @@ Every new story, arrest and eats item gets an `image_prompt` field (one paragrap
 Images rules above). When it is pushed, the "Generate missing images" GitHub Action asks OpenAI
 for the picture, crops it to 16:9 and publishes it. Items that already have an image file are
 skipped, so a hand-made image always wins: drop a file at the right path to override.
+
+## Artist of the Week & Crazy Rentals (features.py)
+- ARTISTS: newest first; the first entry is "this week". Real, public Florida artists or art places only, with real sources. Upbeat, celebratory — never mocking. Don't publish a private home address unless the artists publish it themselves.
+- RENTALS: real, bookable weird Florida stays. Link to an article or the listing; never copy listing photos.
+- Images: AI illustrations only (images/artists/<slug>.jpg, images/rentals/<slug>.jpg), made automatically from image_prompt. No real faces of the artists, no logos or text.
+- Mondays: the scanner may add one new artist (put it at the top) and 1–2 new rentals.
