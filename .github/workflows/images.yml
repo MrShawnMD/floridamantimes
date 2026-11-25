@@ -54,3 +54,5 @@ jobs:
           git commit -m "Daily update: images, social kits, Top 10, Roach Report"
           git push
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
+          sleep 60
+          python ping_indexnow.py || true
