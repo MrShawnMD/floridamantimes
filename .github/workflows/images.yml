@@ -3,7 +3,7 @@ name: Daily update (images, Top 10, Roach Report)
 on:
   push:
     branches: [main]
-    paths: ["stories.py", "arrests.py", "eats.py", "giving.py", "features.py", "cams.py", "make_social.py"]
+    paths: ["stories.py", "arrests.py", "eats.py", "giving.py", "features.py", "cams.py", "places.py", "make_social.py"]
   schedule:
     - cron: "30 12 * * *"   # daily backstop, after the morning story scan
   workflow_dispatch: {}

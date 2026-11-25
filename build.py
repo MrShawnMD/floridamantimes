@@ -20,6 +20,7 @@ from events import EVENTS
 from eats import EATS
 from giving import LEMONADE
 from features import ARTISTS, RENTALS
+from places import PLACES
 from interviews import INTERVIEWS, WANTED, STANDARD_QS
 from cams import CAMS
 from counties import county_for
@@ -156,6 +157,7 @@ HUB = [
     ("/clean-plate-club/", "🍽️", "Clean Plate Club", "Restaurants with perfect inspections"),
     ("/dispensaries/", "🌿", "Dispensaries", "Florida's medical marijuana guide"),
     ("/rentals/", "🛸", "Rentals", "Sleep in a UFO or a helicopter"),
+    ("/odd-places/", "👻", "Spooky & Odd", "Haunted dolls, gravity hills, skunk apes"),
     ("/artist-of-the-week/", "🎨", "Artist", "Florida's wildest creative minds"),
     ("/gives-back/", "🍋", "Gives Back", "The LEMONADE charity drag race"),
     ("/arrest-lookup/", "🔎", "Arrest Lookup", "Official county booking searches"),
@@ -188,7 +190,7 @@ def explore_grid():
 
 def header():
     nav = ('<a class="nav-feat" href="/best-of/">Top 10</a><a class="nav-feat" href="/arrests/">Arrests</a><a class="nav-feat" href="/events/">Events</a>'
-           '<a class="nav-feat" href="/eats/">Weird Eats</a><a class="nav-feat" href="/effd-up/">Eff\'d Up With…</a><a class="nav-feat" href="/rentals/">Rentals</a>'
+           '<a class="nav-feat" href="/eats/">Weird Eats</a><a class="nav-feat" href="/effd-up/">Eff\'d Up With…</a><a class="nav-feat" href="/rentals/">Rentals</a><a class="nav-feat" href="/odd-places/">Spooky &amp; Odd</a>'
            '<a class="nav-feat" href="/artist-of-the-week/">Artist of the Week</a><a class="nav-feat" href="/gives-back/">Gives Back</a>')
     sections = "".join(f'<a class="nav-extra" href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
@@ -211,7 +213,7 @@ def header():
 def footer():
     year = dt.date.today().year
     nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/arrest-lookup/">Arrest Lookup</a>'
-           '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Crazy Rentals</a>'
+           '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Crazy Rentals</a><a href="/odd-places/">Spooky &amp; Odd Places</a>'
            '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>'
            + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items()))
     return f"""{explore_grid()}<footer class="site-footer">
@@ -575,6 +577,28 @@ def rental_card(r):
   <p class="ev-blurb">{e(r["blurb"])}</p>
   <a class="ev-link" href="{r["source_url"]}" rel="noopener" target="_blank">See it on {e(r["source_name"])} ↗</a></div>
 </article>"""
+
+
+def place_card(p):
+    return f"""<article class="rental" id="{p["slug"]}">
+  {feat_pic("places", p)}
+  <div class="rental-body"><span class="tag">{e(p["kind"])} · {e(p["city"])}</span><h3>{e(p["name"])}</h3>
+  <p class="ev-blurb">{e(p["blurb"])}</p>
+  <p class="meta">{e(p["visit"])}</p>
+  <a class="ev-link" href="{p["source_url"]}" rel="noopener" target="_blank">Read more on {e(p["source_name"])} ↗</a></div>
+</article>"""
+
+
+def build_places():
+    body = f"""<section class="container">
+  <div class="page-head"><span class="tag">Road trip, if you dare</span><h1>Spooky &amp; Odd Florida</h1>
+  <p>Haunted dolls, gravity hills, psychic towns, skunk apes and a castle in a swamp. The creepiest and strangest real places you can visit in Florida. Pictures are illustrations; follow each link for real details, and check hours before you drive.</p></div>
+  <div class="rental-grid">{"".join(place_card(p) for p in PLACES)}</div>
+</section>"""
+    write("odd-places/index.html", page(
+        f"Spooky & Odd Florida: Haunted, Creepy and Strange Places to Visit | {NAME}",
+        "Robert the Doll, Coral Castle, Spook Hill, Cassadaga and more: the spookiest, strangest real places to visit in Florida.",
+        SITE + "/odd-places/", body))
 
 
 def build_rentals():
@@ -1464,7 +1488,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/advertise/", today), (SITE + "/clean-plate-club/", today), (SITE + "/restaurant-inspections/", today)] + [(u, today) for u in COUNTY_URLS] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/odd-places/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/advertise/", today), (SITE + "/clean-plate-club/", today), (SITE + "/restaurant-inspections/", today)] + [(u, today) for u in COUNTY_URLS] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -1495,6 +1519,7 @@ if __name__ == "__main__":
     build_best_of()
     build_giving()
     build_rentals()
+    build_places()
     build_artist()
     build_interviews()
     build_cams()

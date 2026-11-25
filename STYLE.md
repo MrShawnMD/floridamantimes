@@ -135,3 +135,20 @@ skipped, so a hand-made image always wins: drop a file at the right path to over
 - Never edit closures.json by hand and never add jokes to the list itself. The page shows only what the state published:
   name, address, date, reason, and reopen status. A closure is not a conviction or a fine; most reopen within a day.
 - A Roach Report *story* is fine (e.g. "Most roach-filled week of the year"), but stick to the state record and say they reopened.
+
+## Spooky & Odd Places (places.py → /odd-places/)
+Creepy, haunted and just-plain-strange real places you can visit in Florida (haunted dolls, gravity hills,
+psychic towns, cryptid HQs, folk-art castles, weird cemeteries, odd ruins).
+- **Spooky and odd only.** Never feature a real tragedy as the attraction: no sites built around deaths,
+  massacres, prisons or reform schools, crashes, shipwrecks or disasters with victims, and no ghost legends
+  about real children who died. Legends are fine when they're the place's own well-known lore.
+- Real, visitable places only, each with a reputable source (official site, state/national park, local
+  news, Atlas Obscura, Visit Florida). Never invent hours, prices, addresses or legends. If a place has
+  closed or was destroyed, don't add it.
+- Fields: slug, name, city, kind ("Haunted" | "Mystery" | "Cryptid" | "Strange"), emoji, blurb (2–3 lines,
+  house voice, facts from the source), visit (one practical line, no made-up hours), source_name,
+  source_url, image_prompt. New places go at the TOP.
+- Images: AI illustrations at images/places/<slug>.jpg, made automatically from image_prompt. No real
+  people's faces, no logos, no readable text.
+- Never repeat a place already in places.py.
+- Mondays: the scanner may add 1–2 new places.
