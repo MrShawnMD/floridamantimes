@@ -64,6 +64,10 @@ def write(path, text):
         f.write(text)
 
 
+import hashlib as _h
+CSS_V = _h.md5(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "styles.css"), "rb").read()).hexdigest()[:8]
+
+
 def page(title, description, canonical, body, extra_head="", og_type="website", og_image=None):
     og_image = SITE + (og_image or "/og-image.png")
     return f"""<!DOCTYPE html>
@@ -87,7 +91,7 @@ def page(title, description, canonical, body, extra_head="", og_type="website", 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={CSS_V}">
 {counter_tag()}
 {extra_head}
 </head>
