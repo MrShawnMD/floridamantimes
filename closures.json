@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25",
+ "updated": "2026-11-24",
  "weeks": [
   "2026-11-22",
   "2026-11-15",
@@ -7,6 +7,18 @@
   "2026-11-01"
  ],
  "closures": [
+  {
+   "name": "Odd Birds Cocktail Lounge and Kitchen",
+   "address": "200 Anastasia Blvd",
+   "city": "Saint Augustine",
+   "date": "2026-11-20",
+   "closed_at": "3:45 PM",
+   "reason": "Fly activity",
+   "reopened_at": "10:09 AM",
+   "license": "6502348",
+   "week": "2026-11-22",
+   "county": "St. Johns"
+  },
   {
    "name": "Panda Rest (The)",
    "address": "806 S 6 Ave",
@@ -16,7 +28,8 @@
    "reason": "Roach activity",
    "reopened_at": "3:57 PM",
    "license": "3500201",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Hardee"
   },
   {
    "name": "El Patio",
@@ -27,7 +40,56 @@
    "reason": "Roach activity",
    "reopened_at": "12:50 PM",
    "license": "4605796",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Lee"
+  },
+  {
+   "name": "Popeyes 2563",
+   "address": "20690 NW 2 Ave",
+   "city": "Miami",
+   "date": "2026-11-18",
+   "closed_at": "3:42 PM",
+   "reason": "Fly activity",
+   "reopened_at": "8:54 AM",
+   "license": "2318247",
+   "week": "2026-11-22",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "El Asador",
+   "address": "7955 N Davis Hwy",
+   "city": "Pensacola",
+   "date": "2026-11-18",
+   "closed_at": "3:05 PM",
+   "reason": "Fly activity",
+   "reopened_at": "9:11 AM",
+   "license": "6750130",
+   "week": "2026-11-22",
+   "county": "Escambia"
+  },
+  {
+   "name": "Sal's Italian Ristorante",
+   "address": "11290 Legacy Ave #100",
+   "city": "Palm Beach Gardens",
+   "date": "2026-11-17",
+   "closed_at": "3:53 PM",
+   "reason": "Fly activity",
+   "reopened_at": "9:11 AM",
+   "license": "6020076",
+   "week": "2026-11-22",
+   "county": "Palm Beach"
+  },
+  {
+   "name": "Casa Dora Italian Cafe",
+   "address": "108 E Forsyth St",
+   "city": "Jacksonville",
+   "date": "2026-11-17",
+   "closed_at": "2:13 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "10:24 AM",
+   "license": "2613020",
+   "week": "2026-11-22",
+   "county": "Duval"
   },
   {
    "name": "Halong Bay Vietnamese Cuisine",
@@ -38,7 +100,20 @@
    "reason": "Rodent, Roach & Fly activity",
    "reopened_at": "10:23 AM",
    "license": "6214063",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Pinellas"
+  },
+  {
+   "name": "Mo's Bagel & Deli",
+   "address": "2780 NE 187 St",
+   "city": "Aventura",
+   "date": "2026-11-17",
+   "closed_at": "12:19 PM",
+   "reason": "Rodent & fly activity",
+   "reopened_at": "9:16 AM",
+   "license": "2320348",
+   "week": "2026-11-22",
+   "county": "Miami-Dade"
   },
   {
    "name": "Pofolks",
@@ -49,7 +124,20 @@
    "reason": "Roach activity",
    "reopened_at": "9:20 AM",
    "license": "6213950",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Pinellas"
+  },
+  {
+   "name": "Sabor Hispano",
+   "address": "5084 Coconut Creek Pkwy",
+   "city": "Margate",
+   "date": "2026-11-16",
+   "closed_at": "4:45 PM",
+   "reason": "Roach activity",
+   "reopened_at": "1:10 PM",
+   "license": "1626231",
+   "week": "2026-11-22",
+   "county": "Broward"
   },
   {
    "name": "Siam Garden Thai Restaurant",
@@ -60,7 +148,8 @@
    "reason": "Rodent activity",
    "reopened_at": "2:29 PM",
    "license": "6209503",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Pinellas"
   },
   {
    "name": "Nuevo Asados Al Carbon",
@@ -71,7 +160,32 @@
    "reason": "Rodent activity",
    "reopened_at": "4:40 PM",
    "license": "3911717",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Hillsborough"
+  },
+  {
+   "name": "Dicrespo",
+   "address": "13772 SW 152 St",
+   "city": "Miami",
+   "date": "2026-11-16",
+   "closed_at": "1:01 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "12:26 PM",
+   "license": "2323330",
+   "week": "2026-11-22",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Simon Parilla Bar and Grill of Longwood",
+   "address": "295 S Ronald Reagan Blvd",
+   "city": "Longwood",
+   "date": "2026-11-16",
+   "closed_at": "12:55 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "9:20 AM",
+   "license": "6903270",
+   "week": "2026-11-22",
+   "county": "Seminole"
   },
   {
    "name": "Mi Carreta Restaurant & Bakery",
@@ -82,7 +196,56 @@
    "reason": "Fly activity",
    "reopened_at": "3:58 PM",
    "license": "6217560",
-   "week": "2026-11-22"
+   "week": "2026-11-22",
+   "county": "Pinellas"
+  },
+  {
+   "name": "McDonald of Fla Corp",
+   "address": "18250 NW 27 Ave",
+   "city": "Opa Locka",
+   "date": "2026-11-16",
+   "closed_at": "10:27 AM",
+   "reason": "Rodent & fly activity",
+   "reopened_at": "9:01 AM",
+   "license": "2300248",
+   "week": "2026-11-22",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Crab Crab Restaurant",
+   "address": "801 NE 8 St",
+   "city": "Homestead",
+   "date": "2026-11-13",
+   "closed_at": "2:39 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "",
+   "license": "2337110",
+   "week": "2026-11-15",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Puerto Sagua Rest",
+   "address": "700 Collins Ave",
+   "city": "Miami Beach",
+   "date": "2026-11-12",
+   "closed_at": "9:43 AM",
+   "reason": "Roach activity",
+   "reopened_at": "8:20 AM",
+   "license": "2302362",
+   "week": "2026-11-15",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Winghouse Bar and Grill",
+   "address": "3789 S Kirkman Rd",
+   "city": "Orlando",
+   "date": "2026-11-12",
+   "closed_at": "1:45 PM",
+   "reason": "Rodent, Roach & Fly activity",
+   "reopened_at": "9:19 AM",
+   "license": "5811437",
+   "week": "2026-11-15",
+   "county": "Orange"
   },
   {
    "name": "Engine No 9",
@@ -93,7 +256,20 @@
    "reason": "Rodent activity",
    "reopened_at": "3:59 PM",
    "license": "6216893",
-   "week": "2026-11-15"
+   "week": "2026-11-15",
+   "county": "Pinellas"
+  },
+  {
+   "name": "Caf\u00e9 Aquatica & Rendezvous Reef",
+   "address": "2905 Sheridan St",
+   "city": "Hollywood",
+   "date": "2026-11-12",
+   "closed_at": "10:48 AM",
+   "reason": "Rodent activity",
+   "reopened_at": "4:42 PM",
+   "license": "1617613",
+   "week": "2026-11-15",
+   "county": "Broward"
   },
   {
    "name": "King Buffet",
@@ -104,7 +280,20 @@
    "reason": "Rodent activity",
    "reopened_at": "3:34 PM",
    "license": "2400268",
-   "week": "2026-11-15"
+   "week": "2026-11-15",
+   "county": "DeSoto"
+  },
+  {
+   "name": "La Casita Restaurante",
+   "address": "939 N New Warrington Rd",
+   "city": "Pensacola",
+   "date": "2026-11-10",
+   "closed_at": "1:11 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "10:22 AM",
+   "license": "2706603",
+   "week": "2026-11-15",
+   "county": "Escambia"
   },
   {
    "name": "Chill Restaurant",
@@ -115,7 +304,8 @@
    "reason": "Roach activity",
    "reopened_at": "9:29 AM",
    "license": "6216220",
-   "week": "2026-11-15"
+   "week": "2026-11-15",
+   "county": "Pinellas"
   },
   {
    "name": "Beefobradys",
@@ -126,7 +316,20 @@
    "reason": "Roach & rodent activity",
    "reopened_at": "10:34 AM",
    "license": "3801024",
-   "week": "2026-11-15"
+   "week": "2026-11-15",
+   "county": "Highlands"
+  },
+  {
+   "name": "Yue Chinese Fusion",
+   "address": "447 Espanola Way",
+   "city": "Miami Beach",
+   "date": "2026-11-09",
+   "closed_at": "2:21 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "10:04 AM",
+   "license": "2333045",
+   "week": "2026-11-15",
+   "county": "Miami-Dade"
   },
   {
    "name": "Mademoiselle Paris",
@@ -137,7 +340,20 @@
    "reason": "Roach & rodent activity",
    "reopened_at": "2:53 PM",
    "license": "6215437",
-   "week": "2026-11-15"
+   "week": "2026-11-15",
+   "county": "Pinellas"
+  },
+  {
+   "name": "El Sabor Latino Restaurante",
+   "address": "2202 Jog Rd",
+   "city": "Green Acres",
+   "date": "2026-11-09",
+   "closed_at": "12:30 PM",
+   "reason": "Roach activity",
+   "reopened_at": "4:45 PM",
+   "license": "6011456",
+   "week": "2026-11-15",
+   "county": "Palm Beach"
   },
   {
    "name": "Chick-Fil-A Airside A",
@@ -148,7 +364,56 @@
    "reason": "Fly activity",
    "reopened_at": "2:09 PM",
    "license": "3917851",
-   "week": "2026-11-15"
+   "week": "2026-11-15",
+   "county": "Hillsborough"
+  },
+  {
+   "name": "Island Palace",
+   "address": "4170 N SR 7",
+   "city": "Lauderdale Lakes",
+   "date": "2026-11-09",
+   "closed_at": "11:52 AM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "9:01 AM",
+   "license": "1608604",
+   "week": "2026-11-15",
+   "county": "Broward"
+  },
+  {
+   "name": "Caribbean BBQ",
+   "address": "184 Marion Oaks",
+   "city": "Ocala",
+   "date": "2026-11-06",
+   "closed_at": "4:07 PM",
+   "reason": "No potable water",
+   "reopened_at": "9:27 AM",
+   "license": "5251147",
+   "week": "2026-11-08",
+   "county": "Marion"
+  },
+  {
+   "name": "Daytona Taproom",
+   "address": "310 Seabreeze Blvd",
+   "city": "Daytona Beach",
+   "date": "2026-11-06",
+   "closed_at": "1:55 PM",
+   "reason": "Roach activity",
+   "reopened_at": "11:35 AM",
+   "license": "7407162",
+   "week": "2026-11-08",
+   "county": "Volusia"
+  },
+  {
+   "name": "IHOP 36-168",
+   "address": "4745 W Atlantic Ave",
+   "city": "Delray Beach",
+   "date": "2026-11-06",
+   "closed_at": "1:41 PM",
+   "reason": "Roach activity",
+   "reopened_at": "4:55 PM",
+   "license": "6013720",
+   "week": "2026-11-08",
+   "county": "Palm Beach"
   },
   {
    "name": "Le Goute",
@@ -159,7 +424,32 @@
    "reason": "Roach activity",
    "reopened_at": "4:17 PM",
    "license": "4606375",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Lee"
+  },
+  {
+   "name": "Don Jediondo",
+   "address": "12801 W Sunrise Blvd Space 857",
+   "city": "Sunrise",
+   "date": "2026-11-06",
+   "closed_at": "12:06 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:29 AM",
+   "license": "1621499",
+   "week": "2026-11-08",
+   "county": "Broward"
+  },
+  {
+   "name": "Pronto Pizza",
+   "address": "303 SE 17 St, Churchill Square Pl",
+   "city": "Ocala",
+   "date": "2026-11-06",
+   "closed_at": "11:51 AM",
+   "reason": "Roach activity",
+   "reopened_at": "9:15 AM",
+   "license": "5202510",
+   "week": "2026-11-08",
+   "county": "Marion"
   },
   {
    "name": "Madfish",
@@ -170,7 +460,44 @@
    "reason": "Rodent activity",
    "reopened_at": "4:26 PM",
    "license": "6214169",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Pinellas"
+  },
+  {
+   "name": "Cuisine Lakay Restaurant",
+   "address": "119 W Sunrise Blvd",
+   "city": "Fort Lauderdale",
+   "date": "2026-11-05",
+   "closed_at": "12:16 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:15 AM",
+   "license": "1623573",
+   "week": "2026-11-08",
+   "county": "Broward"
+  },
+  {
+   "name": "MacArthur's",
+   "address": "4000 RCA Blvd",
+   "city": "Palm Beach Gardens",
+   "date": "2026-11-05",
+   "closed_at": "12:14 PM",
+   "reason": "Fly activity",
+   "reopened_at": "4:18 PM",
+   "license": "6019350",
+   "week": "2026-11-08",
+   "county": "Palm Beach"
+  },
+  {
+   "name": "Bagel Express",
+   "address": "11616 SW 88 St",
+   "city": "Miami",
+   "date": "2026-11-05",
+   "closed_at": "11:08 AM",
+   "reason": "Fly activity",
+   "reopened_at": "9:18 AM",
+   "license": "2324064",
+   "week": "2026-11-08",
+   "county": "Miami-Dade"
   },
   {
    "name": "Wooden Spoon",
@@ -181,7 +508,32 @@
    "reason": "Rodent & fly activity",
    "reopened_at": "10:34 AM",
    "license": "3900935",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Hillsborough"
+  },
+  {
+   "name": "Eating House",
+   "address": "128 Giralda Ave",
+   "city": "Coral Gables",
+   "date": "2026-11-04",
+   "closed_at": "6:14 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:52 AM",
+   "license": "2337303",
+   "week": "2026-11-08",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Miami Grill",
+   "address": "661 W Sunrise Blvd",
+   "city": "Ft Lauderdale",
+   "date": "2026-11-04",
+   "closed_at": "4:39 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:16 AM",
+   "license": "1614235",
+   "week": "2026-11-08",
+   "county": "Broward"
   },
   {
    "name": "Mix Latino",
@@ -192,7 +544,56 @@
    "reason": "No potable water",
    "reopened_at": "3:27 PM",
    "license": "4651043",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Lee"
+  },
+  {
+   "name": "Ocean Grill",
+   "address": "1075 Duval St Ste C12",
+   "city": "Key West",
+   "date": "2026-11-04",
+   "closed_at": "1:23 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:22 AM",
+   "license": "5401976",
+   "week": "2026-11-08",
+   "county": "Monroe"
+  },
+  {
+   "name": "Fla Power & Light Cafeteria",
+   "address": "700 Universe Blvd",
+   "city": "Juno Beach",
+   "date": "2026-11-04",
+   "closed_at": "12:29 PM",
+   "reason": "Fly activity",
+   "reopened_at": "4:21 PM",
+   "license": "6005961",
+   "week": "2026-11-08",
+   "county": "Palm Beach"
+  },
+  {
+   "name": "Salty Bottle",
+   "address": "106 Carillon Market St",
+   "city": "Panama City Beach",
+   "date": "2026-11-03",
+   "closed_at": "4:49 PM",
+   "reason": "No restrooms",
+   "reopened_at": "9:04 AM",
+   "license": "1306010",
+   "week": "2026-11-08",
+   "county": "Bay"
+  },
+  {
+   "name": "John The Baker",
+   "address": "9709 W Sample Rd",
+   "city": "Coral Springs",
+   "date": "2026-11-03",
+   "closed_at": "4:32 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "12:12 PM",
+   "license": "1624743",
+   "week": "2026-11-08",
+   "county": "Broward"
   },
   {
    "name": "Ayoki",
@@ -203,7 +604,20 @@
    "reason": "Roach activity",
    "reopened_at": "10:38 AM",
    "license": "6102535",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Pasco"
+  },
+  {
+   "name": "Dasara Indian Cuisine",
+   "address": "925 NE 62 St",
+   "city": "Fort Lauderdale",
+   "date": "2026-11-03",
+   "closed_at": "4:17 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "4:52 PM",
+   "license": "1611756",
+   "week": "2026-11-08",
+   "county": "Broward"
   },
   {
    "name": "Taipei Taipei Tea House",
@@ -214,7 +628,68 @@
    "reason": "Rodent activity",
    "reopened_at": "3:24 PM",
    "license": "3701151",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Hernando"
+  },
+  {
+   "name": "A Aki Sushi & Steakhouse",
+   "address": "1400 W Sand Lake Rd",
+   "city": "Orlando",
+   "date": "2026-11-03",
+   "closed_at": "12:33 PM",
+   "reason": "Roach activity",
+   "reopened_at": "12:22 PM",
+   "license": "5813177",
+   "week": "2026-11-08",
+   "county": "Orange"
+  },
+  {
+   "name": "El Churrasco Grill 2 LLC",
+   "address": "2995 SE Dixie Hwy",
+   "city": "Stuart",
+   "date": "2026-11-03",
+   "closed_at": "11:19 AM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:59 AM",
+   "license": "5319021",
+   "week": "2026-11-08",
+   "county": "Martin"
+  },
+  {
+   "name": "Big Dog Station",
+   "address": "3148 NE 12 Ave",
+   "city": "Oakland Park",
+   "date": "2026-11-03",
+   "closed_at": "10:37 AM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:56 AM",
+   "license": "1622279",
+   "week": "2026-11-08",
+   "county": "Broward"
+  },
+  {
+   "name": "Joe & The Juice New York LLC",
+   "address": "650 NW 1 Ave Ste 100",
+   "city": "Miami",
+   "date": "2026-11-02",
+   "closed_at": "4:20 PM",
+   "reason": "Fly activity",
+   "reopened_at": "8:56 AM",
+   "license": "2337800",
+   "week": "2026-11-08",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Red Snapper Seafood and Chicken",
+   "address": "1517 W Cervantes St",
+   "city": "Pensacola",
+   "date": "2026-11-02",
+   "closed_at": "4:12 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "5:08 PM",
+   "license": "9999999",
+   "week": "2026-11-08",
+   "county": "Other"
   },
   {
    "name": "McDonalds 26483",
@@ -225,7 +700,8 @@
    "reason": "Roach activity",
    "reopened_at": "9:37 AM",
    "license": "3912674",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Hillsborough"
   },
   {
    "name": "Rotis Indian Restaurant",
@@ -236,7 +712,8 @@
    "reason": "Rodent activity",
    "reopened_at": "2:22 PM",
    "license": "3918296",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Hillsborough"
   },
   {
    "name": "La Casa Catracha",
@@ -247,7 +724,44 @@
    "reason": "Roach activity",
    "reopened_at": "8:58 AM",
    "license": "3917313",
-   "week": "2026-11-08"
+   "week": "2026-11-08",
+   "county": "Hillsborough"
+  },
+  {
+   "name": "Pepper's Cocina Mexicana & Tequilla Bar",
+   "address": "530 Centre St",
+   "city": "Fernandina Beach",
+   "date": "2026-11-02",
+   "closed_at": "12:42 PM",
+   "reason": "Roach activity",
+   "reopened_at": "2:37 PM",
+   "license": "5501072",
+   "week": "2026-11-08",
+   "county": "Nassau"
+  },
+  {
+   "name": "Tram Caf\u00e9 Vietnamese Restaurant",
+   "address": "101 Palm Harbor Pkwy Unit B117",
+   "city": "Palm Coast",
+   "date": "2026-10-30",
+   "closed_at": "2:07 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:09 AM",
+   "license": "2800869",
+   "week": "2026-11-01",
+   "county": "Flagler"
+  },
+  {
+   "name": "Sweet Mama's",
+   "address": "1527 Cesery Blvd",
+   "city": "Jacksonville",
+   "date": "2026-10-30",
+   "closed_at": "12:36 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:00 AM",
+   "license": "2615783",
+   "week": "2026-11-01",
+   "county": "Duval"
   },
   {
    "name": "La Vitanuova Sports Bar and Grill",
@@ -258,7 +772,32 @@
    "reason": "Roach & fly activity",
    "reopened_at": "",
    "license": "3919428",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Hillsborough"
+  },
+  {
+   "name": "Pomona",
+   "address": "717 Lake Ave",
+   "city": "Lake Worth Beach",
+   "date": "2026-10-29",
+   "closed_at": "3:00 PM",
+   "reason": "Fly activity",
+   "reopened_at": "1:42 PM",
+   "license": "6020821",
+   "week": "2026-11-01",
+   "county": "Palm Beach"
+  },
+  {
+   "name": "Taco Tuesdays Taqueria",
+   "address": "600 N Congress Ave Ste 110",
+   "city": "Delray Beach",
+   "date": "2026-10-29",
+   "closed_at": "2:28 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "2:49 PM",
+   "license": "6009972",
+   "week": "2026-11-01",
+   "county": "Palm Beach"
   },
   {
    "name": "Mickeys Bar and Billards",
@@ -269,7 +808,32 @@
    "reason": "Roach activity",
    "reopened_at": "8:48 AM",
    "license": "1901321",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Citrus"
+  },
+  {
+   "name": "Caf\u00e9 Ruyi",
+   "address": "5300 NW 7 Ave",
+   "city": "Miami",
+   "date": "2026-10-29",
+   "closed_at": "12:38 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "1:57 PM",
+   "license": "2316316",
+   "week": "2026-11-01",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Kekes Breakfast Caf\u00e9",
+   "address": "2206 N Congress Ave",
+   "city": "Boynton Beach",
+   "date": "2026-10-29",
+   "closed_at": "10:16 AM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "8:32 AM",
+   "license": "6022863",
+   "week": "2026-11-01",
+   "county": "Palm Beach"
   },
   {
    "name": "Taste of Lagos",
@@ -280,7 +844,116 @@
    "reason": "Sewage leaks",
    "reopened_at": "4:04 PM",
    "license": "3954326",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Hillsborough"
+  },
+  {
+   "name": "Main St Pizza & Ice Cream",
+   "address": "125 N Main St",
+   "city": "Hastings",
+   "date": "2026-10-28",
+   "closed_at": "4:13 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "1:22 PM",
+   "license": "6502545",
+   "week": "2026-11-01",
+   "county": "St. Johns"
+  },
+  {
+   "name": "Tulum Tacos Restaurant Corp",
+   "address": "5052 N Dixie Hwy",
+   "city": "Oakland Park",
+   "date": "2026-10-28",
+   "closed_at": "3:44 PM",
+   "reason": "Rodent & fly activity",
+   "reopened_at": "11:38 AM",
+   "license": "1620361",
+   "week": "2026-11-01",
+   "county": "Broward"
+  },
+  {
+   "name": "Wah Lan Chinese Restaurant",
+   "address": "989 S Main St",
+   "city": "Belle Glade",
+   "date": "2026-10-28",
+   "closed_at": "12:53 PM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "2:27 PM",
+   "license": "6020487",
+   "week": "2026-11-01",
+   "county": "Palm Beach"
+  },
+  {
+   "name": "Baja Grill",
+   "address": "555 NE Ocean Blvd",
+   "city": "Stuart",
+   "date": "2026-10-28",
+   "closed_at": "11:28 AM",
+   "reason": "Fly activity",
+   "reopened_at": "9:43 AM",
+   "license": "5301500",
+   "week": "2026-11-01",
+   "county": "Martin"
+  },
+  {
+   "name": "Gulf Coast Grinds",
+   "address": "236 FL 22",
+   "city": "Wewahitchka",
+   "date": "2026-10-28",
+   "closed_at": "11:02 AM",
+   "reason": "Sewage leaks",
+   "reopened_at": "4:58 PM",
+   "license": "3350062",
+   "week": "2026-11-01",
+   "county": "Gulf"
+  },
+  {
+   "name": "Charleys Wings Cheesesteaks",
+   "address": "1401 Dunn Ave",
+   "city": "Jacksonville",
+   "date": "2026-10-28",
+   "closed_at": "10:33 AM",
+   "reason": "Rodent activity",
+   "reopened_at": "8:42 AM",
+   "license": "2616477",
+   "week": "2026-11-01",
+   "county": "Duval"
+  },
+  {
+   "name": "Hardee's",
+   "address": "435 S Temple Ave",
+   "city": "Starke",
+   "date": "2026-10-28",
+   "closed_at": "10:16 AM",
+   "reason": "Roach & rodent activity",
+   "reopened_at": "2:10 PM",
+   "license": "1400044",
+   "week": "2026-11-01",
+   "county": "Bradford"
+  },
+  {
+   "name": "Miyi La Cubanita Cuban Caf\u00e9 Chola",
+   "address": "1332 NW 2 Ave",
+   "city": "Boca Raton",
+   "date": "2026-10-27",
+   "closed_at": "3:45 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:15 AM",
+   "license": "6009327",
+   "week": "2026-11-01",
+   "county": "Palm Beach"
+  },
+  {
+   "name": "South A Philly Steaks and Hoagies",
+   "address": "1 King St #104",
+   "city": "St Augustine",
+   "date": "2026-10-27",
+   "closed_at": "2:39 PM",
+   "reason": "Roach activity",
+   "reopened_at": "10:05 AM",
+   "license": "6501916",
+   "week": "2026-11-01",
+   "county": "St. Johns"
   },
   {
    "name": "Hanley Sport Inc",
@@ -291,7 +964,8 @@
    "reason": "Roach activity",
    "reopened_at": "",
    "license": "3910922",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Hillsborough"
   },
   {
    "name": "Tuscan Italian Restaurant & Pizzeria",
@@ -302,7 +976,20 @@
    "reason": "Roach activity",
    "reopened_at": "11:33 AM",
    "license": "6217266",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Pinellas"
+  },
+  {
+   "name": "Havana Bistro & Caf\u00e9",
+   "address": "7975 S Orange Blossom Trl",
+   "city": "Orlando",
+   "date": "2026-10-27",
+   "closed_at": "1:20 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "11:26 AM",
+   "license": "5812390",
+   "week": "2026-11-01",
+   "county": "Orange"
   },
   {
    "name": "Rib City",
@@ -313,7 +1000,8 @@
    "reason": "Rodent activity",
    "reopened_at": "4:17 PM",
    "license": "4606459",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Lee"
   },
   {
    "name": "El Toque Latin Restaurant",
@@ -324,7 +1012,20 @@
    "reason": "Roach activity",
    "reopened_at": "1:35 PM",
    "license": "6308738",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Polk"
+  },
+  {
+   "name": "Terra & Acqua",
+   "address": "134 Sea Grove Main St",
+   "city": "St Augustine",
+   "date": "2026-10-26",
+   "closed_at": "6:04 PM",
+   "reason": "Roach & fly activity",
+   "reopened_at": "",
+   "license": "6502009",
+   "week": "2026-11-01",
+   "county": "St. Johns"
   },
   {
    "name": "Frank's Pizza",
@@ -335,7 +1036,44 @@
    "reason": "Roach & rodent activity",
    "reopened_at": "9:35 AM",
    "license": "6214116",
-   "week": "2026-11-01"
+   "week": "2026-11-01",
+   "county": "Pinellas"
+  },
+  {
+   "name": "Hard Deck Tiki Bar",
+   "address": "2900 Bellevue Ave",
+   "city": "Daytona Beach",
+   "date": "2026-10-26",
+   "closed_at": "3:12 PM",
+   "reason": "Rodent activity",
+   "reopened_at": "9:17 AM",
+   "license": "7407373",
+   "week": "2026-11-01",
+   "county": "Volusia"
+  },
+  {
+   "name": "Bonfire Mofongo House and Lounge",
+   "address": "1704 NW 7 St",
+   "city": "Miami",
+   "date": "2026-10-26",
+   "closed_at": "3:00 PM",
+   "reason": "Fly activity",
+   "reopened_at": "3:15 PM",
+   "license": "2333450",
+   "week": "2026-11-01",
+   "county": "Miami-Dade"
+  },
+  {
+   "name": "Miami Grill #195",
+   "address": "11501 Pines Blvd",
+   "city": "Pembroke Pines",
+   "date": "2026-10-26",
+   "closed_at": "2:04 PM",
+   "reason": "Roach activity",
+   "reopened_at": "9:16 AM",
+   "license": "1617711",
+   "week": "2026-11-01",
+   "county": "Broward"
   }
  ]
 }

@@ -615,3 +615,7 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .sponsor-slot h3 { margin: 0; font-size: 20px; font-weight: 900; letter-spacing: -.02em; }
 .sponsor-slot p { margin: 0; color: #333a33; }
 .sponsor-tag { font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); }
+.rr-select { display: flex; align-items: center; gap: 10px; margin: 6px 0 4px; }
+.rr-select span { font-size: 13px; font-weight: 800; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; }
+.rr-select select { font: inherit; font-size: 15px; font-weight: 700; padding: 9px 12px; border-radius: 12px; border: 1px solid var(--gray-200); background: #fff; min-width: 230px; }
+.rr-empty { padding: 18px; border-radius: 14px; background: var(--accent-soft); font-weight: 700; }

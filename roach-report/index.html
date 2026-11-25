@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="BV_Wr2EBzm4kA7k0q5h4OoXQKXRjDEyM8KZqTfD7h8s" />
-<title>The Roach Report: Tampa Bay &amp; SW Florida Restaurant Closures | Florida Man Times</title>
-<meta name="description" content="Restaurants in Tampa Bay and Southwest Florida that state inspectors ordered closed this month for roaches, rodents and more, from official DBPR records.">
+<title>The Roach Report: Florida Restaurant Closures by County | Florida Man Times</title>
+<meta name="description" content="Every Florida restaurant state inspectors ordered closed this month for roaches, rodents and more, by county, from official DBPR records.">
 <link rel="canonical" href="https://floridamantimes.com/roach-report/">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:site_name" content="Florida Man Times">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Roach Report: Tampa Bay &amp; SW Florida Restaurant Closures | Florida Man Times">
-<meta property="og:description" content="Restaurants in Tampa Bay and Southwest Florida that state inspectors ordered closed this month for roaches, rodents and more, from official DBPR records.">
+<meta property="og:title" content="The Roach Report: Florida Restaurant Closures by County | Florida Man Times">
+<meta property="og:description" content="Every Florida restaurant state inspectors ordered closed this month for roaches, rodents and more, by county, from official DBPR records.">
 <meta property="og:url" content="https://floridamantimes.com/roach-report/">
 <meta property="og:image" content="https://floridamantimes.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=26eea4a9">
+<link rel="stylesheet" href="/styles.css?v=7efb3093">
 
 
 </head>
@@ -50,203 +50,568 @@ setTimeout(function(){x=s.scrollLeft;requestAnimationFrame(go);},1200);})();</sc
 <main>
 <section class="effd-hero"><div class="container">
   <span class="effd-logo big">The Roach <em>Report</em></span>
-  <p class="effd-tag">Tampa Bay and Southwest Florida restaurants the state ordered shut over the last month, straight from official inspection records. Updated daily.</p>
-  <div class="rr-stats"><div><b>30</b><span>closures</span></div><div><b>17</b><span>🪳 roaches</span></div><div><b>13</b><span>🐀 rodents</span></div></div>
+  <p class="effd-tag">Florida restaurants the state ordered shut over the last month, straight from official inspection records. Pick your county. Updated daily.</p>
+  <div class="rr-stats"><div><b>89</b><span>closures</span></div><div><b>46</b><span>🪳 roaches</span></div><div><b>37</b><span>🐀 rodents</span></div></div>
 </div></section>
 <section class="container" style="margin-top:28px;max-width:900px">
-  <div class="rr-filter" role="toolbar" aria-label="Filter by county"><span class="rr-label">County:</span><button class="rr-chip on" data-c="all">All <b>30</b></button><button class="rr-chip" data-c="Hillsborough">Hillsborough <b>10</b></button><button class="rr-chip" data-c="Pinellas">Pinellas <b>10</b></button><button class="rr-chip" data-c="Lee">Lee <b>4</b></button><button class="rr-chip" data-c="Citrus">Citrus <b>1</b></button><button class="rr-chip" data-c="DeSoto">DeSoto <b>1</b></button><button class="rr-chip" data-c="Hardee">Hardee <b>1</b></button><button class="rr-chip" data-c="Hernando">Hernando <b>1</b></button><button class="rr-chip" data-c="Highlands">Highlands <b>1</b></button><button class="rr-chip" data-c="Polk">Polk <b>1</b></button></div>
-<p class="rr-showing" id="rr-showing">Showing all 30 closures</p>
-<script>document.addEventListener('DOMContentLoaded',function(){var bs=document.querySelectorAll('.rr-chip'),cs=document.querySelectorAll('.rr-card'),out=document.getElementById('rr-showing');
-function pick(c,push){var k=0;bs.forEach(function(b){b.classList.toggle('on',b.dataset.c===c);});
-cs.forEach(function(x){var show=c==='all'||x.dataset.county===c;x.style.display=show?'':'none';if(show)k++;});
-out.textContent=c==='all'?'Showing all '+k+' closures':'Showing '+k+' closure'+(k===1?'':'s')+' in '+c+(c==='Other'?' areas':' County');
-if(push)history.replaceState(null,'',c==='all'?location.pathname:'#'+encodeURIComponent(c));}
-bs.forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.c,true);});});
-var h=decodeURIComponent(location.hash.slice(1));if(h&&[].some.call(bs,function(b){return b.dataset.c===h;}))pick(h,false);});</script>
-  <div class="rr-list"><article class="rr-card" data-county="Hardee">
+  <div class="rr-filter" role="toolbar" aria-label="Filter by region"><button class="rr-chip on" data-r="all">All Florida <b>89</b></button><button class="rr-chip" data-r="Tampa Bay">Tampa Bay <b>23</b></button><button class="rr-chip" data-r="Sarasota &amp; Manatee">Sarasota &amp; Manatee <b>0</b></button><button class="rr-chip" data-r="Southwest Florida">Southwest Florida <b>7</b></button><button class="rr-chip" data-r="Orlando &amp; Central">Orlando &amp; Central <b>9</b></button><button class="rr-chip" data-r="South Florida">South Florida <b>36</b></button><button class="rr-chip" data-r="North Florida &amp; Panhandle">North Florida &amp; Panhandle <b>14</b></button></div>
+<label class="rr-select"><span>County</span><select id="rr-county"><option value="all">All 67 counties</option><option value="Alachua">Alachua (0)</option><option value="Baker">Baker (0)</option><option value="Bay">Bay (1)</option><option value="Bradford">Bradford (1)</option><option value="Brevard">Brevard (0)</option><option value="Broward">Broward (11)</option><option value="Calhoun">Calhoun (0)</option><option value="Charlotte">Charlotte (0)</option><option value="Citrus">Citrus (1)</option><option value="Clay">Clay (0)</option><option value="Collier">Collier (0)</option><option value="Columbia">Columbia (0)</option><option value="DeSoto">DeSoto (1)</option><option value="Dixie">Dixie (0)</option><option value="Duval">Duval (3)</option><option value="Escambia">Escambia (2)</option><option value="Flagler">Flagler (1)</option><option value="Franklin">Franklin (0)</option><option value="Gadsden">Gadsden (0)</option><option value="Gilchrist">Gilchrist (0)</option><option value="Glades">Glades (0)</option><option value="Gulf">Gulf (1)</option><option value="Hamilton">Hamilton (0)</option><option value="Hardee">Hardee (1)</option><option value="Hendry">Hendry (0)</option><option value="Hernando">Hernando (1)</option><option value="Highlands">Highlands (1)</option><option value="Hillsborough">Hillsborough (9)</option><option value="Holmes">Holmes (0)</option><option value="Indian River">Indian River (0)</option><option value="Jackson">Jackson (0)</option><option value="Jefferson">Jefferson (0)</option><option value="Lafayette">Lafayette (0)</option><option value="Lake">Lake (0)</option><option value="Lee">Lee (4)</option><option value="Leon">Leon (0)</option><option value="Levy">Levy (0)</option><option value="Liberty">Liberty (0)</option><option value="Madison">Madison (0)</option><option value="Manatee">Manatee (0)</option><option value="Marion">Marion (2)</option><option value="Martin">Martin (2)</option><option value="Miami-Dade">Miami-Dade (12)</option><option value="Monroe">Monroe (1)</option><option value="Nassau">Nassau (1)</option><option value="Okaloosa">Okaloosa (0)</option><option value="Okeechobee">Okeechobee (0)</option><option value="Orange">Orange (3)</option><option value="Osceola">Osceola (0)</option><option value="Palm Beach">Palm Beach (10)</option><option value="Pasco">Pasco (1)</option><option value="Pinellas">Pinellas (10)</option><option value="Polk">Polk (1)</option><option value="Putnam">Putnam (0)</option><option value="Santa Rosa">Santa Rosa (0)</option><option value="Sarasota">Sarasota (0)</option><option value="Seminole">Seminole (1)</option><option value="St. Johns">St. Johns (4)</option><option value="St. Lucie">St. Lucie (0)</option><option value="Sumter">Sumter (0)</option><option value="Suwannee">Suwannee (0)</option><option value="Taylor">Taylor (0)</option><option value="Union">Union (0)</option><option value="Volusia">Volusia (2)</option><option value="Wakulla">Wakulla (0)</option><option value="Walton">Walton (0)</option><option value="Washington">Washington (0)</option></select></label>
+<p class="rr-showing" id="rr-showing">Showing all 89 closures in Florida</p>
+<p class="rr-empty" id="rr-empty" hidden>🎉 No restaurant closures here in the last 4 weeks. Eat freely (and still wash your hands).</p>
+<script>document.addEventListener('DOMContentLoaded',function(){
+var bs=document.querySelectorAll('.rr-chip'),sel=document.getElementById('rr-county'),cs=document.querySelectorAll('.rr-card'),
+out=document.getElementById('rr-showing'),empty=document.getElementById('rr-empty');
+function apply(kind,val,push){var k=0;
+bs.forEach(function(b){b.classList.toggle('on',kind==='r'?b.dataset.r===val:(val==='all'&&b.dataset.r==='all'));});
+if(kind==='r')sel.value='all';
+cs.forEach(function(x){var show=val==='all'||(kind==='r'?x.dataset.region===val:x.dataset.county===val);x.style.display=show?'':'none';if(show)k++;});
+var where=val==='all'?'Florida':(kind==='c'?val+' County':val);
+out.textContent='Showing '+k+' closure'+(k===1?'':'s')+' in '+where;empty.hidden=k>0;
+if(push)history.replaceState(null,'',val==='all'?location.pathname:'#'+encodeURIComponent(val));}
+bs.forEach(function(b){b.addEventListener('click',function(){apply('r',b.dataset.r,true);});});
+sel.addEventListener('change',function(){apply('c',sel.value,true);});
+var h=decodeURIComponent(location.hash.slice(1));
+if(h){if([].some.call(bs,function(b){return b.dataset.r===h;}))apply('r',h,false);
+else if([].some.call(sel.options,function(o){return o.value===h;})){sel.value=h;apply('c',h,false);}}
+});</script>
+  <div class="rr-list"><article class="rr-card" data-county="St. Johns" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Odd Birds Cocktail Lounge and Kitchen</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Odd+Birds+Cocktail+Lounge+and+Kitchen+200+Anastasia+Blvd+Saint+Augustine+FL" rel="noopener" target="_blank">200 Anastasia Blvd, Saint Augustine</a> · St. Johns County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Fri, Nov 20 at 3:45 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hardee" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Panda Rest (The)</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Panda+Rest+%28The%29+806+S+6+Ave+Wauchula+FL" rel="noopener" target="_blank">806 S 6 Ave, Wauchula</a> · Hardee County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Thu, Nov 19 at 2:30 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Lee">
+</article><article class="rr-card" data-county="Lee" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>El Patio</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=El+Patio+4444+Cleveland+Ave+Ste+E%26F+Fort+Myers+FL" rel="noopener" target="_blank">4444 Cleveland Ave Ste E&amp;F, Fort Myers</a> · Lee County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Thu, Nov 19 at 1:40 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Popeyes 2563</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Popeyes+2563+20690+NW+2+Ave+Miami+FL" rel="noopener" target="_blank">20690 NW 2 Ave, Miami</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Wed, Nov 18 at 3:42 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Escambia" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>El Asador</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=El+Asador+7955+N+Davis+Hwy+Pensacola+FL" rel="noopener" target="_blank">7955 N Davis Hwy, Pensacola</a> · Escambia County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Wed, Nov 18 at 3:05 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Sal&#x27;s Italian Ristorante</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Sal%27s+Italian+Ristorante+11290+Legacy+Ave+%23100+Palm+Beach+Gardens+FL" rel="noopener" target="_blank">11290 Legacy Ave #100, Palm Beach Gardens</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Tue, Nov 17 at 3:53 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Duval" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>Casa Dora Italian Cafe</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Casa+Dora+Italian+Cafe+108+E+Forsyth+St+Jacksonville+FL" rel="noopener" target="_blank">108 E Forsyth St, Jacksonville</a> · Duval County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Tue, Nov 17 at 2:13 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳🐀🪰</div>
   <div class="rr-body"><h3>Halong Bay Vietnamese Cuisine</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Halong+Bay+Vietnamese+Cuisine+5944+34+St+N+Ste+39-43+St+Petersburg+FL" rel="noopener" target="_blank">5944 34 St N Ste 39-43, St Petersburg</a> · Pinellas County</p>
   <p class="rr-why"><strong>Rodent, Roach &amp; Fly activity</strong> · Closed Tue, Nov 17 at 1:12 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀🪰</div>
+  <div class="rr-body"><h3>Mo&#x27;s Bagel &amp; Deli</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Mo%27s+Bagel+%26+Deli+2780+NE+187+St+Aventura+FL" rel="noopener" target="_blank">2780 NE 187 St, Aventura</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Rodent &amp; fly activity</strong> · Closed Tue, Nov 17 at 12:19 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Pofolks</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Pofolks+2001+34+St+N+St+Petersburg+FL" rel="noopener" target="_blank">2001 34 St N, St Petersburg</a> · Pinellas County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 16 at 4:45 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Sabor Hispano</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Sabor+Hispano+5084+Coconut+Creek+Pkwy+Margate+FL" rel="noopener" target="_blank">5084 Coconut Creek Pkwy, Margate</a> · Broward County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 16 at 4:45 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Siam Garden Thai Restaurant</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Siam+Garden+Thai+Restaurant+3125+N+9+St+St+Petersburg+FL" rel="noopener" target="_blank">3125 N 9 St, St Petersburg</a> · Pinellas County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Mon, Nov 16 at 4:12 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Nuevo Asados Al Carbon</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Nuevo+Asados+Al+Carbon+7212+N+Armenia+Ave+Tampa+FL" rel="noopener" target="_blank">7212 N Armenia Ave, Tampa</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Mon, Nov 16 at 2:28 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Dicrespo</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Dicrespo+13772+SW+152+St+Miami+FL" rel="noopener" target="_blank">13772 SW 152 St, Miami</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Mon, Nov 16 at 1:01 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Seminole" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>Simon Parilla Bar and Grill of Longwood</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Simon+Parilla+Bar+and+Grill+of+Longwood+295+S+Ronald+Reagan+Blvd+Longwood+FL" rel="noopener" target="_blank">295 S Ronald Reagan Blvd, Longwood</a> · Seminole County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Mon, Nov 16 at 12:55 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪰</div>
   <div class="rr-body"><h3>Mi Carreta Restaurant &amp; Bakery</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Mi+Carreta+Restaurant+%26+Bakery+2705+54+Ave+N+St+Petersburg+FL" rel="noopener" target="_blank">2705 54 Ave N, St Petersburg</a> · Pinellas County</p>
   <p class="rr-why"><strong>Fly activity</strong> · Closed Mon, Nov 16 at 12:08 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀🪰</div>
+  <div class="rr-body"><h3>McDonald of Fla Corp</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=McDonald+of+Fla+Corp+18250+NW+27+Ave+Opa+Locka+FL" rel="noopener" target="_blank">18250 NW 27 Ave, Opa Locka</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Rodent &amp; fly activity</strong> · Closed Mon, Nov 16 at 10:27 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Crab Crab Restaurant</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Crab+Crab+Restaurant+801+NE+8+St+Homestead+FL" rel="noopener" target="_blank">801 NE 8 St, Homestead</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Fri, Nov 13 at 2:39 PM</p>
+  <span class="rr-pending">Reopen time not listed yet</span></div>
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Puerto Sagua Rest</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Puerto+Sagua+Rest+700+Collins+Ave+Miami+Beach+FL" rel="noopener" target="_blank">700 Collins Ave, Miami Beach</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Thu, Nov 12 at 9:43 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Orange" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀🪰</div>
+  <div class="rr-body"><h3>Winghouse Bar and Grill</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Winghouse+Bar+and+Grill+3789+S+Kirkman+Rd+Orlando+FL" rel="noopener" target="_blank">3789 S Kirkman Rd, Orlando</a> · Orange County</p>
+  <p class="rr-why"><strong>Rodent, Roach &amp; Fly activity</strong> · Closed Thu, Nov 12 at 1:45 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Engine No 9</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Engine+No+9+56+Dr+MLK+Jr+Blvd+St+Petersburg+FL" rel="noopener" target="_blank">56 Dr MLK Jr Blvd, St Petersburg</a> · Pinellas County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Thu, Nov 12 at 12:44 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="DeSoto">
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Café Aquatica &amp; Rendezvous Reef</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+Aquatica+%26+Rendezvous+Reef+2905+Sheridan+St+Hollywood+FL" rel="noopener" target="_blank">2905 Sheridan St, Hollywood</a> · Broward County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Thu, Nov 12 at 10:48 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="DeSoto" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>King Buffet</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=King+Buffet+1319+E+Oak+St+Arcadia+FL" rel="noopener" target="_blank">1319 E Oak St, Arcadia</a> · DeSoto County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Nov 10 at 1:32 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Escambia" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>La Casita Restaurante</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=La+Casita+Restaurante+939+N+New+Warrington+Rd+Pensacola+FL" rel="noopener" target="_blank">939 N New Warrington Rd, Pensacola</a> · Escambia County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Tue, Nov 10 at 1:11 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Chill Restaurant</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Chill+Restaurant+363+Corey+Ave+St+Petersburg+FL" rel="noopener" target="_blank">363 Corey Ave, St Petersburg</a> · Pinellas County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 9 at 3:45 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Highlands">
+</article><article class="rr-card" data-county="Highlands" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
   <div class="rr-body"><h3>Beefobradys</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Beefobradys+110+Plaza+Ave+Lake+Placid+FL" rel="noopener" target="_blank">110 Plaza Ave, Lake Placid</a> · Highlands County</p>
   <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Mon, Nov 9 at 3:20 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Yue Chinese Fusion</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Yue+Chinese+Fusion+447+Espanola+Way+Miami+Beach+FL" rel="noopener" target="_blank">447 Espanola Way, Miami Beach</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Mon, Nov 9 at 2:21 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
   <div class="rr-body"><h3>Mademoiselle Paris</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Mademoiselle+Paris+2937+Beach+Blvd+Gulfport+FL" rel="noopener" target="_blank">2937 Beach Blvd, Gulfport</a> · Pinellas County</p>
   <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Mon, Nov 9 at 1:23 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>El Sabor Latino Restaurante</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=El+Sabor+Latino+Restaurante+2202+Jog+Rd+Green+Acres+FL" rel="noopener" target="_blank">2202 Jog Rd, Green Acres</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 9 at 12:30 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪰</div>
   <div class="rr-body"><h3>Chick-Fil-A Airside A</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Chick-Fil-A+Airside+A+4100+George+J+Bean+Pkwy+Tampa+FL" rel="noopener" target="_blank">4100 George J Bean Pkwy, Tampa</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Fly activity</strong> · Closed Mon, Nov 9 at 12:19 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Lee">
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>Island Palace</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Island+Palace+4170+N+SR+7+Lauderdale+Lakes+FL" rel="noopener" target="_blank">4170 N SR 7, Lauderdale Lakes</a> · Broward County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Mon, Nov 9 at 11:52 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Marion" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🚱</div>
+  <div class="rr-body"><h3>Caribbean BBQ</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Caribbean+BBQ+184+Marion+Oaks+Ocala+FL" rel="noopener" target="_blank">184 Marion Oaks, Ocala</a> · Marion County</p>
+  <p class="rr-why"><strong>No potable water</strong> · Closed Fri, Nov 6 at 4:07 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Volusia" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Daytona Taproom</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Daytona+Taproom+310+Seabreeze+Blvd+Daytona+Beach+FL" rel="noopener" target="_blank">310 Seabreeze Blvd, Daytona Beach</a> · Volusia County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Fri, Nov 6 at 1:55 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Ihop 36-168</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=IHOP+36-168+4745+W+Atlantic+Ave+Delray+Beach+FL" rel="noopener" target="_blank">4745 W Atlantic Ave, Delray Beach</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Fri, Nov 6 at 1:41 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Lee" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Le Goute</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Le+Goute+3533+Fowler+St+Fort+Myers+FL" rel="noopener" target="_blank">3533 Fowler St, Fort Myers</a> · Lee County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Fri, Nov 6 at 12:21 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Don Jediondo</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Don+Jediondo+12801+W+Sunrise+Blvd+Space+857+Sunrise+FL" rel="noopener" target="_blank">12801 W Sunrise Blvd Space 857, Sunrise</a> · Broward County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Fri, Nov 6 at 12:06 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Marion" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Pronto Pizza</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Pronto+Pizza+303+SE+17+St%2C+Churchill+Square+Pl+Ocala+FL" rel="noopener" target="_blank">303 SE 17 St, Churchill Square Pl, Ocala</a> · Marion County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Fri, Nov 6 at 11:51 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Madfish</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Madfish+5200+Gulf+Blvd+St+Pete+Beach+FL" rel="noopener" target="_blank">5200 Gulf Blvd, St Pete Beach</a> · Pinellas County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Thu, Nov 5 at 1:35 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Cuisine Lakay Restaurant</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Cuisine+Lakay+Restaurant+119+W+Sunrise+Blvd+Fort+Lauderdale+FL" rel="noopener" target="_blank">119 W Sunrise Blvd, Fort Lauderdale</a> · Broward County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Thu, Nov 5 at 12:16 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>MacArthur&#x27;s</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=MacArthur%27s+4000+RCA+Blvd+Palm+Beach+Gardens+FL" rel="noopener" target="_blank">4000 RCA Blvd, Palm Beach Gardens</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Thu, Nov 5 at 12:14 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Bagel Express</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Bagel+Express+11616+SW+88+St+Miami+FL" rel="noopener" target="_blank">11616 SW 88 St, Miami</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Thu, Nov 5 at 11:08 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀🪰</div>
   <div class="rr-body"><h3>Wooden Spoon</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Wooden+Spoon+712+S+Collins+St+Plant+City+FL" rel="noopener" target="_blank">712 S Collins St, Plant City</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Rodent &amp; fly activity</strong> · Closed Thu, Nov 5 at 10:22 AM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Lee">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Eating House</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Eating+House+128+Giralda+Ave+Coral+Gables+FL" rel="noopener" target="_blank">128 Giralda Ave, Coral Gables</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Wed, Nov 4 at 6:14 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Miami Grill</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Miami+Grill+661+W+Sunrise+Blvd+Ft+Lauderdale+FL" rel="noopener" target="_blank">661 W Sunrise Blvd, Ft Lauderdale</a> · Broward County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Wed, Nov 4 at 4:39 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Lee" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🚱</div>
   <div class="rr-body"><h3>Mix Latino</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Mix+Latino+11770A+Metro+Pkwy+Fort+Myers+FL" rel="noopener" target="_blank">11770A Metro Pkwy, Fort Myers</a> · Lee County</p>
   <p class="rr-why"><strong>No potable water</strong> · Closed Wed, Nov 4 at 2:37 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Monroe" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Ocean Grill</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Ocean+Grill+1075+Duval+St+Ste+C12+Key+West+FL" rel="noopener" target="_blank">1075 Duval St Ste C12, Key West</a> · Monroe County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Wed, Nov 4 at 1:23 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Fla Power &amp; Light Cafeteria</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Fla+Power+%26+Light+Cafeteria+700+Universe+Blvd+Juno+Beach+FL" rel="noopener" target="_blank">700 Universe Blvd, Juno Beach</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Wed, Nov 4 at 12:29 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Bay" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">⚠️</div>
+  <div class="rr-body"><h3>Salty Bottle</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Salty+Bottle+106+Carillon+Market+St+Panama+City+Beach+FL" rel="noopener" target="_blank">106 Carillon Market St, Panama City Beach</a> · Bay County</p>
+  <p class="rr-why"><strong>No restrooms</strong> · Closed Tue, Nov 3 at 4:49 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>John The Baker</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=John+The+Baker+9709+W+Sample+Rd+Coral+Springs+FL" rel="noopener" target="_blank">9709 W Sample Rd, Coral Springs</a> · Broward County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Nov 3 at 4:32 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Pasco" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Ayoki</h3>
-  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Ayoki+222042+State+Rd+54+Lutz+FL" rel="noopener" target="_blank">222042 State Rd 54, Lutz</a> · Hillsborough County</p>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Ayoki+222042+State+Rd+54+Lutz+FL" rel="noopener" target="_blank">222042 State Rd 54, Lutz</a> · Pasco County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Tue, Nov 3 at 4:18 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hernando">
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Dasara Indian Cuisine</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Dasara+Indian+Cuisine+925+NE+62+St+Fort+Lauderdale+FL" rel="noopener" target="_blank">925 NE 62 St, Fort Lauderdale</a> · Broward County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Tue, Nov 3 at 4:17 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hernando" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Taipei Taipei Tea House</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Taipei+Taipei+Tea+House+322+N+Broad+St+Brooksville+FL" rel="noopener" target="_blank">322 N Broad St, Brooksville</a> · Hernando County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Nov 3 at 2:06 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Orange" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>A Aki Sushi &amp; Steakhouse</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=A+Aki+Sushi+%26+Steakhouse+1400+W+Sand+Lake+Rd+Orlando+FL" rel="noopener" target="_blank">1400 W Sand Lake Rd, Orlando</a> · Orange County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Tue, Nov 3 at 12:33 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Martin" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>El Churrasco Grill 2 LLC</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=El+Churrasco+Grill+2+LLC+2995+SE+Dixie+Hwy+Stuart+FL" rel="noopener" target="_blank">2995 SE Dixie Hwy, Stuart</a> · Martin County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Nov 3 at 11:19 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Big Dog Station</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Big+Dog+Station+3148+NE+12+Ave+Oakland+Park+FL" rel="noopener" target="_blank">3148 NE 12 Ave, Oakland Park</a> · Broward County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Nov 3 at 10:37 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Joe &amp; The Juice New York LLC</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Joe+%26+The+Juice+New+York+LLC+650+NW+1+Ave+Ste+100+Miami+FL" rel="noopener" target="_blank">650 NW 1 Ave Ste 100, Miami</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Mon, Nov 2 at 4:20 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Other" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Red Snapper Seafood and Chicken</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Red+Snapper+Seafood+and+Chicken+1517+W+Cervantes+St+Pensacola+FL" rel="noopener" target="_blank">1517 W Cervantes St, Pensacola</a> · Other County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Mon, Nov 2 at 4:12 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>McDonalds 26483</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=McDonalds+26483+16701+Fishhawk+Blvd+Lithia+FL" rel="noopener" target="_blank">16701 Fishhawk Blvd, Lithia</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 2 at 4:04 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Rotis Indian Restaurant</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Rotis+Indian+Restaurant+13025+US+Hwy+301S+Ste+102+Riverview+FL" rel="noopener" target="_blank">13025 US Hwy 301S Ste 102, Riverview</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Mon, Nov 2 at 3:29 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>La Casa Catracha</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=La+Casa+Catracha+8502+N+Armenia+Ave+Ste+1G+Tampa+FL" rel="noopener" target="_blank">8502 N Armenia Ave Ste 1G, Tampa</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 2 at 3:12 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Nassau" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Pepper&#x27;s Cocina Mexicana &amp; Tequilla Bar</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Pepper%27s+Cocina+Mexicana+%26+Tequilla+Bar+530+Centre+St+Fernandina+Beach+FL" rel="noopener" target="_blank">530 Centre St, Fernandina Beach</a> · Nassau County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Nov 2 at 12:42 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Flagler" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Tram Café Vietnamese Restaurant</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Tram+Caf%C3%A9+Vietnamese+Restaurant+101+Palm+Harbor+Pkwy+Unit+B117+Palm+Coast+FL" rel="noopener" target="_blank">101 Palm Harbor Pkwy Unit B117, Palm Coast</a> · Flagler County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Fri, Oct 30 at 2:07 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Duval" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Sweet Mama&#x27;s</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Sweet+Mama%27s+1527+Cesery+Blvd+Jacksonville+FL" rel="noopener" target="_blank">1527 Cesery Blvd, Jacksonville</a> · Duval County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Fri, Oct 30 at 12:36 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
   <div class="rr-body"><h3>La Vitanuova Sports Bar and Grill</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=La+Vitanuova+Sports+Bar+and+Grill+8502+N+Armenia+Ave+Ste+1H+Tampa+FL" rel="noopener" target="_blank">8502 N Armenia Ave Ste 1H, Tampa</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Thu, Oct 29 at 4:41 PM</p>
   <span class="rr-pending">Reopen time not listed yet</span></div>
-</article><article class="rr-card" data-county="Citrus">
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Pomona</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Pomona+717+Lake+Ave+Lake+Worth+Beach+FL" rel="noopener" target="_blank">717 Lake Ave, Lake Worth Beach</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Thu, Oct 29 at 3:00 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Taco Tuesdays Taqueria</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Taco+Tuesdays+Taqueria+600+N+Congress+Ave+Ste+110+Delray+Beach+FL" rel="noopener" target="_blank">600 N Congress Ave Ste 110, Delray Beach</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Thu, Oct 29 at 2:28 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Citrus" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Mickeys Bar and Billards</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Mickeys+Bar+and+Billards+770+NE+5+St+Crystal+River+FL" rel="noopener" target="_blank">770 NE 5 St, Crystal River</a> · Citrus County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Thu, Oct 29 at 1:52 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>Café Ruyi</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9+Ruyi+5300+NW+7+Ave+Miami+FL" rel="noopener" target="_blank">5300 NW 7 Ave, Miami</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Thu, Oct 29 at 12:38 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Kekes Breakfast Café</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Kekes+Breakfast+Caf%C3%A9+2206+N+Congress+Ave+Boynton+Beach+FL" rel="noopener" target="_blank">2206 N Congress Ave, Boynton Beach</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Thu, Oct 29 at 10:16 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🚽</div>
   <div class="rr-body"><h3>Taste of Lagos</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Taste+of+Lagos+11130+S+US+Hwy+41+Gibsonton+FL" rel="noopener" target="_blank">11130 S US Hwy 41, Gibsonton</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Sewage leaks</strong> · Closed Wed, Oct 28 at 4:30 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Hillsborough">
+</article><article class="rr-card" data-county="St. Johns" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Main St Pizza &amp; Ice Cream</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Main+St+Pizza+%26+Ice+Cream+125+N+Main+St+Hastings+FL" rel="noopener" target="_blank">125 N Main St, Hastings</a> · St. Johns County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Wed, Oct 28 at 4:13 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀🪰</div>
+  <div class="rr-body"><h3>Tulum Tacos Restaurant Corp</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Tulum+Tacos+Restaurant+Corp+5052+N+Dixie+Hwy+Oakland+Park+FL" rel="noopener" target="_blank">5052 N Dixie Hwy, Oakland Park</a> · Broward County</p>
+  <p class="rr-why"><strong>Rodent &amp; fly activity</strong> · Closed Wed, Oct 28 at 3:44 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>Wah Lan Chinese Restaurant</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Wah+Lan+Chinese+Restaurant+989+S+Main+St+Belle+Glade+FL" rel="noopener" target="_blank">989 S Main St, Belle Glade</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Wed, Oct 28 at 12:53 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Martin" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Baja Grill</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Baja+Grill+555+NE+Ocean+Blvd+Stuart+FL" rel="noopener" target="_blank">555 NE Ocean Blvd, Stuart</a> · Martin County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Wed, Oct 28 at 11:28 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Gulf" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🚽</div>
+  <div class="rr-body"><h3>Gulf Coast Grinds</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Gulf+Coast+Grinds+236+FL+22+Wewahitchka+FL" rel="noopener" target="_blank">236 FL 22, Wewahitchka</a> · Gulf County</p>
+  <p class="rr-why"><strong>Sewage leaks</strong> · Closed Wed, Oct 28 at 11:02 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Duval" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Charleys Wings Cheesesteaks</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Charleys+Wings+Cheesesteaks+1401+Dunn+Ave+Jacksonville+FL" rel="noopener" target="_blank">1401 Dunn Ave, Jacksonville</a> · Duval County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Wed, Oct 28 at 10:33 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Bradford" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
+  <div class="rr-body"><h3>Hardee&#x27;s</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Hardee%27s+435+S+Temple+Ave+Starke+FL" rel="noopener" target="_blank">435 S Temple Ave, Starke</a> · Bradford County</p>
+  <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Wed, Oct 28 at 10:16 AM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Palm Beach" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Miyi La Cubanita Cuban Café Chola</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Miyi+La+Cubanita+Cuban+Caf%C3%A9+Chola+1332+NW+2+Ave+Boca+Raton+FL" rel="noopener" target="_blank">1332 NW 2 Ave, Boca Raton</a> · Palm Beach County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Oct 27 at 3:45 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="St. Johns" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>South A Philly Steaks and Hoagies</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=South+A+Philly+Steaks+and+Hoagies+1+King+St+%23104+St+Augustine+FL" rel="noopener" target="_blank">1 King St #104, St Augustine</a> · St. Johns County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Tue, Oct 27 at 2:39 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Hillsborough" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Hanley Sport Inc</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Hanley+Sport+Inc+8218+Hanley+Rd+Tampa+FL" rel="noopener" target="_blank">8218 Hanley Rd, Tampa</a> · Hillsborough County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Tue, Oct 27 at 1:57 PM</p>
   <span class="rr-pending">Reopen time not listed yet</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>Tuscan Italian Restaurant &amp; Pizzeria</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Tuscan+Italian+Restaurant+%26+Pizzeria+3200+E+Bay+Dr+Ste+K+Largo+FL" rel="noopener" target="_blank">3200 E Bay Dr Ste K, Largo</a> · Pinellas County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Tue, Oct 27 at 1:52 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Lee">
+</article><article class="rr-card" data-county="Orange" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Havana Bistro &amp; Café</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Havana+Bistro+%26+Caf%C3%A9+7975+S+Orange+Blossom+Trl+Orlando+FL" rel="noopener" target="_blank">7975 S Orange Blossom Trl, Orlando</a> · Orange County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Oct 27 at 1:20 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Lee" data-region="Southwest Florida">
   <div class="rr-emoji" aria-hidden="true">🐀</div>
   <div class="rr-body"><h3>Rib City</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Rib+City+10431+Corkscrew+Commons+Dr+Estero+FL" rel="noopener" target="_blank">10431 Corkscrew Commons Dr, Estero</a> · Lee County</p>
   <p class="rr-why"><strong>Rodent activity</strong> · Closed Tue, Oct 27 at 12:47 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Polk">
+</article><article class="rr-card" data-county="Polk" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳</div>
   <div class="rr-body"><h3>El Toque Latin Restaurant</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=El+Toque+Latin+Restaurant+43418+Hwy+27+Unit+3+Davenport+FL" rel="noopener" target="_blank">43418 Hwy 27 Unit 3, Davenport</a> · Polk County</p>
   <p class="rr-why"><strong>Roach activity</strong> · Closed Tue, Oct 27 at 11:26 AM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
-</article><article class="rr-card" data-county="Pinellas">
+</article><article class="rr-card" data-county="St. Johns" data-region="North Florida &amp; Panhandle">
+  <div class="rr-emoji" aria-hidden="true">🪳🪰</div>
+  <div class="rr-body"><h3>Terra &amp; Acqua</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Terra+%26+Acqua+134+Sea+Grove+Main+St+St+Augustine+FL" rel="noopener" target="_blank">134 Sea Grove Main St, St Augustine</a> · St. Johns County</p>
+  <p class="rr-why"><strong>Roach &amp; fly activity</strong> · Closed Mon, Oct 26 at 6:04 PM</p>
+  <span class="rr-pending">Reopen time not listed yet</span></div>
+</article><article class="rr-card" data-county="Pinellas" data-region="Tampa Bay">
   <div class="rr-emoji" aria-hidden="true">🪳🐀</div>
   <div class="rr-body"><h3>Frank&#x27;s Pizza</h3>
   <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Frank%27s+Pizza+1600+Achieva+Way+Dunedin+FL" rel="noopener" target="_blank">1600 Achieva Way, Dunedin</a> · Pinellas County</p>
   <p class="rr-why"><strong>Roach &amp; rodent activity</strong> · Closed Mon, Oct 26 at 3:24 PM</p>
   <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Volusia" data-region="Orlando &amp; Central">
+  <div class="rr-emoji" aria-hidden="true">🐀</div>
+  <div class="rr-body"><h3>Hard Deck Tiki Bar</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Hard+Deck+Tiki+Bar+2900+Bellevue+Ave+Daytona+Beach+FL" rel="noopener" target="_blank">2900 Bellevue Ave, Daytona Beach</a> · Volusia County</p>
+  <p class="rr-why"><strong>Rodent activity</strong> · Closed Mon, Oct 26 at 3:12 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Miami-Dade" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪰</div>
+  <div class="rr-body"><h3>Bonfire Mofongo House and Lounge</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Bonfire+Mofongo+House+and+Lounge+1704+NW+7+St+Miami+FL" rel="noopener" target="_blank">1704 NW 7 St, Miami</a> · Miami-Dade County</p>
+  <p class="rr-why"><strong>Fly activity</strong> · Closed Mon, Oct 26 at 3:00 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
+</article><article class="rr-card" data-county="Broward" data-region="South Florida">
+  <div class="rr-emoji" aria-hidden="true">🪳</div>
+  <div class="rr-body"><h3>Miami Grill #195</h3>
+  <p class="meta"><a href="https://www.google.com/maps/search/?api=1&query=Miami+Grill+%23195+11501+Pines+Blvd+Pembroke+Pines+FL" rel="noopener" target="_blank">11501 Pines Blvd, Pembroke Pines</a> · Broward County</p>
+  <p class="rr-why"><strong>Roach activity</strong> · Closed Mon, Oct 26 at 2:04 PM</p>
+  <span class="rr-ok">✓ Passed follow-up, cleared to reopen</span></div>
 </article></div>
   <div class="source-box" style="margin-top:28px"><span class="label">How this works</span>
   <p>Florida's Division of Hotels and Restaurants (DBPR) can order an emergency closure when an inspector finds an immediate health risk, most often roach or rodent activity. A closure is not a fine or a final judgment, and a restaurant has to pass a follow-up inspection before it reopens. Most reopen within a day. This list shows the state's records as published; conditions may have changed since.</p>
-  <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR weekly emergency closure reports ↗</a> · Last updated Nov 25, 2026. Owners: to check or correct a record, contact DBPR. Want to report a problem? File a complaint with DBPR.</p></div>
+  <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR weekly emergency closure reports ↗</a> · Last updated Nov 24, 2026. Owners: to check or correct a record, contact DBPR. Want to report a problem? File a complaint with DBPR.</p></div>
 </section>
 </main>
 <section class="explore"><div class="container">

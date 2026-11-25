@@ -742,6 +742,23 @@ def build_cams():
         SITE + "/cams/", body))
 
 
+REGIONS = ["Tampa Bay", "Sarasota & Manatee", "Southwest Florida", "Orlando & Central", "South Florida", "North Florida & Panhandle"]
+_REG = {
+    "Tampa Bay": "Hillsborough Pinellas Pasco Hernando Citrus Polk",
+    "Sarasota & Manatee": "Sarasota Manatee Charlotte",
+    "Southwest Florida": "Lee Collier Hendry Glades DeSoto Hardee Highlands",
+    "Orlando & Central": "Orange Osceola Seminole Lake Volusia Brevard Sumter Marion Flagler",
+    "South Florida": "Miami-Dade Broward Palm_Beach Monroe Martin St._Lucie Indian_River Okeechobee",
+}
+REGION_OF = {c.replace("_", " "): r for r, cs in _REG.items() for c in cs.split()}
+ALL_COUNTIES = sorted(["Alachua", "Baker", "Bay", "Bradford", "Brevard", "Broward", "Calhoun", "Charlotte", "Citrus", "Clay",
+    "Collier", "Columbia", "DeSoto", "Dixie", "Duval", "Escambia", "Flagler", "Franklin", "Gadsden", "Gilchrist", "Glades", "Gulf",
+    "Hamilton", "Hardee", "Hendry", "Hernando", "Highlands", "Hillsborough", "Holmes", "Indian River", "Jackson", "Jefferson",
+    "Lafayette", "Lake", "Lee", "Leon", "Levy", "Liberty", "Madison", "Manatee", "Marion", "Martin", "Miami-Dade", "Monroe", "Nassau",
+    "Okaloosa", "Okeechobee", "Orange", "Osceola", "Palm Beach", "Pasco", "Pinellas", "Polk", "Putnam", "St. Johns", "St. Lucie",
+    "Santa Rosa", "Sarasota", "Seminole", "Sumter", "Suwannee", "Taylor", "Union", "Volusia", "Wakulla", "Walton", "Washington"])
+
+
 def load_closures():
     try:
         return json.load(open(os.path.join(ROOT, "closures.json")))
@@ -765,10 +782,11 @@ def closure_card(c):
     status = (f'<span class="rr-ok">✓ Passed follow-up, cleared to reopen</span>' if c.get("reopened_at")
               else '<span class="rr-pending">Reopen time not listed yet</span>')
     maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f'{c["name"]} {c["address"]} {c["city"]} FL')
-    return f"""<article class="rr-card" data-county="{e(county_for(c["city"]))}">
+    cty = c.get("county") or county_for(c["city"])
+    return f"""<article class="rr-card" data-county="{e(cty)}" data-region="{e(REGION_OF.get(cty, "North Florida & Panhandle"))}">
   <div class="rr-emoji" aria-hidden="true">{reason_emoji(c["reason"])}</div>
   <div class="rr-body"><h3>{e(c["name"].title() if c["name"].isupper() else c["name"])}</h3>
-  <p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a> · {e(county_for(c["city"]))} County</p>
+  <p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a> · {e(cty)} County</p>
   <p class="rr-why"><strong>{e(c["reason"])}</strong> · Closed {d.strftime("%a, %b %-d")}{(" at " + e(c["closed_at"])) if c.get("closed_at") else ""}</p>
   {status}</div>
 </article>"""
@@ -781,24 +799,37 @@ def build_roach():
     roach = sum("roach" in c["reason"].lower() for c in cl)
     rodent = sum("rodent" in c["reason"].lower() for c in cl)
     from collections import Counter
-    counts = Counter(county_for(c["city"]) for c in cl)
-    order = sorted(counts, key=lambda k: (k == "Other", -counts[k], k))
-    chips = (f'<button class="rr-chip on" data-c="all">All <b>{n}</b></button>'
-             + "".join(f'<button class="rr-chip" data-c="{e(k)}">{e(k)} <b>{counts[k]}</b></button>' for k in order))
-    filt = f"""<div class="rr-filter" role="toolbar" aria-label="Filter by county"><span class="rr-label">County:</span>{chips}</div>
-<p class="rr-showing" id="rr-showing">Showing all {n} closures</p>
-<script>document.addEventListener('DOMContentLoaded',function(){{var bs=document.querySelectorAll('.rr-chip'),cs=document.querySelectorAll('.rr-card'),out=document.getElementById('rr-showing');
-function pick(c,push){{var k=0;bs.forEach(function(b){{b.classList.toggle('on',b.dataset.c===c);}});
-cs.forEach(function(x){{var show=c==='all'||x.dataset.county===c;x.style.display=show?'':'none';if(show)k++;}});
-out.textContent=c==='all'?'Showing all '+k+' closures':'Showing '+k+' closure'+(k===1?'':'s')+' in '+c+(c==='Other'?' areas':' County');
-if(push)history.replaceState(null,'',c==='all'?location.pathname:'#'+encodeURIComponent(c));}}
-bs.forEach(function(b){{b.addEventListener('click',function(){{pick(b.dataset.c,true);}});}});
-var h=decodeURIComponent(location.hash.slice(1));if(h&&[].some.call(bs,function(b){{return b.dataset.c===h;}}))pick(h,false);}});</script>"""
+    counts = Counter((c.get("county") or county_for(c["city"])) for c in cl)
+    rcounts = Counter(REGION_OF.get(k, "North Florida & Panhandle") for k in counts.elements())
+    chips = (f'<button class="rr-chip on" data-r="all">All Florida <b>{n}</b></button>'
+             + "".join(f'<button class="rr-chip" data-r="{e(r)}">{e(r)} <b>{rcounts.get(r, 0)}</b></button>' for r in REGIONS))
+    opts = '<option value="all">All 67 counties</option>' + "".join(
+        f'<option value="{e(k)}">{e(k)} ({counts.get(k, 0)})</option>' for k in ALL_COUNTIES)
+    filt = f"""<div class="rr-filter" role="toolbar" aria-label="Filter by region">{chips}</div>
+<label class="rr-select"><span>County</span><select id="rr-county">{opts}</select></label>
+<p class="rr-showing" id="rr-showing">Showing all {n} closures in Florida</p>
+<p class="rr-empty" id="rr-empty" hidden>🎉 No restaurant closures here in the last 4 weeks. Eat freely (and still wash your hands).</p>
+<script>document.addEventListener('DOMContentLoaded',function(){{
+var bs=document.querySelectorAll('.rr-chip'),sel=document.getElementById('rr-county'),cs=document.querySelectorAll('.rr-card'),
+out=document.getElementById('rr-showing'),empty=document.getElementById('rr-empty');
+function apply(kind,val,push){{var k=0;
+bs.forEach(function(b){{b.classList.toggle('on',kind==='r'?b.dataset.r===val:(val==='all'&&b.dataset.r==='all'));}});
+if(kind==='r')sel.value='all';
+cs.forEach(function(x){{var show=val==='all'||(kind==='r'?x.dataset.region===val:x.dataset.county===val);x.style.display=show?'':'none';if(show)k++;}});
+var where=val==='all'?'Florida':(kind==='c'?val+' County':val);
+out.textContent='Showing '+k+' closure'+(k===1?'':'s')+' in '+where;empty.hidden=k>0;
+if(push)history.replaceState(null,'',val==='all'?location.pathname:'#'+encodeURIComponent(val));}}
+bs.forEach(function(b){{b.addEventListener('click',function(){{apply('r',b.dataset.r,true);}});}});
+sel.addEventListener('change',function(){{apply('c',sel.value,true);}});
+var h=decodeURIComponent(location.hash.slice(1));
+if(h){{if([].some.call(bs,function(b){{return b.dataset.r===h;}}))apply('r',h,false);
+else if([].some.call(sel.options,function(o){{return o.value===h;}})){{sel.value=h;apply('c',h,false);}}}}
+}});</script>"""
     cards = "".join(closure_card(c) for c in cl) or '<p class="empty">No closures in the latest state files. Enjoy your lunch.</p>'
     upd = nice_date(data["updated"]) if data.get("updated") else ""
     body = f"""<section class="effd-hero"><div class="container">
   <span class="effd-logo big">The Roach <em>Report</em></span>
-  <p class="effd-tag">Tampa Bay and Southwest Florida restaurants the state ordered shut over the last month, straight from official inspection records. Updated daily.</p>
+  <p class="effd-tag">Florida restaurants the state ordered shut over the last month, straight from official inspection records. Pick your county. Updated daily.</p>
   <div class="rr-stats"><div><b>{n}</b><span>closures</span></div><div><b>{roach}</b><span>🪳 roaches</span></div><div><b>{rodent}</b><span>🐀 rodents</span></div></div>
 </div></section>
 <section class="container" style="margin-top:28px;max-width:900px">
@@ -808,8 +839,8 @@ var h=decodeURIComponent(location.hash.slice(1));if(h&&[].some.call(bs,function(
   <p>Florida's Division of Hotels and Restaurants (DBPR) can order an emergency closure when an inspector finds an immediate health risk, most often roach or rodent activity. A closure is not a fine or a final judgment, and a restaurant has to pass a follow-up inspection before it reopens. Most reopen within a day. This list shows the state's records as published; conditions may have changed since.</p>
   <p>Source: <a href="https://www2.myfloridalicense.com/hotels-restaurants/public-records/" rel="noopener" target="_blank">Florida DBPR weekly emergency closure reports ↗</a>{(" · Last updated " + upd) if upd else ""}. Owners: to check or correct a record, contact DBPR. Want to report a problem? File a complaint with DBPR.</p></div>
 </section>"""
-    write("roach-report/index.html", page(f"The Roach Report: Tampa Bay & SW Florida Restaurant Closures | {NAME}",
-        "Restaurants in Tampa Bay and Southwest Florida that state inspectors ordered closed this month for roaches, rodents and more, from official DBPR records.",
+    write("roach-report/index.html", page(f"The Roach Report: Florida Restaurant Closures by County | {NAME}",
+        "Every Florida restaurant state inspectors ordered closed this month for roaches, rodents and more, by county, from official DBPR records.",
         SITE + "/roach-report/", body))
 
 
