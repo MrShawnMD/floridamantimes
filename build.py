@@ -78,6 +78,7 @@ def page(title, description, canonical, body, extra_head="", og_type="website", 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="BV_Wr2EBzm4kA7k0q5h4OoXQKXRjDEyM8KZqTfD7h8s" />
 <title>{e(title)}</title>
 <meta name="description" content="{e(description)}">
 <link rel="canonical" href="{canonical}">
