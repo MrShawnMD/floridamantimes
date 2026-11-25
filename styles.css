@@ -590,3 +590,11 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .rr-ok { display: inline-block; font-size: 13px; font-weight: 700; color: var(--accent-ink); background: var(--accent-soft); padding: 4px 10px; border-radius: 999px; }
 .rr-pending { display: inline-block; font-size: 13px; font-weight: 700; color: #9a3412; background: #ffedd5; padding: 4px 10px; border-radius: 999px; }
 @media (max-width: 760px) { .rr-card { grid-template-columns: 46px 1fr; gap: 12px; padding: 14px; } .rr-emoji { width: 46px; height: 46px; font-size: 20px; } .rr-stats b { font-size: 24px; } }
+.rr-filter { display: flex; gap: 8px; align-items: center; overflow-x: auto; scrollbar-width: none; padding: 2px 0 6px; margin-bottom: 6px; }
+.rr-filter::-webkit-scrollbar { display: none; }
+.rr-label { font-size: 13px; font-weight: 800; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; flex: 0 0 auto; }
+.rr-chip { flex: 0 0 auto; font: inherit; font-size: 14px; font-weight: 700; color: var(--ink); background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 999px; padding: 8px 14px; cursor: pointer; white-space: nowrap; }
+.rr-chip b { font-weight: 800; color: var(--gray-600); margin-left: 4px; }
+.rr-chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.rr-chip.on b { color: var(--accent); }
+.rr-showing { margin: 4px 0 14px; font-size: 14px; color: var(--gray-600); }

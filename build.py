@@ -22,6 +22,7 @@ from giving import LEMONADE
 from features import ARTISTS, RENTALS
 from interviews import INTERVIEWS, WANTED, STANDARD_QS
 from cams import CAMS
+from counties import county_for
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -758,10 +759,10 @@ def closure_card(c):
     status = (f'<span class="rr-ok">✓ Passed follow-up, cleared to reopen</span>' if c.get("reopened_at")
               else '<span class="rr-pending">Reopen time not listed yet</span>')
     maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f'{c["name"]} {c["address"]} {c["city"]} FL')
-    return f"""<article class="rr-card">
+    return f"""<article class="rr-card" data-county="{e(county_for(c["city"]))}">
   <div class="rr-emoji" aria-hidden="true">{reason_emoji(c["reason"])}</div>
   <div class="rr-body"><h3>{e(c["name"].title() if c["name"].isupper() else c["name"])}</h3>
-  <p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a></p>
+  <p class="meta"><a href="{maps}" rel="noopener" target="_blank">{e(c["address"])}, {e(c["city"])}</a> · {e(county_for(c["city"]))} County</p>
   <p class="rr-why"><strong>{e(c["reason"])}</strong> · Closed {d.strftime("%a, %b %-d")}{(" at " + e(c["closed_at"])) if c.get("closed_at") else ""}</p>
   {status}</div>
 </article>"""
@@ -773,6 +774,20 @@ def build_roach():
     n = len(cl)
     roach = sum("roach" in c["reason"].lower() for c in cl)
     rodent = sum("rodent" in c["reason"].lower() for c in cl)
+    from collections import Counter
+    counts = Counter(county_for(c["city"]) for c in cl)
+    order = sorted(counts, key=lambda k: (k == "Other", -counts[k], k))
+    chips = (f'<button class="rr-chip on" data-c="all">All <b>{n}</b></button>'
+             + "".join(f'<button class="rr-chip" data-c="{e(k)}">{e(k)} <b>{counts[k]}</b></button>' for k in order))
+    filt = f"""<div class="rr-filter" role="toolbar" aria-label="Filter by county"><span class="rr-label">County:</span>{chips}</div>
+<p class="rr-showing" id="rr-showing">Showing all {n} closures</p>
+<script>document.addEventListener('DOMContentLoaded',function(){{var bs=document.querySelectorAll('.rr-chip'),cs=document.querySelectorAll('.rr-card'),out=document.getElementById('rr-showing');
+function pick(c,push){{var k=0;bs.forEach(function(b){{b.classList.toggle('on',b.dataset.c===c);}});
+cs.forEach(function(x){{var show=c==='all'||x.dataset.county===c;x.style.display=show?'':'none';if(show)k++;}});
+out.textContent=c==='all'?'Showing all '+k+' closures':'Showing '+k+' closure'+(k===1?'':'s')+' in '+c+(c==='Other'?' areas':' County');
+if(push)history.replaceState(null,'',c==='all'?location.pathname:'#'+encodeURIComponent(c));}}
+bs.forEach(function(b){{b.addEventListener('click',function(){{pick(b.dataset.c,true);}});}});
+var h=decodeURIComponent(location.hash.slice(1));if(h&&[].some.call(bs,function(b){{return b.dataset.c===h;}}))pick(h,false);}});</script>"""
     cards = "".join(closure_card(c) for c in cl) or '<p class="empty">No closures in the latest state files. Enjoy your lunch.</p>'
     upd = nice_date(data["updated"]) if data.get("updated") else ""
     body = f"""<section class="effd-hero"><div class="container">
@@ -781,6 +796,7 @@ def build_roach():
   <div class="rr-stats"><div><b>{n}</b><span>closures</span></div><div><b>{roach}</b><span>🪳 roaches</span></div><div><b>{rodent}</b><span>🐀 rodents</span></div></div>
 </div></section>
 <section class="container" style="margin-top:28px;max-width:900px">
+  {filt if cl else ""}
   <div class="rr-list">{cards}</div>
   <div class="source-box" style="margin-top:28px"><span class="label">How this works</span>
   <p>Florida's Division of Hotels and Restaurants (DBPR) can order an emergency closure when an inspector finds an immediate health risk, most often roach or rodent activity. A closure is not a fine or a final judgment, and a restaurant has to pass a follow-up inspection before it reopens. Most reopen within a day. This list shows the state's records as published; conditions may have changed since.</p>
