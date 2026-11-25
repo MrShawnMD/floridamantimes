@@ -223,7 +223,7 @@ def footer():
       {logo("logo logo-footer")}
       <p class="footer-tag">{TAGLINE}. Real reports, retold our way, always linked to the source.</p>
     </div>
-    <nav class="footer-nav">{nav}<a href="/about/">About</a><a href="/advertise/">Advertise</a><a href="/feed.xml">RSS</a></nav>
+    <nav class="footer-nav">{nav}<a href="/about/">About</a><a href="/advertise/">Advertise</a><a href="https://www.facebook.com/floridamantimes" target="_blank" rel="noopener">Facebook</a><a href="/feed.xml">RSS</a></nav>
   </div>
   <p class="fine">People in arrest stories are presumed innocent unless proven guilty in court. Story images are illustrations, not photos of the people or events described. © {year} {NAME}.</p>
 </footer>"""
