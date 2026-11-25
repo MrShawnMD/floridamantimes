@@ -145,7 +145,7 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .story-media .media { border-radius: 0; }
   .story-body { font-size: 18px; }
   .cta { flex-direction: column; align-items: flex-start; padding: 26px; }
-  .site-header { position: static; }
+  .site-header { position: sticky; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
@@ -554,3 +554,18 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .nav .nav-extra { display: inline-block; }
 }
 @media (max-width: 760px) { .ex-tile:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+
+/* ---------- Phone top cleanup ---------- */
+.hub { border-top: 0; border-bottom: 1px solid var(--gray-200); position: relative; }
+@media (max-width: 760px) {
+  .breaking { display: none; }               /* lead story already shows the latest */
+  .site-header { border-bottom: 1px solid var(--gray-200); }
+  .bar { padding: 8px 16px; }
+  .menu-btn { min-height: 36px; padding: 6px 12px; font-size: 13.5px; }
+  .hub-inner { padding: 8px 16px 9px; gap: 6px; }
+  .chip { padding: 6px 11px; font-size: 13px; border: 0; background: var(--gray-100); }
+  .chip span { font-size: 14px; }
+  .chip.on { background: var(--ink); }
+  .hub::after { content: ""; position: absolute; right: 0; top: 0; bottom: 1px; width: 36px; pointer-events: none;
+    background: linear-gradient(to right, rgba(255,255,255,0), #fff 85%); }
+}

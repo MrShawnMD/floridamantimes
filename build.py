@@ -170,14 +170,14 @@ def header():
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" onclick="var h=this.closest('.site-header'),o=h.classList.toggle('menu-open');this.setAttribute('aria-expanded',o);document.body.classList.toggle('no-scroll',o)"><span class="burger" aria-hidden="true"></span>Menu</button>
     <nav class="nav" id="site-nav"><a href="/">Home</a>{nav}<a class="nav-feat" href="/arrest-lookup/">Arrest Lookup</a>{sections}<a href="/about/">About</a></nav>
   </div>
-  {hub_strip()}
   <div class="breaking">
     <div class="breaking-inner">
       <span class="pill live">Latest</span>
       <a href="/stories/{latest['slug']}/">{e(latest['title'])}</a>
     </div>
   </div>
-</header>"""
+</header>
+{hub_strip()}"""
 
 
 def footer():
