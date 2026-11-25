@@ -109,3 +109,8 @@ skipped, so a hand-made image always wins: drop a file at the right path to over
 - RENTALS: real, bookable weird Florida stays. Link to an article or the listing; never copy listing photos.
 - Images: AI illustrations only (images/artists/<slug>.jpg, images/rentals/<slug>.jpg), made automatically from image_prompt. No real faces of the artists, no logos or text.
 - Mondays: the scanner may add one new artist (put it at the top) and 1–2 new rentals.
+
+## Eff'd Up With… (interviews.py) — VIDEO interviews
+- Only Shawn's team adds these. The daily bot must NEVER write, invent, or edit an interview or its quotes.
+- Each episode: a YouTube link (or a small /videos/<slug>.mp4), a short write-up, and 3–6 real quotes taken from the video.
+- Guests: adults, sober on camera, signed release, in on the joke. No one in crisis (addiction, homelessness, mental health) as the subject.

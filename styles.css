@@ -465,3 +465,39 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
   .rental-grid { gap: 16px; }
   .rental-body { padding: 14px 16px 16px; }
 }
+
+/* ---------- Eff'd Up With... (video interviews) ---------- */
+.effd-logo { font-weight: 900; letter-spacing: -.04em; font-size: 22px; color: var(--ink); display: inline-block; }
+.effd-logo em { font-style: italic; color: var(--accent-ink); }
+.effd-logo.big { font-size: clamp(44px, 9vw, 88px); line-height: .95; color: #fff; }
+.effd-logo.big em { color: var(--accent); }
+.effd-hero { background: var(--ink); color: #fff; padding: 56px 0 48px; }
+.effd-tag { max-width: 620px; font-size: 19px; color: #d4d4d4; margin: 16px 0 0; }
+.effd-soon { padding: 28px; border-radius: var(--radius); border: 2px dashed var(--gray-200); display: grid; gap: 8px; justify-items: start; }
+.effd-soon h2 { margin: 0; font-size: 28px; letter-spacing: -.03em; font-weight: 900; }
+.effd-soon p { margin: 0; color: var(--gray-600); }
+.effd-qs, .effd-rules { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 15.5px; }
+.effd-promo { margin-top: 36px; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; background: var(--ink); color: #fff; border-radius: var(--radius); padding: 24px 28px; }
+.effd-promo .effd-logo { color: #fff; font-size: 28px; }
+.effd-promo .effd-logo em { color: var(--accent); }
+.effd-promo p { margin: 0; color: #d4d4d4; }
+.effd-cta { background: var(--accent); color: var(--ink); font-weight: 800; padding: 10px 18px; border-radius: 999px; white-space: nowrap; }
+.video { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius); overflow: hidden; }
+.video.vertical { aspect-ratio: 9 / 16; max-width: 420px; margin: 0 auto; }
+.video iframe, .video video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.ep-thumb { position: relative; }
+.play { position: absolute; left: 14px; bottom: 14px; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: var(--ink); display: grid; place-items: center; font-size: 16px; padding-left: 3px; box-shadow: 0 6px 18px rgba(0,0,0,.3); }
+.qa { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 18px 0; }
+.qa .q { font-family: Inter, sans-serif; font-weight: 800; font-size: 15px; margin: 0 0 4px; color: var(--gray-600); }
+.qa .a { margin: 0; font-size: 21px; line-height: 1.4; }
+@media (max-width: 760px) {
+  .effd-hero { padding: 36px 0 32px; }
+  .effd-tag { font-size: 16.5px; }
+  .effd-promo { grid-template-columns: 1fr; gap: 10px; padding: 20px; margin-top: 28px; }
+  .effd-promo .effd-logo { font-size: 24px; }
+  .effd-cta { justify-self: start; }
+  .story-media .video { border-radius: 0; }
+}
+.logo-text { white-space: nowrap; }
+@media (min-width: 761px) and (max-width: 1240px) { .nav a { padding: 8px 9px; font-size: 13.5px; } .bar { gap: 14px; } }
+@media (min-width: 761px) and (max-width: 1060px) { .nav { justify-content: flex-end; } }

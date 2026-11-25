@@ -19,6 +19,7 @@ from events import EVENTS
 from eats import EATS
 from giving import LEMONADE
 from features import ARTISTS, RENTALS
+from interviews import INTERVIEWS, WANTED, STANDARD_QS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -129,9 +130,9 @@ def logo(cls="logo"):
 
 
 def header():
-    nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/events/">Events</a>'
-           '<a href="/eats/">Weird Eats</a><a href="/rentals/">Crazy Rentals</a><a href="/artist-of-the-week/">Artist of the Week</a>'
-           '<a href="/gives-back/">Gives Back</a>')
+    nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Arrests</a><a href="/events/">Events</a>'
+           '<a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Rentals</a>'
+           '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>')
     sections = "".join(f'<a class="nav-extra" href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
     latest = STORIES[0]
     return f"""<header class="site-header">
@@ -152,7 +153,7 @@ def header():
 def footer():
     year = dt.date.today().year
     nav = ('<a href="/best-of/">Top 10</a><a href="/arrests/">Weirdest Arrests</a><a href="/arrest-lookup/">Arrest Lookup</a>'
-           '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/rentals/">Crazy Rentals</a>'
+           '<a href="/events/">Events</a><a href="/eats/">Weird Eats</a><a href="/effd-up/">Eff\'d Up With…</a><a href="/rentals/">Crazy Rentals</a>'
            '<a href="/artist-of-the-week/">Artist of the Week</a><a href="/gives-back/">Gives Back</a>'
            + "".join(f'<a href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items()))
     return f"""<footer class="site-footer">
@@ -560,6 +561,76 @@ def features_row():
 </section>"""
 
 
+def interview_pic(iv, cls="feat-photo"):
+    img = feat_image("interviews", iv["slug"])
+    if img:
+        return f'<div class="{cls}"><img src="{img}" alt="{e(iv["guest"])}" loading="lazy" decoding="async"></div>'
+    return f'<div class="{cls} placeholder" aria-hidden="true"><span>{iv["emoji"]}</span></div>'
+
+
+def video_player(iv):
+    v = iv.get("video", "")
+    vert = " vertical" if iv.get("vertical") else ""
+    yt = re.search(r"(?:youtu\.be/|v=|shorts/|embed/)([\w-]{11})", v)
+    if yt:
+        return (f'<div class="video{vert}"><iframe src="https://www.youtube-nocookie.com/embed/{yt.group(1)}?rel=0&modestbranding=1" '
+                f'title="{e(iv["title"])}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>')
+    if v:
+        poster = feat_image("interviews", iv["slug"]) or ""
+        return f'<div class="video{vert}"><video controls playsinline preload="metadata" poster="{poster}" src="{e(v)}"></video></div>'
+    return interview_pic(iv, "media wide")
+
+
+def effd_logo(size=""):
+    return f'<span class="effd-logo {size}">Eff\'d Up <em>With…</em></span>'
+
+
+def build_interviews():
+    if INTERVIEWS:
+        cards = "".join(f"""<a class="rental ep" href="/effd-up/{iv["slug"]}/"><div class="ep-thumb">{interview_pic(iv)}<span class="play" aria-hidden="true">▶</span></div>
+<div class="rental-body"><span class="tag">{e(iv["city"])}</span><h3>{e(iv["title"])}</h3><p class="ev-blurb">{e(iv["dek"])}</p>
+<span class="meta">{e(iv["guest"])} · {nice_date(iv["date"])}</span></div></a>""" for iv in INTERVIEWS)
+        main = f'<div class="section-head"><h2 class="label">Latest episodes</h2></div><div class="rental-grid">{cards}</div>'
+    else:
+        main = '<div class="effd-soon"><span class="pill live">Episode 1</span><h2>Episode 1 drops soon.</h2><p>We\'re lining up our first guest and getting the cameras rolling.</p></div>'
+    wanted = "".join(f'<div class="award"><span>{em}</span><h3>{e(t)}</h3><p>{e(d)}</p></div>' for em, t, d in WANTED)
+    qs = "".join(f"<li>{e(q)}</li>" for q in STANDARD_QS)
+    body = f"""<section class="effd-hero"><div class="container">
+  {effd_logo("big")}
+  <p class="effd-tag">On-camera interviews with Florida's most gloriously unhinged people. In their own words. Unfiltered (mostly).</p>
+</div></section>
+<section class="container" style="margin-top:36px">{main}
+  <div class="section-head" style="margin-top:44px"><h2 class="label">Who we want to talk to</h2></div>
+  <div class="awards">{wanted}</div>
+  <div class="two-up" style="margin-top:44px">
+    <div class="rail-box"><div class="rail-head"><span class="tag">The Five</span><h2>Every guest gets these</h2></div><ol class="effd-qs">{qs}</ol></div>
+    <div class="rail-box"><div class="rail-head"><span class="tag">House rules</span><h2>How we do it</h2></div>
+    <ul class="effd-rules"><li>Real people, on camera. Nothing staged or made up.</li><li>Adults only, sober when we talk, and they signed off on it.</li>
+    <li>You're in on the joke, not the butt of it.</li><li>Think you belong here? Guest sign-ups open soon.</li></ul></div>
+  </div>
+</section>"""
+    write("effd-up/index.html", page(f"Eff'd Up With…: Interviews With Florida's Wildest People | {NAME}",
+        "Video interviews with Florida's python hunters, skunk ape believers, gator wranglers and actual Florida Men.",
+        SITE + "/effd-up/", body))
+    for iv in INTERVIEWS:
+        qa = "".join(f'<div class="qa"><p class="q">{e(q)}</p><p class="a">“{e(a)}”</p></div>' for q, a in iv.get("quotes", []))
+        intro = "".join(f"<p>{e(p)}</p>" for p in iv["intro"])
+        b = f"""<article class="story"><header class="story-head">{effd_logo()}<h1>{e(iv["title"])}</h1>
+<p class="story-dek">{e(iv["dek"])}</p><p class="meta">{e(iv["guest"])} · {e(iv["city"])} · {nice_date(iv["date"])}</p></header>
+<figure class="story-media">{video_player(iv)}</figure>
+<div class="story-body">{intro}{('<h2>Best moments</h2>' + qa) if qa else ''}</div>{share_links(iv, SITE + "/effd-up/" + iv["slug"] + "/")}</article>"""
+        write(f"effd-up/{iv['slug']}/index.html", page(f"Eff'd Up With {iv['guest']}: {iv['title']} | {NAME}", iv["dek"],
+            SITE + f"/effd-up/{iv['slug']}/", b, og_type="article"))
+
+
+def effd_promo():
+    if INTERVIEWS:
+        iv = INTERVIEWS[0]; line, link, cta = iv["title"], f"/effd-up/{iv['slug']}/", "Watch the episode →"
+    else:
+        line, link, cta = "Video interviews with Florida's python hunters, skunk ape believers and gator wranglers. Episode 1 coming soon.", "/effd-up/", "See who we're looking for →"
+    return f"""<section class="container"><a class="effd-promo" href="{link}">{effd_logo()}<p>{e(line)}</p><span class="effd-cta">{cta}</span></a></section>"""
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -684,6 +755,7 @@ def build_home():
 </section>
 {lemonade_promo()}
 {features_row()}
+{effd_promo()}
 {"".join(section_row(n, sl) for n, sl in SECTIONS.items())}
 <section class="container">
   <div class="cta">
@@ -704,8 +776,8 @@ def build_home():
         og_image=image_for(lead)))
 
 
-def share_links(s):
-    url = f'{SITE}/stories/{s["slug"]}/'
+def share_links(s, url=None):
+    url = url or f'{SITE}/stories/{s["slug"]}/'
     from urllib.parse import quote
     u, t = quote(url, safe=""), quote(s["title"], safe="")
     return f"""<div class="share">
@@ -806,7 +878,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today)]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today)] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -838,6 +910,7 @@ if __name__ == "__main__":
     build_giving()
     build_rentals()
     build_artist()
+    build_interviews()
     build_eats()
     build_about()
     build_404()
