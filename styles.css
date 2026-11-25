@@ -598,3 +598,14 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .rr-chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
 .rr-chip.on b { color: var(--accent); }
 .rr-showing { margin: 4px 0 14px; font-size: 14px; color: var(--gray-600); }
+
+/* ---------- Social kit ---------- */
+.sk-list { display: grid; gap: 18px; }
+.sk-card { display: grid; grid-template-columns: 220px 1fr; gap: 18px; padding: 16px; border: 1px solid var(--gray-200); border-radius: var(--radius); background: #fff; }
+.sk-card video { width: 100%; aspect-ratio: 9 / 16; border-radius: 12px; background: #000; }
+.sk-body { display: grid; gap: 10px; align-content: start; justify-items: start; }
+.sk-body h3 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -.02em; }
+.sk-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.sk-copy { font: inherit; font-size: 14px; font-weight: 700; padding: 9px 13px; border-radius: 10px; border: 1px solid var(--gray-200); background: var(--gray-50); cursor: pointer; }
+.sk-copy:active { background: var(--accent-soft); }
+@media (max-width: 760px) { .sk-card { grid-template-columns: 1fr; } .sk-card video { max-width: 280px; } }

@@ -3,7 +3,7 @@ name: Daily update (images, Top 10, Roach Report)
 on:
   push:
     branches: [main]
-    paths: ["stories.py", "arrests.py", "eats.py", "giving.py", "features.py", "cams.py"]
+    paths: ["stories.py", "arrests.py", "eats.py", "giving.py", "features.py", "cams.py", "make_social.py"]
   schedule:
     - cron: "30 12 * * *"   # daily backstop, after the morning story scan
   workflow_dispatch: {}
@@ -24,12 +24,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pillow openpyxl
+      - run: pip install pillow openpyxl imageio-ffmpeg
       - name: Generate images
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL }}
         run: python generate_images.py
+      - name: Make social videos and captions
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python make_social.py || true
       - name: Update Top 10 view counts
         env:
           GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
@@ -47,6 +51,6 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then echo "Nothing new."; exit 0; fi
-          git commit -m "Daily update: images, Top 10, Roach Report"
+          git commit -m "Daily update: images, social kits, Top 10, Roach Report"
           git push
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

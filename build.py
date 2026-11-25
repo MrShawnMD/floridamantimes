@@ -817,6 +817,36 @@ def roach_teaser():
 <ul class="eat-list rental-mini">{lis}</ul><a class="rail-more" href="/roach-report/">See the full Roach Report →</a></aside>"""
 
 
+def build_social():
+    kits = []
+    for st in STORIES:
+        folder = os.path.join(ROOT, "social", st["slug"])
+        if os.path.exists(os.path.join(folder, "video.mp4")):
+            try:
+                cap = json.load(open(os.path.join(folder, "caption.json")))
+            except Exception:
+                cap = {}
+            kits.append((st, cap))
+    def copy_btn(label, text):
+        return (f'<button class="sk-copy" type="button" data-t="{e(text)}">{label}</button>' if text else "")
+    cards = "".join(f"""<article class="sk-card">
+  <video controls playsinline preload="none" poster="/social/{st["slug"]}/cover.jpg" src="/social/{st["slug"]}/video.mp4"></video>
+  <div class="sk-body"><span class="tag">{e(st["category"])} · {nice_date(st["date"])}</span><h3>{e(st["title"])}</h3>
+  <a class="cam-btn" href="/social/{st["slug"]}/video.mp4" download="{st["slug"]}.mp4">⬇ Download video</a>
+  <div class="sk-btns">{copy_btn("📘 Facebook post", cap.get("facebook"))}{copy_btn("💬 FB comment (link)", cap.get("facebook_comment"))}
+  {copy_btn("📸 Instagram", cap.get("instagram"))}{copy_btn("🎵 TikTok", cap.get("tiktok"))}{copy_btn("🔗 Link", cap.get("link"))}</div></div>
+</article>""" for st, cap in kits) or '<p class="empty">No videos yet. The morning robot makes them for each new story.</p>'
+    body = f"""<section class="container" style="max-width:900px">
+  <div class="page-head"><span class="tag">Team only · not listed on the site</span><h1>Social Kit</h1>
+  <p>Every new story comes with a ready-to-post vertical video and captions. On your phone: tap Download, then post it to TikTok, Reels or Facebook, and tap a Copy button to paste the caption. For Facebook, post the caption with the video, then paste the link as the first comment.</p></div>
+  <div class="sk-list">{cards}</div>
+</section>
+<script>document.addEventListener('click',function(ev){{var b=ev.target.closest('.sk-copy');if(!b)return;
+navigator.clipboard.writeText(b.dataset.t).then(function(){{var o=b.textContent;b.textContent='✓ Copied';setTimeout(function(){{b.textContent=o;}},1400);}});}});</script>"""
+    write("social/index.html", page(f"Social Kit | {NAME}", "Team social kit.", SITE + "/social/", body,
+          extra_head='<meta name="robots" content="noindex,nofollow">'))
+
+
 def build_events():
     evs = upcoming_events()
     body = f"""<section class="container">
@@ -1083,7 +1113,7 @@ def build_feeds():
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
     write("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
-    write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    write("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /social/\n\nSitemap: {SITE}/sitemap.xml\n")
     items = ""
     for s in STORIES:
         d = dt.datetime.fromisoformat(s["date"]).strftime("%a, %d %b %Y 12:00:00 -0500")
@@ -1113,6 +1143,7 @@ if __name__ == "__main__":
     build_interviews()
     build_cams()
     build_roach()
+    build_social()
     build_eats()
     build_about()
     build_404()
