@@ -152,3 +152,19 @@ psychic towns, cryptid HQs, folk-art castles, weird cemeteries, odd ruins).
   people's faces, no logos, no readable text.
 - Never repeat a place already in places.py.
 - Mondays: the scanner may add 1–2 new places.
+
+## Where to Eat This Week (weekly story, Fridays)
+A weekly statewide story built from the state's own inspection data: who got shut down, and a couple of
+spotless places worth a visit. It's a normal story in stories.py (category "Wild Florida", slug
+where-to-eat-florida-week-of-<YYYY-MM-DD of the DBPR week>).
+- "Don't eat" half: use only closures.json (DBPR emergency closures) for the latest week. Name the
+  restaurant, city and the state's stated reason, nothing more. Jokes go at the bugs, never at the owners
+  or workers. Always say a closure is a one-day snapshot, not a conviction, and say whether they reopened.
+  Never add details the state record doesn't show.
+- "Do eat" half: 2–3 places from the Clean Plate Club data (roach-report/clean.json, zero violations),
+  favoring independent local spots over chains, spread around the state. Name 1–2 real dishes only if
+  the restaurant's own site, menu or a reputable outlet lists them, and link that source.
+- Photos: NEVER copy food photos from restaurant websites, menus, Google, Yelp or delivery apps (they're
+  copyrighted). Use the AI image_prompt only. A restaurant's real photo can be used only if Shawn says
+  the restaurant gave written permission; then save it as images/<slug>.jpg with photo_credit set.
+- Point readers to the Roach Report and Clean Plate Club at the end.
