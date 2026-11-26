@@ -1,9 +1,9 @@
 {
  "meta": {
-  "generated": "2026-11-26T05:23:24.850273+00:00",
+  "generated": "2026-11-26T19:32:15.199136+00:00",
   "hours": 72,
-  "count": 2580,
-  "feeds_ok": 62,
+  "count": 2354,
+  "feeds_ok": 60,
   "feeds_total": 63
  },
  "feeds": {
@@ -15,7 +15,7 @@
   "WFLA Florida": {
    "ok": true,
    "items": 50,
-   "kept": 15
+   "kept": 9
   },
   "FOX 13 Tampa": {
    "ok": true,
@@ -25,7 +25,7 @@
   "FOX 13 Local": {
    "ok": true,
    "items": 25,
-   "kept": 9
+   "kept": 10
   },
   "FOX 35 Orlando": {
    "ok": true,
@@ -35,7 +35,7 @@
   "FOX 35 Local": {
    "ok": true,
    "items": 25,
-   "kept": 8
+   "kept": 9
   },
   "WTSP 10 Tampa Bay": {
    "ok": true,
@@ -55,12 +55,12 @@
   "WESH Orlando": {
    "ok": true,
    "items": 20,
-   "kept": 20
+   "kept": 19
   },
   "ClickOrlando WKMG": {
    "ok": true,
    "items": 20,
-   "kept": 17
+   "kept": 18
   },
   "WPBF West Palm": {
    "ok": true,
@@ -75,17 +75,16 @@
   "Local 10 Miami": {
    "ok": true,
    "items": 100,
-   "kept": 81
+   "kept": 84
   },
   "CBS Miami": {
-   "ok": true,
-   "items": 30,
-   "kept": 30
+   "ok": false,
+   "error": "HTTP Error 406: Not Acceptable"
   },
   "NBC 6 Miami": {
    "ok": true,
-   "items": 51,
-   "kept": 49
+   "items": 52,
+   "kept": 0
   },
   "WSVN 7 Miami": {
    "ok": true,
@@ -95,22 +94,22 @@
   "News4Jax": {
    "ok": true,
    "items": 20,
-   "kept": 3
+   "kept": 8
   },
   "First Coast News": {
    "ok": true,
    "items": 40,
-   "kept": 17
+   "kept": 13
   },
   "WCJB Gainesville": {
    "ok": true,
    "items": 20,
-   "kept": 9
+   "kept": 8
   },
   "WCTV Tallahassee": {
    "ok": true,
    "items": 20,
-   "kept": 8
+   "kept": 6
   },
   "WTXL Tallahassee": {
    "ok": true,
@@ -130,12 +129,12 @@
   "WEAR Pensacola": {
    "ok": true,
    "items": 41,
-   "kept": 20
+   "kept": 18
   },
   "CBS12 West Palm": {
    "ok": true,
    "items": 46,
-   "kept": 42
+   "kept": 43
   },
   "WFTV Orlando": {
    "ok": true,
@@ -145,7 +144,7 @@
   "Keys Weekly": {
    "ok": true,
    "items": 50,
-   "kept": 33
+   "kept": 28
   },
   "Florida Keys Free Press / KeysInfoNet": {
    "ok": false,
@@ -153,173 +152,172 @@
   },
   "Google News: Florida deputies": {
    "ok": true,
-   "items": 37,
-   "kept": 26
+   "items": 28,
+   "kept": 18
   },
   "Google News: Florida police said": {
    "ok": true,
    "items": 19,
-   "kept": 16
+   "kept": 18
   },
   "Google News: Florida sheriff's office": {
    "ok": true,
-   "items": 30,
-   "kept": 18
+   "items": 38,
+   "kept": 26
   },
   "Google News: Florida arrested": {
    "ok": true,
-   "items": 100,
-   "kept": 72
+   "items": 82,
+   "kept": 57
   },
   "Google News: Florida man": {
    "ok": true,
-   "items": 91,
-   "kept": 55
+   "items": 73,
+   "kept": 50
   },
   "Google News: Florida woman": {
    "ok": true,
-   "items": 71,
-   "kept": 35
+   "items": 77,
+   "kept": 37
   },
   "Google News: Florida wildlife": {
    "ok": true,
-   "items": 64,
-   "kept": 54
+   "items": 68,
+   "kept": 59
   },
   "Google News: FWC Florida": {
    "ok": true,
-   "items": 23,
-   "kept": 10
+   "items": 24,
+   "kept": 11
   },
   "Google News: Florida county commission": {
    "ok": true,
-   "items": 60,
-   "kept": 52
+   "items": 59,
+   "kept": 49
   },
   "Google News: Florida city council": {
    "ok": true,
-   "items": 64,
-   "kept": 54
+   "items": 29,
+   "kept": 24
   },
   "Google News: Florida lawsuit": {
    "ok": true,
-   "items": 40,
-   "kept": 37
+   "items": 43,
+   "kept": 43
   },
   "Google News: Sarasota": {
    "ok": true,
    "items": 100,
-   "kept": 84
+   "kept": 80
   },
   "Google News: Bradenton": {
    "ok": true,
    "items": 100,
-   "kept": 86
+   "kept": 90
   },
   "Google News: Tampa": {
    "ok": true,
    "items": 100,
-   "kept": 92
+   "kept": 88
   },
   "Google News: St. Petersburg": {
    "ok": true,
    "items": 100,
-   "kept": 91
+   "kept": 89
   },
   "Google News: Fort Myers": {
    "ok": true,
    "items": 100,
-   "kept": 95
+   "kept": 94
   },
   "Google News: Cape Coral": {
    "ok": true,
-   "items": 95,
-   "kept": 83
+   "items": 97,
+   "kept": 85
   },
   "Google News: Naples Florida": {
    "ok": true,
-   "items": 56,
-   "kept": 50
+   "items": 36,
+   "kept": 30
   },
   "Google News: Orlando": {
-   "ok": true,
-   "items": 100,
-   "kept": 91
+   "ok": false,
+   "error": "HTTP Error 429: Too Many Requests"
   },
   "Google News: Daytona Beach": {
    "ok": true,
-   "items": 71,
-   "kept": 65
+   "items": 99,
+   "kept": 90
   },
   "Google News: Melbourne Florida": {
    "ok": true,
-   "items": 50,
-   "kept": 42
+   "items": 28,
+   "kept": 23
   },
   "Google News: Ocala": {
    "ok": true,
-   "items": 100,
-   "kept": 88
+   "items": 88,
+   "kept": 81
   },
   "Google News: Gainesville Florida": {
    "ok": true,
-   "items": 100,
-   "kept": 89
+   "items": 68,
+   "kept": 63
   },
   "Google News: Jacksonville": {
    "ok": true,
    "items": 100,
-   "kept": 90
+   "kept": 86
   },
   "Google News: Tallahassee": {
    "ok": true,
    "items": 100,
-   "kept": 88
+   "kept": 91
   },
   "Google News: Pensacola": {
    "ok": true,
-   "items": 75,
-   "kept": 57
+   "items": 100,
+   "kept": 75
   },
   "Google News: Panama City Beach": {
    "ok": true,
-   "items": 47,
-   "kept": 42
+   "items": 24,
+   "kept": 22
   },
   "Google News: Key West": {
    "ok": true,
-   "items": 47,
-   "kept": 33
+   "items": 30,
+   "kept": 18
   },
   "Google News: Miami": {
    "ok": true,
    "items": 100,
-   "kept": 31
+   "kept": 88
   },
   "Google News: Fort Lauderdale": {
    "ok": true,
    "items": 100,
-   "kept": 78
+   "kept": 87
   },
   "Google News: West Palm Beach": {
    "ok": true,
    "items": 100,
-   "kept": 74
+   "kept": 60
   },
   "Google News: Port St. Lucie": {
    "ok": true,
-   "items": 36,
-   "kept": 26
+   "items": 38,
+   "kept": 27
   },
   "Google News: Lakeland": {
    "ok": true,
-   "items": 97,
-   "kept": 93
+   "items": 95,
+   "kept": 92
   },
   "Google News: Polk County Florida": {
    "ok": true,
-   "items": 20,
-   "kept": 13
+   "items": 42,
+   "kept": 21
   }
  }
 }
