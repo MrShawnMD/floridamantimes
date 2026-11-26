@@ -13,6 +13,36 @@ Fields:
 
 STORIES = [
     {
+        "slug": "fort-pierce-man-sits-on-8-foot-alligator-jetty-rescue",
+        "title": "Florida Man Finds an 8-Foot Gator Stuck in the Jetty Rocks. So He Sat on It.",
+        "dek": "A bait-shop road trip in Fort Pierce turned into an alligator rescue, a catch pole failure and one very warm seat.",
+        "category": "Wild Florida",
+        "location": "Fort Pierce, St. Lucie County",
+        "date": "2026-11-26",
+        "emoji": "🐊",
+        "color": "#15803d",
+        "image_prompt": "Photorealistic, over-the-top phone-snapshot scene on a rocky ocean jetty at a Florida beach on a chilly gray November afternoon: a sturdy fictional man in a hoodie and fishing cap sitting calmly on the back of a large alligator stretched across a flat boulder, holding its neck down with both hands, a uniformed wildlife officer kneeling beside him wrapping tape around the gator's snout, a catch pole lying on the rocks, a surprised fisherman with a rod watching from behind, waves splashing on the rocks, a lighthouse-free horizon, vivid colors, news-photo look, invented fictional people only, no logos, no readable text",
+        "quick": "On Nov. 14, two friends from Okeechobee on a bait-shop road trip stopped at the Fort Pierce Inlet State Park jetty and spotted an 8-foot alligator wedged in the rocks. They called the park, a Florida Fish and Wildlife officer came out, and together they pulled the cold, sluggish gator free. When the catch pole couldn't hold it, one of the friends simply sat on it until its mouth was taped. FWC moved the gator to a nearby freshwater canal, and it survived.",
+        "body": [
+            "Most people visit the Fort Pierce Inlet jetty to fish, surf or stare at the ocean. Justin Southerland, 41, visited it to shop for junk. He and his friend Anthony Richards, 26, both from Okeechobee, were spending the day driving the coast and hitting pawn shops and bait stores. The jetty was just a stop. They had been there about 10 minutes.",
+            "Then Southerland looked down between the rocks and saw an alligator. An 8-foot one. In the ocean rocks. At a surf spot. He assumed it was dead. It was not dead. It was just very, very stuck.",
+            "## A freshwater animal in a saltwater mess",
+            "Alligators are freshwater animals. The Florida Fish and Wildlife Conservation Commission says they prefer lakes, rivers and wetlands and can only handle saltwater for short stretches. This one had somehow ended up pinned under a slick rock on an oceanfront jetty, on one of the first genuinely chilly days of the season. Lows that day dipped into the 50s, after highs in the 80s earlier in the week.",
+            "FWC later described the gator as lethargic. Southerland, who told TCPalm he has experience trapping alligators and grew up hunting and fishing, said it looked close to hypothermic. He also said he has a fear of drowning, and he was not about to stand there and watch something drown.",
+            "## The rescue",
+            "So he called the state park and asked for FWC. An officer came out, and the three of them worked the gator free from under the rock and onto a flat boulder. That is where the plan hit a snag: the catch pole would not hold it.",
+            "Southerland's solution was the most Florida sentence of the week. He sat on the alligator. He stayed there until someone came back with tape for its mouth, and he told TCPalm the whole thing ended up warming him up. The gator, for its part, slapped him with its tail, which he described as not \"too spicy.\"",
+            "## Where the gator ended up",
+            "With its snout taped, the gator went into the officer's vehicle. FWC spokesperson Arielle Callender confirmed it was relocated to a freshwater canal nearby, and it survived the ordeal. Beachgoers' video of the gator in the rocks made the rounds on WPBF 25 News a few days later.",
+            "## Please do not try this at home",
+            "To be very clear: the right move when you see a gator somewhere it shouldn't be is to keep your distance and call the pros, which is exactly how this one started. The FWC Nuisance Alligator Hotline is 866-FWC-GATOR (866-392-4286). Sitting on it is a step you should leave to people with gator-trapping experience and a wildlife officer standing right next to them.",
+        ],
+        "sources": [
+            ("WPBF 25 News", "https://www.wpbf.com/article/florida-alligator-8-foot-rescued-jetty-beach-treasure-coast/74456741"),
+            ("A-Z Animals (citing TCPalm)", "https://a-z-animals.com/articles/fort-pierce-jetty-alligator-friends-rescue/"),
+        ],
+    },
+    {
         "slug": "where-to-eat-florida-week-of-2026-11-22",
         "title": "Roaches' Choice: Where Florida's Bugs Ate This Week (and Where You Should Instead)",
         "dek": "17 restaurants got shut down by the state this week. Over a thousand others aced it. Here's the scoreboard.",
