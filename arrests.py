@@ -9,6 +9,18 @@ Images: images/arrests/<date>-<place-slug>.jpg (illustration, invented people on
 
 ARRESTS = [
     {
+        "date": "2026-11-25",
+        "place": "Tampa",
+        "county": "Hillsborough",
+        "emoji": "🍺",
+        "image_prompt": "Photorealistic, over-the-top late-night traffic stop on a Tampa street: police lights washing a parked sedan in red and blue, the open back door revealing an absurd mountain of assorted cans and bottles spilling across the seat and floor, a uniformed officer with a flashlight staring at the pile in disbelief, palm trees and humid night haze, cinematic body-cam-meets-movie-still look, the driver not visible, invented fictional people only, no logos, no brand labels, no readable text",
+        "headline": "Tampa police count 18 alcoholic drinks in one car. The driver allegedly blew three times the limit.",
+        "blurb": "Tampa police say body camera video captured the early Wednesday arrest of a man they say was driving under the influence with 18 alcoholic drinks in his car. Police say he was at three times the legal limit.",
+        "charge": "DUI",
+        "source_name": "WFLA",
+        "source_url": "https://www.wfla.com/news/hillsborough-county/tampa-police-find-18-alcoholic-drinks-in-car-driver-at-3x-the-legal-limit/",
+    },
+    {
         "date": "2026-11-24",
         "place": "Charlotte County",
         "county": "Charlotte",
