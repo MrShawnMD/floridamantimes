@@ -1,0 +1,32 @@
+name: Collect Florida headlines
+
+on:
+  schedule:
+    - cron: "5 10 * * *"   # ~5:05 AM ET, before the morning story scan
+    - cron: "5 19 * * *"   # ~2:05 PM ET, before the afternoon story scan
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-feed
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python fetch_news.py
+      - name: Commit headlines
+        run: |
+          git config user.name "floridamantimes-bot"
+          git config user.email "bot@floridamantimes.com"
+          git add scan/feed.json scan/status.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Collect Florida headlines"
+          for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && break; sleep 5; done
