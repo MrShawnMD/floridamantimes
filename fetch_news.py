@@ -10,6 +10,7 @@ import json
 import os
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -30,8 +31,6 @@ FEEDS = {
     "WTSP 10 Tampa Bay": "https://www.wtsp.com/feeds/syndication/rss/news",
     "Tampa Bay 28": "https://www.abcactionnews.com/index.rss",
     "WWSB Sarasota": "https://www.mysuncoast.com/arc/outboundfeeds/rss/?outputType=xml",
-    "WINK Fort Myers": "https://www.winknews.com/feed/",
-    "Fox 4 Fort Myers": "https://www.fox4now.com/index.rss",
     "WESH Orlando": "https://www.wesh.com/topstories-rss",
     "ClickOrlando WKMG": "https://www.clickorlando.com/arc/outboundfeeds/rss/?outputType=xml",
     "WPBF West Palm": "https://www.wpbf.com/topstories-rss",
@@ -134,7 +133,14 @@ def main():
     seen, items, status = set(), [], {}
     for name, url in FEEDS.items():
         try:
-            got = parse(fetch(url), name)
+            try:
+                raw = fetch(url)
+            except urllib.error.HTTPError as e:
+                if e.code != 429:
+                    raise
+                time.sleep(12)
+                raw = fetch(url)
+            got = parse(raw, name)
             fresh = 0
             for x in got:
                 d = parse_date(x["published"]) if x["published"] else None
@@ -149,13 +155,19 @@ def main():
             status[name] = {"ok": True, "items": len(got), "kept": fresh}
         except Exception as e:  # keep going; report broken feeds
             status[name] = {"ok": False, "error": str(e)[:160]}
-        time.sleep(0.4)
+        time.sleep(2.0 if "news.google.com" in url or "keysnews" in url else 0.4)
     items.sort(key=lambda x: x["published"], reverse=True)
     os.makedirs("scan", exist_ok=True)
     meta = {"generated": datetime.now(timezone.utc).isoformat(), "hours": HOURS, "count": len(items),
             "feeds_ok": sum(1 for s in status.values() if s["ok"]), "feeds_total": len(status)}
     with open("scan/feed.json", "w") as f:
         json.dump({"meta": meta, "items": items}, f, indent=0, ensure_ascii=False)
+    # Compact, numbered list for the editor to read in full (numbers match feed.json items).
+    with open("scan/headlines.txt", "w") as f:
+        f.write(f"# {meta['count']} Florida headlines, newest first, collected {meta['generated'][:16]} UTC. "
+                "Format: number | published (UTC) | source | headline. Full link + summary: scan/feed.json items[number].\n")
+        for i, x in enumerate(items):
+            f.write(f"{i} | {x['published'][:16].replace('T', ' ')} | {x['source']} | {x['title']}\n")
     with open("scan/status.json", "w") as f:
         json.dump({"meta": meta, "feeds": status}, f, indent=1)
     print(f"{meta['count']} headlines from {meta['feeds_ok']}/{meta['feeds_total']} feeds")
