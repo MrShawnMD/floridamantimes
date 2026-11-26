@@ -1,0 +1,331 @@
+{
+ "meta": {
+  "generated": "2026-11-26T05:20:48.850671+00:00",
+  "hours": 72,
+  "count": 2373,
+  "feeds_ok": 60,
+  "feeds_total": 65
+ },
+ "feeds": {
+  "WFLA (Tampa)": {
+   "ok": true,
+   "items": 50,
+   "kept": 50
+  },
+  "WFLA Florida": {
+   "ok": true,
+   "items": 50,
+   "kept": 15
+  },
+  "FOX 13 Tampa": {
+   "ok": true,
+   "items": 25,
+   "kept": 25
+  },
+  "FOX 13 Local": {
+   "ok": true,
+   "items": 25,
+   "kept": 9
+  },
+  "FOX 35 Orlando": {
+   "ok": true,
+   "items": 25,
+   "kept": 16
+  },
+  "FOX 35 Local": {
+   "ok": true,
+   "items": 25,
+   "kept": 8
+  },
+  "WTSP 10 Tampa Bay": {
+   "ok": true,
+   "items": 40,
+   "kept": 40
+  },
+  "Tampa Bay 28": {
+   "ok": true,
+   "items": 10,
+   "kept": 0
+  },
+  "WWSB Sarasota": {
+   "ok": true,
+   "items": 20,
+   "kept": 20
+  },
+  "WINK Fort Myers": {
+   "ok": false,
+   "error": "HTTP Error 404: Not Found"
+  },
+  "Fox 4 Fort Myers": {
+   "ok": false,
+   "error": "HTTP Error 404: Not Found"
+  },
+  "WESH Orlando": {
+   "ok": true,
+   "items": 20,
+   "kept": 20
+  },
+  "ClickOrlando WKMG": {
+   "ok": true,
+   "items": 20,
+   "kept": 17
+  },
+  "WPBF West Palm": {
+   "ok": true,
+   "items": 20,
+   "kept": 9
+  },
+  "WPTV West Palm": {
+   "ok": true,
+   "items": 3,
+   "kept": 3
+  },
+  "Local 10 Miami": {
+   "ok": true,
+   "items": 100,
+   "kept": 81
+  },
+  "CBS Miami": {
+   "ok": true,
+   "items": 30,
+   "kept": 30
+  },
+  "NBC 6 Miami": {
+   "ok": true,
+   "items": 51,
+   "kept": 49
+  },
+  "WSVN 7 Miami": {
+   "ok": true,
+   "items": 10,
+   "kept": 8
+  },
+  "News4Jax": {
+   "ok": true,
+   "items": 20,
+   "kept": 3
+  },
+  "First Coast News": {
+   "ok": true,
+   "items": 40,
+   "kept": 17
+  },
+  "WCJB Gainesville": {
+   "ok": true,
+   "items": 20,
+   "kept": 9
+  },
+  "WCTV Tallahassee": {
+   "ok": true,
+   "items": 20,
+   "kept": 8
+  },
+  "WTXL Tallahassee": {
+   "ok": true,
+   "items": 3,
+   "kept": 3
+  },
+  "WJHG Panama City": {
+   "ok": true,
+   "items": 20,
+   "kept": 8
+  },
+  "WKRG Pensacola/Mobile": {
+   "ok": true,
+   "items": 12,
+   "kept": 12
+  },
+  "WEAR Pensacola": {
+   "ok": true,
+   "items": 41,
+   "kept": 20
+  },
+  "CBS12 West Palm": {
+   "ok": true,
+   "items": 46,
+   "kept": 42
+  },
+  "WFTV Orlando": {
+   "ok": true,
+   "items": 15,
+   "kept": 15
+  },
+  "Keys Weekly": {
+   "ok": true,
+   "items": 50,
+   "kept": 33
+  },
+  "Florida Keys Free Press / KeysInfoNet": {
+   "ok": false,
+   "error": "HTTP Error 429: Too Many Requests"
+  },
+  "Google News: Florida deputies": {
+   "ok": true,
+   "items": 47,
+   "kept": 29
+  },
+  "Google News: Florida police said": {
+   "ok": true,
+   "items": 19,
+   "kept": 16
+  },
+  "Google News: Florida sheriff's office": {
+   "ok": true,
+   "items": 30,
+   "kept": 17
+  },
+  "Google News: Florida arrested": {
+   "ok": true,
+   "items": 100,
+   "kept": 72
+  },
+  "Google News: Florida man": {
+   "ok": true,
+   "items": 91,
+   "kept": 55
+  },
+  "Google News: Florida woman": {
+   "ok": false,
+   "error": "HTTP Error 429: Too Many Requests"
+  },
+  "Google News: Florida wildlife": {
+   "ok": true,
+   "items": 35,
+   "kept": 28
+  },
+  "Google News: FWC Florida": {
+   "ok": true,
+   "items": 27,
+   "kept": 18
+  },
+  "Google News: Florida county commission": {
+   "ok": true,
+   "items": 60,
+   "kept": 53
+  },
+  "Google News: Florida city council": {
+   "ok": true,
+   "items": 31,
+   "kept": 26
+  },
+  "Google News: Florida lawsuit": {
+   "ok": true,
+   "items": 40,
+   "kept": 37
+  },
+  "Google News: Sarasota": {
+   "ok": true,
+   "items": 100,
+   "kept": 84
+  },
+  "Google News: Bradenton": {
+   "ok": true,
+   "items": 100,
+   "kept": 89
+  },
+  "Google News: Tampa": {
+   "ok": false,
+   "error": "HTTP Error 429: Too Many Requests"
+  },
+  "Google News: St. Petersburg": {
+   "ok": true,
+   "items": 100,
+   "kept": 93
+  },
+  "Google News: Fort Myers": {
+   "ok": true,
+   "items": 100,
+   "kept": 92
+  },
+  "Google News: Cape Coral": {
+   "ok": true,
+   "items": 73,
+   "kept": 63
+  },
+  "Google News: Naples Florida": {
+   "ok": true,
+   "items": 36,
+   "kept": 33
+  },
+  "Google News: Orlando": {
+   "ok": true,
+   "items": 100,
+   "kept": 90
+  },
+  "Google News: Daytona Beach": {
+   "ok": true,
+   "items": 100,
+   "kept": 87
+  },
+  "Google News: Melbourne Florida": {
+   "ok": true,
+   "items": 34,
+   "kept": 29
+  },
+  "Google News: Ocala": {
+   "ok": true,
+   "items": 100,
+   "kept": 88
+  },
+  "Google News: Gainesville Florida": {
+   "ok": true,
+   "items": 67,
+   "kept": 59
+  },
+  "Google News: Jacksonville": {
+   "ok": true,
+   "items": 100,
+   "kept": 89
+  },
+  "Google News: Tallahassee": {
+   "ok": true,
+   "items": 100,
+   "kept": 87
+  },
+  "Google News: Pensacola": {
+   "ok": true,
+   "items": 100,
+   "kept": 77
+  },
+  "Google News: Panama City Beach": {
+   "ok": true,
+   "items": 31,
+   "kept": 27
+  },
+  "Google News: Key West": {
+   "ok": true,
+   "items": 41,
+   "kept": 26
+  },
+  "Google News: Miami": {
+   "ok": true,
+   "items": 100,
+   "kept": 46
+  },
+  "Google News: Fort Lauderdale": {
+   "ok": true,
+   "items": 100,
+   "kept": 78
+  },
+  "Google News: West Palm Beach": {
+   "ok": true,
+   "items": 100,
+   "kept": 76
+  },
+  "Google News: Port St. Lucie": {
+   "ok": true,
+   "items": 36,
+   "kept": 26
+  },
+  "Google News: Lakeland": {
+   "ok": true,
+   "items": 100,
+   "kept": 95
+  },
+  "Google News: Polk County Florida": {
+   "ok": true,
+   "items": 28,
+   "kept": 18
+  }
+ }
+}
