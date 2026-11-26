@@ -1,10 +1,10 @@
 {
  "meta": {
-  "generated": "2026-11-26T05:20:48.850671+00:00",
+  "generated": "2026-11-26T05:23:24.850273+00:00",
   "hours": 72,
-  "count": 2373,
-  "feeds_ok": 60,
-  "feeds_total": 65
+  "count": 2580,
+  "feeds_ok": 62,
+  "feeds_total": 63
  },
  "feeds": {
   "WFLA (Tampa)": {
@@ -51,14 +51,6 @@
    "ok": true,
    "items": 20,
    "kept": 20
-  },
-  "WINK Fort Myers": {
-   "ok": false,
-   "error": "HTTP Error 404: Not Found"
-  },
-  "Fox 4 Fort Myers": {
-   "ok": false,
-   "error": "HTTP Error 404: Not Found"
   },
   "WESH Orlando": {
    "ok": true,
@@ -161,8 +153,8 @@
   },
   "Google News: Florida deputies": {
    "ok": true,
-   "items": 47,
-   "kept": 29
+   "items": 37,
+   "kept": 26
   },
   "Google News: Florida police said": {
    "ok": true,
@@ -172,7 +164,7 @@
   "Google News: Florida sheriff's office": {
    "ok": true,
    "items": 30,
-   "kept": 17
+   "kept": 18
   },
   "Google News: Florida arrested": {
    "ok": true,
@@ -185,28 +177,29 @@
    "kept": 55
   },
   "Google News: Florida woman": {
-   "ok": false,
-   "error": "HTTP Error 429: Too Many Requests"
+   "ok": true,
+   "items": 71,
+   "kept": 35
   },
   "Google News: Florida wildlife": {
    "ok": true,
-   "items": 35,
-   "kept": 28
+   "items": 64,
+   "kept": 54
   },
   "Google News: FWC Florida": {
    "ok": true,
-   "items": 27,
-   "kept": 18
+   "items": 23,
+   "kept": 10
   },
   "Google News: Florida county commission": {
    "ok": true,
    "items": 60,
-   "kept": 53
+   "kept": 52
   },
   "Google News: Florida city council": {
    "ok": true,
-   "items": 31,
-   "kept": 26
+   "items": 64,
+   "kept": 54
   },
   "Google News: Florida lawsuit": {
    "ok": true,
@@ -221,46 +214,47 @@
   "Google News: Bradenton": {
    "ok": true,
    "items": 100,
-   "kept": 89
+   "kept": 86
   },
   "Google News: Tampa": {
-   "ok": false,
-   "error": "HTTP Error 429: Too Many Requests"
-  },
-  "Google News: St. Petersburg": {
-   "ok": true,
-   "items": 100,
-   "kept": 93
-  },
-  "Google News: Fort Myers": {
    "ok": true,
    "items": 100,
    "kept": 92
   },
+  "Google News: St. Petersburg": {
+   "ok": true,
+   "items": 100,
+   "kept": 91
+  },
+  "Google News: Fort Myers": {
+   "ok": true,
+   "items": 100,
+   "kept": 95
+  },
   "Google News: Cape Coral": {
    "ok": true,
-   "items": 73,
-   "kept": 63
+   "items": 95,
+   "kept": 83
   },
   "Google News: Naples Florida": {
    "ok": true,
-   "items": 36,
-   "kept": 33
+   "items": 56,
+   "kept": 50
   },
   "Google News: Orlando": {
    "ok": true,
    "items": 100,
-   "kept": 90
+   "kept": 91
   },
   "Google News: Daytona Beach": {
    "ok": true,
-   "items": 100,
-   "kept": 87
+   "items": 71,
+   "kept": 65
   },
   "Google News: Melbourne Florida": {
    "ok": true,
-   "items": 34,
-   "kept": 29
+   "items": 50,
+   "kept": 42
   },
   "Google News: Ocala": {
    "ok": true,
@@ -269,38 +263,38 @@
   },
   "Google News: Gainesville Florida": {
    "ok": true,
-   "items": 67,
-   "kept": 59
+   "items": 100,
+   "kept": 89
   },
   "Google News: Jacksonville": {
    "ok": true,
    "items": 100,
-   "kept": 89
+   "kept": 90
   },
   "Google News: Tallahassee": {
    "ok": true,
    "items": 100,
-   "kept": 87
+   "kept": 88
   },
   "Google News: Pensacola": {
    "ok": true,
-   "items": 100,
-   "kept": 77
+   "items": 75,
+   "kept": 57
   },
   "Google News: Panama City Beach": {
    "ok": true,
-   "items": 31,
-   "kept": 27
+   "items": 47,
+   "kept": 42
   },
   "Google News: Key West": {
    "ok": true,
-   "items": 41,
-   "kept": 26
+   "items": 47,
+   "kept": 33
   },
   "Google News: Miami": {
    "ok": true,
    "items": 100,
-   "kept": 46
+   "kept": 31
   },
   "Google News: Fort Lauderdale": {
    "ok": true,
@@ -310,7 +304,7 @@
   "Google News: West Palm Beach": {
    "ok": true,
    "items": 100,
-   "kept": 76
+   "kept": 74
   },
   "Google News: Port St. Lucie": {
    "ok": true,
@@ -319,13 +313,13 @@
   },
   "Google News: Lakeland": {
    "ok": true,
-   "items": 100,
-   "kept": 95
+   "items": 97,
+   "kept": 93
   },
   "Google News: Polk County Florida": {
    "ok": true,
-   "items": 28,
-   "kept": 18
+   "items": 20,
+   "kept": 13
   }
  }
 }
