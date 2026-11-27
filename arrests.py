@@ -8,6 +8,30 @@ Images: images/arrests/<date>-<place-slug>.jpg (illustration, invented people on
 
 ARRESTS = [
     {
+        "date": "2026-11-25",
+        "place": "Brooksville",
+        "county": "Hernando",
+        "emoji": "📻",
+        "image_prompt": "Photorealistic, over-the-top early-morning scene outside a small-town Florida radio station building with a tall broadcast antenna and palm trees: a frustrated fictional man in a rumpled hoodie mid-kick against a locked glass front door, a giant comically clear muddy shoe print already stamped on the glass, two startled fictional employees in headphones peeking out from behind a mixing board inside, dawn light and long shadows, cinematic movie-still look, invented fictional people only, no logos, no readable text",
+        "headline": "Man allegedly tries to kick his way into a Brooksville radio station. His shoe print signed the door.",
+        "blurb": "The Hernando County Sheriff's Office says employees at WWJB heard loud kicks and someone working the front-door handle around 6 a.m. Deputies found a shoe impression on the door, then found a 40-year-old man nearby whose tread matched, the sheriff's office said.",
+        "charge": "Attempted burglary",
+        "source_name": "Tampa Bay Beacons",
+        "source_url": "https://www.tampabaybeacons.com/2026/11/27/man-arrested-after-attempted-break-in-at-brooksville-radio-station/",
+    },
+    {
+        "date": "2026-11-20",
+        "place": "Sumter County",
+        "county": "Sumter",
+        "emoji": "🦌",
+        "headline": "FWC says a content creator poached an 8-point buck, then posted the video.",
+        "blurb": "FWC says a 41-year-old Plant City man harvested the buck while trespassing on private land in Sumter County, then reported it as a legal public-land harvest. Officers say his own online video helped them check his story.",
+        "charge": "Armed trespass, providing false information",
+        "source_name": "Florida Fish and Wildlife Conservation Commission",
+        "source_url": "https://myfwc.com/news/all-news/poaching-arrest-1126/",
+        "story": "plant-city-content-creator-poached-buck-posted-video",
+    },
+    {
         "date": "2026-11-20",
         "place": "Tampa",
         "county": "Hillsborough",
