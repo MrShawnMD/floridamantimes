@@ -81,6 +81,17 @@ for q in [f"{st} man" for st in STATES] + [f"{st} woman" for st in STATES[::3]] 
     NATIONAL[f"Google News: {q}"] = ("https://news.google.com/rss/search?q="
                                      + urllib.parse.quote(f"{q} when:3d") + "&hl=en-US&gl=US&ceid=US:en")
 
+# Upcoming events: festival / fair / competition announcements (30-day lookback, since events get announced early).
+EVENT_QUERIES = ["Florida festival", "Florida festival 2027", "Florida fair 2027", "Florida county fair",
+                 "Florida seafood festival", "Florida food festival", "Florida strawberry festival",
+                 "Florida renaissance festival", "Florida rodeo", "Florida boat parade", "Florida air show",
+                 "Florida chili cook-off", "Florida python challenge", "Florida mullet", "Florida swamp festival",
+                 "Florida weird festival", "Florida parade", "Florida holiday lights", "Florida pirate festival",
+                 "Sarasota festival", "Tampa festival", "Orlando festival", "Miami festival", "Jacksonville festival",
+                 "Key West festival", "Panhandle festival"]
+EVENTS = {f"Google News: {q}": ("https://news.google.com/rss/search?q=" + urllib.parse.quote(f"{q} when:30d")
+                                + "&hl=en-US&gl=US&ceid=US:en") for q in EVENT_QUERIES}
+
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/rss+xml, application/xml, text/xml, */*"})
@@ -196,9 +207,17 @@ def main():
                 "Full link + summary: scan/national.json items[number].\n")
         for i, x in enumerate(national):
             f.write(f"{i} | {x['published'][:16].replace('T', ' ')} | {x['source']} | {x['title']}\n")
+    events = collect(EVENTS, datetime.now(timezone.utc) - timedelta(days=30), set(), status)
+    with open("scan/events.json", "w") as f:
+        json.dump({"meta": {"generated": meta["generated"], "count": len(events)}, "items": events}, f, indent=0, ensure_ascii=False)
+    with open("scan/events.txt", "w") as f:
+        f.write(f"# {len(events)} Florida event headlines (last 30 days). Format: number | published | source | headline. "
+                "Full link + summary: scan/events.json items[number]. Always confirm dates on the official event site.\n")
+        for i, x in enumerate(events):
+            f.write(f"{i} | {x['published'][:10]} | {x['source']} | {x['title']}\n")
     with open("scan/status.json", "w") as f:
         json.dump({"meta": meta, "feeds": status}, f, indent=1)
-    print(f"{meta['count']} Florida + {len(national)} national headlines; {meta['feeds_ok']}/{meta['feeds_total']} feeds ok")
+    print(f"{meta['count']} Florida + {len(national)} national + {len(events)} event headlines; {meta['feeds_ok']}/{meta['feeds_total']} feeds ok")
 
 
 if __name__ == "__main__":

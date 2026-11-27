@@ -24,7 +24,7 @@ from places import PLACES
 from interviews import INTERVIEWS, WANTED, STANDARD_QS
 from cams import CAMS
 from counties import county_for, county_of_place
-from dispensaries import BRANDS, AREAS
+from dispensaries import BRANDS, AREAS, STRAIN_WEEKS
 
 SITE = "https://floridamantimes.com"
 NAME = "Florida Man Times"
@@ -161,7 +161,7 @@ HUB = [
     ("/events/", "🎪", "Events", "Fairs, festivals and python hunts"),
     ("/eats/", "🐊", "Weird Eats", "Gator, frog legs and lion tacos"),
     ("/effd-up/", "🎥", "Eff'd Up With…", "Video interviews with wild Floridians"),
-    ("/cams/", "📹", "Florida Man Cams", "Live cams: manatees, Duval Street, rockets"),
+    ("/cams/", "📹", "Florida Cams", "Live cams: manatees, Duval Street, rockets"),
     ("/roach-report/", "🪳", "Roach Report", "Restaurants the state just shut down"),
     ("/restaurant-inspections/", "📍", "My County", "Local news, arrests and eats for your county"),
     ("/clean-plate-club/", "🍽️", "Clean Plate Club", "Restaurants with perfect inspections"),
@@ -775,14 +775,14 @@ def cam_card(c):
 
 def build_cams():
     body = f"""<section class="effd-hero"><div class="container">
-  <span class="effd-logo big">Florida Man <em>Cams</em></span>
+  <span class="effd-logo big">Florida <em>Cams</em></span>
   <p class="effd-tag">Live, right now, somewhere in Florida: manatees piling into a power plant, a party on Duval Street, a rocket about to leave the planet. Pull up a chair.</p>
 </div></section>
 <section class="container" style="margin-top:32px">
   <div class="rental-grid">{"".join(cam_card(c) for c in CAMS)}</div>
   <p class="section-sub" style="margin-top:22px">Cams are run by the organizations linked on each card, so they may go offline for weather, maintenance or the off-season. Pictures here are illustrations; tap through for the real live view.</p>
 </section>"""
-    write("cams/index.html", page(f"Florida Man Cams: Live Florida Webcams | {NAME}",
+    write("cams/index.html", page(f"Florida Cams: Live Florida Webcams | {NAME}",
         "Live Florida webcams: manatee cams at Blue Spring and a power plant, Sloppy Joe's and Mallory Square in Key West, Space Coast rocket launches and more.",
         SITE + "/cams/", body))
 
@@ -1240,6 +1240,63 @@ navigator.clipboard.writeText(b.dataset.t).then(function(){{var o=b.textContent;
           extra_head='<meta name="robots" content="noindex,nofollow">'))
 
 
+TYPE_EMOJI = {"Sativa": "☀️", "Indica": "🌙", "Hybrid": "🌗"}
+
+
+def strain_card(p):
+    spon = '<span class="spon">Sponsored</span>' if p.get("sponsored") else ""
+    return f"""<article class="strain {p["type"].lower()}">
+  <div class="strain-type">{TYPE_EMOJI.get(p["type"], "🌿")} {e(p["type"])} of the Week {spon}</div>
+  <h3>{e(p["name"])}</h3>
+  <p class="meta">{e(p["brand"])} · at {e(p["dispensary"])}</p>
+  <ul class="strain-facts"><li><b>Form:</b> {e(p["form"])}</li><li><b>Potency:</b> {e(p["thc"])}</li><li><b>Lineage:</b> {e(p["lineage"])}</li></ul>
+  <p>{e(p["notes"])}</p>
+  <a class="cam-btn" href="{e(p["link"])}" rel="noopener sponsored" target="_blank">See it ({e(p["source"])}) ↗</a>
+</article>"""
+
+
+STRAIN_FINE = ("Florida is medical-only: you need an active Medical Marijuana Use Registry card to buy. "
+               "We don't give medical or dosing advice, and effects differ person to person; talk to your qualified physician. "
+               "Menus, potency and prices change batch to batch, so check your local store. Paid picks are always labeled Sponsored.")
+
+
+def build_strains():
+    if not STRAIN_WEEKS:
+        return
+    weeks = sorted(STRAIN_WEEKS, key=lambda w: w["week"], reverse=True)
+    for i, w in enumerate(weeks):
+        others = "".join(f'<li><a href="/dispensaries/strains-of-the-week/{o["week"]}/">{e(o["title"])}</a> <span class="meta">{o["week"]}</span></li>'
+                         for o in weeks if o is not w)[:6000]
+        body = f"""<section class="container" style="padding-top:36px">
+  <p class="meta"><a href="/dispensaries/">Weed Guide</a> › Strains of the Week</p>
+  <span class="tag">Strains of the Week · {w["week"]}</span>
+  <h1>{e(w["title"])}</h1>
+  <p class="story-dek" style="max-width:820px">{e(w["intro"])}</p>
+  <div class="strain-grid">{"".join(strain_card(p) for p in w["picks"])}</div>
+  <div class="source-box"><span class="label">The fine print</span><p>{STRAIN_FINE}</p></div>
+  {f'<h2 class="label" style="margin-top:28px">Past picks</h2><ul class="past-weeks">{others}</ul>' if others else ""}
+  <p style="margin-top:20px"><a href="/advertise/">Dispensaries: want your strain featured? →</a></p>
+</section>"""
+        desc = "This week's Florida Sativa, Indica and Hybrid picks: " + ", ".join(p["name"] for p in w["picks"]) + ". Real products on Florida dispensary menus."
+        title = f"{e(w['title'])} | {NAME}"
+        write(f"dispensaries/strains-of-the-week/{w['week']}/index.html",
+              page(title, desc, SITE + f"/dispensaries/strains-of-the-week/{w['week']}/", body))
+        if i == 0:
+            write("dispensaries/strains-of-the-week/index.html",
+                  page(f"Florida Strains of the Week: Sativa, Indica & Hybrid Picks | {NAME}", desc,
+                       SITE + f"/dispensaries/strains-of-the-week/{w['week']}/", body))
+
+
+def strains_teaser():
+    if not STRAIN_WEEKS:
+        return ""
+    w = max(STRAIN_WEEKS, key=lambda w: w["week"])
+    picks = "".join(f'<li><span>{TYPE_EMOJI.get(p["type"], "🌿")} <b>{e(p["type"])}:</b></span> {e(p["name"])} <span class="meta">({e(p["dispensary"])})</span></li>' for p in w["picks"])
+    return f"""<div class="source-box strains-box" style="margin-top:28px"><span class="label">🌿 Strains of the Week</span>
+  <h3 style="margin:6px 0"><a href="/dispensaries/strains-of-the-week/">{e(w["title"])}</a></h3>
+  <ul class="strain-mini">{picks}</ul><a class="rail-more" href="/dispensaries/strains-of-the-week/">Read this week's picks →</a></div>"""
+
+
 def build_dispensaries():
     mq = lambda q: "https://www.google.com/maps/search/" + quote_plus(q)
     brands = "".join(f"""<article class="rental"><div class="rental-body">
@@ -1254,6 +1311,7 @@ def build_dispensaries():
 <section class="container" style="margin-top:32px">
   <div class="source-box" style="border-left:5px solid var(--accent)"><span class="label">First things first</span>
   <p><strong>Florida is medical-only.</strong> Recreational marijuana fell short of the 60% it needed in 2024, and the 2026 version didn't make the ballot. To buy at a dispensary you need a state Medical Marijuana Use Registry card.</p></div>
+  {strains_teaser()}
 
   <div class="section-head" style="margin-top:36px"><h2 class="label">How to get a card</h2></div>
   <ol class="how-list" style="list-style:none;padding:0">
@@ -1306,7 +1364,7 @@ SPONSOR_SLOTS = [
     ("clean", "🍽️", "Clean Plate Club", "Featured spot for your county on our list of restaurants with perfect state inspections. Readers come here right after the Roach Report.", "/clean-plate-club/"),
     ("eats", "🐊", "Weird Eats", "Feature your restaurant, food truck or bar next to Florida's strangest menus.", "/eats/"),
     ("events", "🎪", "Weird Florida Events", "Promote your festival, fair or event on our upcoming-events calendar.", "/events/"),
-    ("cams", "📹", "Florida Man Cams", "Sponsor the live cams page, or get your own business cam featured.", "/cams/"),
+    ("cams", "📹", "Florida Cams", "Sponsor the live cams page, or get your own business cam featured.", "/cams/"),
     ("lemonade", "🍋", "LEMONADE Charity Drag Race", "Sponsor a lemon car: tiers from $2,500 to $25,000, all for local charities.", "/gives-back/lemonade/"),
     ("site", "📰", "Sitewide & social", "Banner spots on stories, plus sponsored mentions in our daily videos on TikTok, Reels and Facebook.", "/"),
 ]
@@ -1435,13 +1493,21 @@ def eats_teaser():
 </aside>"""
 
 
+US_ABBR = {"Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA","Colorado":"CO","Connecticut":"CT","Delaware":"DE","Georgia":"GA","Hawaii":"HI","Idaho":"ID","Illinois":"IL","Indiana":"IN","Iowa":"IA","Kansas":"KS","Kentucky":"KY","Louisiana":"LA","Maine":"ME","Maryland":"MD","Massachusetts":"MA","Michigan":"MI","Minnesota":"MN","Mississippi":"MS","Missouri":"MO","Montana":"MT","Nebraska":"NE","Nevada":"NV","New Hampshire":"NH","New Jersey":"NJ","New Mexico":"NM","New York":"NY","North Carolina":"NC","North Dakota":"ND","Ohio":"OH","Oklahoma":"OK","Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC","South Dakota":"SD","Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT","Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY","District of Columbia":"DC"}
+
+
 def across_america_row():
+    """Compact headline strip: lots of national weirdness, very little space."""
     if not US_STORIES:
         return ""
-    return f"""<section class="container across">
-  <div class="section-head split"><h2 class="label">🇺🇸 Meanwhile, Not in Florida</h2><a class="see-all" href="/section/across-america/">More from Across America →</a></div>
-  <p class="section-sub">Florida doesn't have a monopoly on weird. Our cousins in the other 49 states, doing their best.</p>
-  <div class="grid4 rowscroll">{"".join(card(s) for s in US_STORIES[:4])}</div>
+    lis = "".join(
+        f'<li><span class="st">{US_ABBR.get(s.get("state",""), "US")}</span>'
+        f'<a href="/stories/{s["slug"]}/">{e(s["title"])}</a></li>' for s in US_STORIES[:8])
+    return f"""<section class="container">
+  <div class="across-strip">
+    <div class="as-head"><h2>🇺🇸 Meanwhile, Not in Florida</h2><a href="/section/across-america/">All {len(US_STORIES)} →</a></div>
+    <ul class="as-list">{lis}</ul>
+  </div>
 </section>"""
 
 
@@ -1460,12 +1526,12 @@ def build_home():
     <div class="grid4">{"".join(card(s) for s in (latest or FL_STORIES[1:]))}</div>
   </div>
 </section>
-{across_america_row()}
 
 <section class="container two-up">
   <div>{events_band_inner()}<div style="margin-top:22px">{roach_teaser()}</div></div>
   <div>{eats_teaser()}{headline_list(top_stories(5), "Best of Florida Man")}<a class="rail-more" href="/best-of/">See the Top 10 →</a></div>
 </section>
+{across_america_row()}
 {lemonade_promo()}
 {features_row()}
 {effd_promo()}
@@ -1610,7 +1676,7 @@ def build_404():
 
 def build_feeds():
     today = dt.date.today().isoformat()
-    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/odd-places/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/advertise/", today), (SITE + "/clean-plate-club/", today), (SITE + "/restaurant-inspections/", today)] + [(u, today) for u in COUNTY_URLS] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS]
+    urls = [(SITE + "/", today), (SITE + "/about/", today), (SITE + "/arrests/", today), (SITE + "/events/", today), (SITE + "/eats/", today), (SITE + "/arrest-lookup/", today), (SITE + "/best-of/", today), (SITE + "/gives-back/", today), (SITE + "/gives-back/lemonade/", today), (SITE + "/rentals/", today), (SITE + "/odd-places/", today), (SITE + "/artist-of-the-week/", today), (SITE + "/effd-up/", today), (SITE + "/cams/", today), (SITE + "/roach-report/", today), (SITE + "/dispensaries/", today), (SITE + "/dispensaries/strains-of-the-week/", today), (SITE + "/advertise/", today), (SITE + "/clean-plate-club/", today), (SITE + "/restaurant-inspections/", today)] + [(u, today) for u in COUNTY_URLS] + [(SITE + f"/effd-up/{iv['slug']}/", today) for iv in INTERVIEWS] + [(SITE + f"/dispensaries/strains-of-the-week/{w['week']}/", today) for w in STRAIN_WEEKS]
     urls += [(f"{SITE}/section/{slug}/", today) for slug in SECTIONS.values()]
     urls += [(f'{SITE}/stories/{s["slug"]}/', s["date"]) for s in STORIES]
     sm = "".join(f"<url><loc>{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
@@ -1648,6 +1714,7 @@ if __name__ == "__main__":
     build_roach()
     build_social()
     build_dispensaries()
+    build_strains()
     build_advertise()
     build_clean_plate()
     COUNTY_URLS[:] = build_county_pages()

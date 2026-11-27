@@ -178,3 +178,18 @@ Florida is the core of the site. The homepage lead story is ALWAYS a Florida sto
 - Headline style mirrors ours, with the state: "Minnesota Man …", "New York Woman …", "Ohio Couple …". Keep the house voice; a light running joke that Florida finally has competition is fine, but don't overdo it.
 - Fields: same as any story, plus "state": "<Full state name>" (e.g. "Minnesota"), "category": "Across America", "location": "<City>, <State>". Never set state to "Florida" for these.
 - Volume: morning run 2 national stories, afternoon run 1 (only if genuinely good). Florida stories always come first in effort and count.
+
+## Strains of the Week (Weed Guide)
+
+Lives in `STRAIN_WEEKS` in dispensaries.py; renders at /dispensaries/strains-of-the-week/ (plus an archive page per week) and a teaser on /dispensaries/. Refreshed on Monday morning runs.
+- Each week: exactly one Sativa, one Indica and one Hybrid. Each one must be a real product on a real Florida dispensary menu, with the brand/dispensary page or a live-menu tracker (JointCommerce, Weedmaps, Leafly) as the `link` and `source`.
+- Use only facts the seller or tracker lists: product form, label THC, lineage, terpenes, flavor and aroma as the seller describes them, and price if listed. Write "check your local menu", because stock changes.
+- No health or medical claims (nothing about treating pain, anxiety or sleep). No dosing advice. No invented effects, ratings or reviews. No pictures of real products or packaging.
+- Voice: the same witty voice, aimed at adult card holders. Florida is medical-only. Never encourage illegal use, and never suggest buying without a card.
+- Rotate dispensaries; try to use 3 different chains each week. Don't repeat a strain within 8 weeks.
+- A paid pick gets `"sponsored": True`, which shows a "Sponsored" label. A sponsor never gets to make medical claims, even when paying.
+- NEVER post strain content to Facebook, Instagram or TikTok. Meta and TikTok ban cannabis promotion, and it would put the accounts at risk. It stays on the website only.
+
+## Events
+
+The Events page has to look current at all times. Every morning run checks scan/events.txt and keeps at least 15 upcoming events listed, with at least 4 in the next 30 days. Past events drop off automatically.

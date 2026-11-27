@@ -692,3 +692,28 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 
 .left-label { font-size: 13px; margin: 0 0 10px; }
 .across .section-sub { margin: -6px 0 14px; color: var(--gray-600); font-size: 15px; }
+
+/* Across America compact strip */
+.across-strip{border:2px solid var(--ink,#111);border-radius:10px;padding:14px 18px;background:#fffbea}
+.as-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.as-head h2{font-size:1.05rem;margin:0;text-transform:uppercase;letter-spacing:.04em}
+.as-head a{font-size:.85rem;font-weight:700;white-space:nowrap}
+.as-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+.as-list li{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-top:1px dashed #d8d0b0;font-size:.95rem;line-height:1.3}
+.as-list li:nth-child(-n+2){border-top:0}
+.as-list .st{flex:0 0 auto;font-size:.7rem;font-weight:800;background:#111;color:#fff;border-radius:4px;padding:2px 5px;min-width:26px;text-align:center}
+.as-list a{color:inherit;text-decoration:none;font-weight:600}
+.as-list a:hover{text-decoration:underline}
+@media(max-width:700px){.as-list{grid-template-columns:1fr}.as-list li:nth-child(2){border-top:1px dashed #d8d0b0}}
+
+/* Strains of the Week */
+.strain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px 0}
+.strain{border:2px solid #111;border-radius:12px;padding:16px;background:#fff}
+.strain.sativa{border-top:8px solid #f4b400}.strain.indica{border-top:8px solid #6a3fb5}.strain.hybrid{border-top:8px solid #2e9e5b}
+.strain-type{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.strain h3{margin:6px 0 2px;font-size:1.35rem}
+.strain-facts{list-style:none;padding:0;margin:10px 0;font-size:.9rem}.strain-facts li{padding:2px 0}
+.spon{background:#111;color:#fff;border-radius:4px;padding:1px 6px;font-size:.7rem;margin-left:6px}
+.strain-mini{list-style:none;padding:0;margin:6px 0 10px}.strain-mini li{padding:3px 0}
+.past-weeks{padding-left:18px}
+@media(max-width:800px){.strain-grid{grid-template-columns:1fr}}
