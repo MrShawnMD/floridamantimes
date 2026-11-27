@@ -8,6 +8,18 @@ Images: images/arrests/<date>-<place-slug>.jpg (illustration, invented people on
 
 ARRESTS = [
     {
+        "date": "2026-11-20",
+        "place": "Tampa",
+        "county": "Hillsborough",
+        "emoji": "🔑",
+        "headline": "Police say a man got a $150,000 G-Wagon from a hotel valet by acting like it was his.",
+        "blurb": "Tampa police say a 27-year-old man drove off from the Marriott Waterside valet in a 2021 Mercedes G63 without the owner's ticket. Officers tracked the SUV by GPS and arrested him on Platt Street about 30 minutes after the call.",
+        "charge": "Grand theft of a motor vehicle, driving with a suspended license, assault on an officer, resisting an officer",
+        "source_name": "FOX 13 Tampa Bay",
+        "source_url": "https://www.fox13news.com/news/tampa-hotel-valet-theft-man-accused-stealing-150000-mercedes-g-wagon",
+        "story": "tampa-valet-hands-150000-g-wagon-to-wrong-man",
+    },
+    {
         "date": "2026-11-25",
         "place": "Bradenton",
         "county": "Manatee",
