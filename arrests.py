@@ -8,6 +8,30 @@ Images: images/arrests/<date>-<place-slug>.jpg (illustration, invented people on
 
 ARRESTS = [
     {
+        "date": "2026-11-17",
+        "place": "Bartow",
+        "county": "Polk",
+        "emoji": "⚡",
+        "headline": "Felon allegedly runs from a loose-tag traffic stop, takes a Taser to the groin, keeps running.",
+        "blurb": "Polk County deputies say the 21-year-old fled into the woods after a 'look over there' move, got back up after the Taser hit and was caught with two guns in the car, one reported stolen. Sheriff Grady Judd says he had posted a gun photo online.",
+        "charge": "Possession of a firearm by a convicted felon (2 counts), grand theft of a firearm, battery on a law enforcement officer, resisting with violence and more",
+        "source_name": "FOX 13 Tampa Bay",
+        "source_url": "https://www.fox13news.com/news/bartow-felon-tased-fleeing-traffic-stop",
+        "story": "bartow-felon-taser-flees-traffic-stop-posted-gun-photo",
+    },
+    {
+        "date": "2026-11-24",
+        "place": "Port St. Lucie",
+        "county": "St. Lucie",
+        "emoji": "🤖",
+        "headline": "Man who used an AI clone of a streamer's voice to land $260,000 in crypto gets 47 months.",
+        "blurb": "Federal prosecutors say the 36-year-old posed as Kick streamer N3on, signed deals in his name and sent meme coin organizers a fake AI voice recording as proof. He pleaded guilty.",
+        "charge": "Money laundering, aggravated identity theft (sentenced to 47 months)",
+        "source_name": "Decrypt",
+        "source_url": "https://decrypt.co/383941/florida-man-jailed-for-using-ai-to-pose-as-streamer-n3on-in-260k-crypto-scam",
+        "story": "port-st-lucie-man-ai-voice-clone-streamer-n3on-crypto-scam-sentenced",
+    },
+    {
         "date": "2026-11-25",
         "place": "Brooksville",
         "county": "Hernando",
