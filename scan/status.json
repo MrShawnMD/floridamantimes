@@ -1,9 +1,9 @@
 {
  "meta": {
-  "generated": "2026-11-27T17:13:15.853096+00:00",
+  "generated": "2026-11-27T19:30:01.820388+00:00",
   "hours": 72,
-  "count": 2402,
-  "feeds_ok": 134,
+  "count": 2322,
+  "feeds_ok": 133,
   "feeds_total": 135
  },
  "feeds": {
@@ -15,7 +15,7 @@
   "WFLA Florida": {
    "ok": true,
    "items": 50,
-   "kept": 9
+   "kept": 8
   },
   "FOX 13 Tampa": {
    "ok": true,
@@ -25,12 +25,12 @@
   "FOX 13 Local": {
    "ok": true,
    "items": 25,
-   "kept": 9
+   "kept": 8
   },
   "FOX 35 Orlando": {
    "ok": true,
    "items": 25,
-   "kept": 17
+   "kept": 16
   },
   "FOX 35 Local": {
    "ok": true,
@@ -60,12 +60,12 @@
   "ClickOrlando WKMG": {
    "ok": true,
    "items": 20,
-   "kept": 19
+   "kept": 18
   },
   "WPBF West Palm": {
    "ok": true,
    "items": 20,
-   "kept": 7
+   "kept": 8
   },
   "WPTV West Palm": {
    "ok": true,
@@ -78,9 +78,8 @@
    "kept": 83
   },
   "CBS Miami": {
-   "ok": true,
-   "items": 30,
-   "kept": 30
+   "ok": false,
+   "error": "HTTP Error 406: Not Acceptable"
   },
   "NBC 6 Miami": {
    "ok": true,
@@ -95,22 +94,22 @@
   "News4Jax": {
    "ok": true,
    "items": 20,
-   "kept": 5
+   "kept": 2
   },
   "First Coast News": {
    "ok": true,
    "items": 40,
-   "kept": 14
+   "kept": 15
   },
   "WCJB Gainesville": {
    "ok": true,
    "items": 20,
-   "kept": 11
+   "kept": 9
   },
   "WCTV Tallahassee": {
    "ok": true,
    "items": 20,
-   "kept": 6
+   "kept": 7
   },
   "WTXL Tallahassee": {
    "ok": true,
@@ -120,7 +119,7 @@
   "WJHG Panama City": {
    "ok": true,
    "items": 20,
-   "kept": 11
+   "kept": 7
   },
   "WKRG Pensacola/Mobile": {
    "ok": true,
@@ -130,7 +129,7 @@
   "WEAR Pensacola": {
    "ok": true,
    "items": 41,
-   "kept": 19
+   "kept": 20
   },
   "CBS12 West Palm": {
    "ok": true,
@@ -153,113 +152,113 @@
   },
   "Google News: Florida deputies": {
    "ok": true,
-   "items": 28,
-   "kept": 21
+   "items": 20,
+   "kept": 15
   },
   "Google News: Florida police said": {
    "ok": true,
-   "items": 27,
-   "kept": 22
+   "items": 23,
+   "kept": 20
   },
   "Google News: Florida sheriff's office": {
    "ok": true,
-   "items": 46,
-   "kept": 30
+   "items": 34,
+   "kept": 21
   },
   "Google News: Florida arrested": {
    "ok": true,
    "items": 100,
-   "kept": 63
+   "kept": 70
   },
   "Google News: Florida man": {
    "ok": true,
-   "items": 75,
-   "kept": 51
+   "items": 68,
+   "kept": 49
   },
   "Google News: Florida woman": {
    "ok": true,
-   "items": 85,
-   "kept": 47
+   "items": 47,
+   "kept": 29
   },
   "Google News: Florida wildlife": {
    "ok": true,
-   "items": 64,
-   "kept": 57
+   "items": 32,
+   "kept": 27
   },
   "Google News: FWC Florida": {
    "ok": true,
    "items": 18,
-   "kept": 7
+   "kept": 13
   },
   "Google News: Florida county commission": {
    "ok": true,
-   "items": 29,
-   "kept": 27
+   "items": 58,
+   "kept": 48
   },
   "Google News: Florida city council": {
    "ok": true,
-   "items": 30,
-   "kept": 26
+   "items": 58,
+   "kept": 49
   },
   "Google News: Florida lawsuit": {
    "ok": true,
-   "items": 39,
-   "kept": 37
+   "items": 51,
+   "kept": 46
   },
   "Google News: Sarasota": {
    "ok": true,
-   "items": 100,
-   "kept": 82
+   "items": 79,
+   "kept": 70
   },
   "Google News: Bradenton": {
    "ok": true,
    "items": 100,
-   "kept": 91
+   "kept": 89
   },
   "Google News: Tampa": {
    "ok": true,
    "items": 100,
-   "kept": 85
+   "kept": 87
   },
   "Google News: St. Petersburg Florida": {
    "ok": true,
-   "items": 58,
-   "kept": 54
+   "items": 32,
+   "kept": 30
   },
   "Google News: Fort Myers": {
    "ok": true,
    "items": 100,
-   "kept": 91
+   "kept": 97
   },
   "Google News: Cape Coral": {
    "ok": true,
-   "items": 89,
+   "items": 86,
    "kept": 79
   },
   "Google News: Naples Florida": {
    "ok": true,
-   "items": 62,
-   "kept": 53
+   "items": 31,
+   "kept": 24
   },
   "Google News: Orlando": {
    "ok": true,
    "items": 100,
-   "kept": 80
+   "kept": 84
   },
   "Google News: Daytona Beach": {
    "ok": true,
-   "items": 71,
-   "kept": 65
+   "items": 68,
+   "kept": 63
   },
   "Google News: Melbourne Florida": {
    "ok": true,
    "items": 38,
-   "kept": 30
+   "kept": 33
   },
   "Google News: Ocala": {
    "ok": true,
-   "items": 100,
-   "kept": 92
+   "items": 94,
+   "kept": 88
   },
   "Google News: Gainesville Florida": {
    "ok": true,
@@ -269,282 +268,282 @@
   "Google News: Jacksonville": {
    "ok": true,
    "items": 100,
-   "kept": 87
+   "kept": 84
   },
   "Google News: Tallahassee": {
    "ok": true,
    "items": 100,
-   "kept": 88
+   "kept": 85
   },
   "Google News: Pensacola": {
    "ok": true,
-   "items": 67,
-   "kept": 48
+   "items": 100,
+   "kept": 74
   },
   "Google News: Panama City Beach": {
    "ok": true,
-   "items": 24,
-   "kept": 21
+   "items": 26,
+   "kept": 23
   },
   "Google News: Key West": {
    "ok": true,
-   "items": 49,
-   "kept": 37
+   "items": 28,
+   "kept": 22
   },
   "Google News: Miami": {
    "ok": true,
    "items": 100,
-   "kept": 93
+   "kept": 94
   },
   "Google News: Fort Lauderdale": {
    "ok": true,
    "items": 100,
-   "kept": 80
+   "kept": 81
   },
   "Google News: West Palm Beach": {
    "ok": true,
-   "items": 88,
-   "kept": 47
+   "items": 100,
+   "kept": 51
   },
   "Google News: Port St. Lucie": {
    "ok": true,
-   "items": 41,
-   "kept": 33
+   "items": 34,
+   "kept": 28
   },
   "Google News: Lakeland Florida": {
    "ok": true,
-   "items": 58,
-   "kept": 50
+   "items": 59,
+   "kept": 53
   },
   "Google News: Polk County Florida": {
    "ok": true,
-   "items": 28,
-   "kept": 12
+   "items": 39,
+   "kept": 19
   },
   "UPI Odd News": {
    "ok": true,
    "items": 25,
-   "kept": 8
+   "kept": 4
   },
   "Google News: Alabama man": {
    "ok": true,
-   "items": 29,
-   "kept": 28
+   "items": 58,
+   "kept": 56
   },
   "Google News: Alaska man": {
    "ok": true,
-   "items": 32,
-   "kept": 31
+   "items": 53,
+   "kept": 48
   },
   "Google News: Arizona man": {
    "ok": true,
-   "items": 17,
-   "kept": 17
+   "items": 50,
+   "kept": 44
   },
   "Google News: Arkansas man": {
    "ok": true,
-   "items": 28,
-   "kept": 25
+   "items": 26,
+   "kept": 23
   },
   "Google News: California man": {
    "ok": true,
    "items": 53,
-   "kept": 50
+   "kept": 48
   },
   "Google News: Colorado man": {
    "ok": true,
-   "items": 61,
-   "kept": 56
+   "items": 62,
+   "kept": 59
   },
   "Google News: Connecticut man": {
    "ok": true,
    "items": 55,
-   "kept": 50
+   "kept": 49
   },
   "Google News: Delaware man": {
    "ok": true,
-   "items": 63,
-   "kept": 59
+   "items": 61,
+   "kept": 57
   },
   "Google News: Georgia man": {
    "ok": true,
-   "items": 50,
-   "kept": 37
+   "items": 33,
+   "kept": 21
   },
   "Google News: Hawaii man": {
    "ok": true,
-   "items": 52,
-   "kept": 34
+   "items": 29,
+   "kept": 17
   },
   "Google News: Idaho man": {
    "ok": true,
-   "items": 58,
-   "kept": 54
+   "items": 28,
+   "kept": 27
   },
   "Google News: Illinois man": {
    "ok": true,
-   "items": 41,
-   "kept": 41
+   "items": 43,
+   "kept": 43
   },
   "Google News: Indiana man": {
    "ok": true,
-   "items": 56,
-   "kept": 52
+   "items": 29,
+   "kept": 29
   },
   "Google News: Iowa man": {
    "ok": true,
    "items": 31,
-   "kept": 28
+   "kept": 29
   },
   "Google News: Kansas man": {
    "ok": true,
-   "items": 53,
-   "kept": 50
+   "items": 56,
+   "kept": 52
   },
   "Google News: Kentucky man": {
    "ok": true,
-   "items": 27,
-   "kept": 26
+   "items": 53,
+   "kept": 52
   },
   "Google News: Louisiana man": {
    "ok": true,
-   "items": 33,
-   "kept": 25
+   "items": 61,
+   "kept": 47
   },
   "Google News: Maine man": {
    "ok": true,
-   "items": 32,
-   "kept": 23
+   "items": 46,
+   "kept": 32
   },
   "Google News: Maryland man": {
    "ok": true,
-   "items": 58,
-   "kept": 54
+   "items": 42,
+   "kept": 39
   },
   "Google News: Massachusetts man": {
    "ok": true,
-   "items": 61,
-   "kept": 55
+   "items": 67,
+   "kept": 56
   },
   "Google News: Michigan man": {
    "ok": true,
-   "items": 31,
-   "kept": 29
+   "items": 29,
+   "kept": 27
   },
   "Google News: Minnesota man": {
    "ok": true,
-   "items": 42,
-   "kept": 42
+   "items": 45,
+   "kept": 45
   },
   "Google News: Mississippi man": {
    "ok": true,
-   "items": 25,
-   "kept": 19
+   "items": 23,
+   "kept": 16
   },
   "Google News: Missouri man": {
    "ok": true,
-   "items": 32,
-   "kept": 26
+   "items": 58,
+   "kept": 48
   },
   "Google News: Montana man": {
    "ok": true,
-   "items": 56,
-   "kept": 50
+   "items": 29,
+   "kept": 26
   },
   "Google News: Nebraska man": {
    "ok": true,
-   "items": 22,
-   "kept": 12
+   "items": 27,
+   "kept": 13
   },
   "Google News: Nevada man": {
    "ok": true,
-   "items": 27,
-   "kept": 24
+   "items": 29,
+   "kept": 27
   },
   "Google News: New Hampshire man": {
    "ok": true,
-   "items": 24,
-   "kept": 19
+   "items": 52,
+   "kept": 42
   },
   "Google News: New Jersey man": {
    "ok": true,
-   "items": 46,
-   "kept": 41
+   "items": 37,
+   "kept": 32
   },
   "Google News: New Mexico man": {
    "ok": true,
    "items": 25,
-   "kept": 25
+   "kept": 24
   },
   "Google News: New York man": {
    "ok": true,
-   "items": 29,
+   "items": 28,
    "kept": 25
   },
   "Google News: North Carolina man": {
    "ok": true,
-   "items": 24,
-   "kept": 19
+   "items": 40,
+   "kept": 32
   },
   "Google News: North Dakota man": {
    "ok": true,
-   "items": 61,
-   "kept": 52
+   "items": 22,
+   "kept": 22
   },
   "Google News: Ohio man": {
    "ok": true,
-   "items": 23,
-   "kept": 20
+   "items": 26,
+   "kept": 23
   },
   "Google News: Oklahoma man": {
    "ok": true,
    "items": 57,
-   "kept": 49
+   "kept": 50
   },
   "Google News: Oregon man": {
    "ok": true,
-   "items": 43,
-   "kept": 38
+   "items": 60,
+   "kept": 49
   },
   "Google News: Pennsylvania man": {
    "ok": true,
-   "items": 61,
+   "items": 63,
    "kept": 51
   },
   "Google News: Rhode Island man": {
    "ok": true,
-   "items": 66,
-   "kept": 59
+   "items": 27,
+   "kept": 23
   },
   "Google News: South Carolina man": {
    "ok": true,
-   "items": 35,
-   "kept": 17
+   "items": 49,
+   "kept": 26
   },
   "Google News: South Dakota man": {
    "ok": true,
-   "items": 27,
-   "kept": 10
+   "items": 25,
+   "kept": 14
   },
   "Google News: Tennessee man": {
    "ok": true,
    "items": 56,
-   "kept": 44
+   "kept": 45
   },
   "Google News: Texas man": {
    "ok": true,
-   "items": 34,
-   "kept": 18
+   "items": 51,
+   "kept": 31
   },
   "Google News: Utah man": {
    "ok": true,
    "items": 49,
-   "kept": 48
+   "kept": 46
   },
   "Google News: Vermont man": {
    "ok": true,
-   "items": 53,
-   "kept": 50
+   "items": 25,
+   "kept": 22
   },
   "Google News: Virginia man": {
    "ok": true,
@@ -553,23 +552,23 @@
   },
   "Google News: Washington man": {
    "ok": true,
-   "items": 31,
-   "kept": 21
+   "items": 50,
+   "kept": 34
   },
   "Google News: West Virginia man": {
    "ok": true,
-   "items": 42,
-   "kept": 27
+   "items": 43,
+   "kept": 30
   },
   "Google News: Wisconsin man": {
    "ok": true,
-   "items": 26,
-   "kept": 22
+   "items": 56,
+   "kept": 48
   },
   "Google News: Wyoming man": {
    "ok": true,
-   "items": 61,
-   "kept": 50
+   "items": 25,
+   "kept": 22
   },
   "Google News: Alabama woman": {
    "ok": true,
@@ -578,118 +577,118 @@
   },
   "Google News: Arkansas woman": {
    "ok": true,
-   "items": 56,
-   "kept": 49
+   "items": 54,
+   "kept": 47
   },
   "Google News: Connecticut woman": {
    "ok": true,
-   "items": 47,
-   "kept": 39
+   "items": 18,
+   "kept": 15
   },
   "Google News: Hawaii woman": {
    "ok": true,
-   "items": 57,
-   "kept": 44
+   "items": 30,
+   "kept": 26
   },
   "Google News: Indiana woman": {
    "ok": true,
-   "items": 25,
-   "kept": 15
+   "items": 54,
+   "kept": 42
   },
   "Google News: Kentucky woman": {
    "ok": true,
    "items": 9,
-   "kept": 6
+   "kept": 5
   },
   "Google News: Maryland woman": {
    "ok": true,
-   "items": 59,
-   "kept": 49
+   "items": 30,
+   "kept": 27
   },
   "Google News: Minnesota woman": {
    "ok": true,
-   "items": 29,
-   "kept": 22
+   "items": 65,
+   "kept": 54
   },
   "Google News: Montana woman": {
    "ok": true,
-   "items": 43,
-   "kept": 38
+   "items": 24,
+   "kept": 21
   },
   "Google News: New Hampshire woman": {
    "ok": true,
-   "items": 24,
-   "kept": 16
+   "items": 50,
+   "kept": 38
   },
   "Google News: New York woman": {
    "ok": true,
-   "items": 66,
-   "kept": 60
+   "items": 53,
+   "kept": 49
   },
   "Google News: Ohio woman": {
    "ok": true,
-   "items": 21,
+   "items": 22,
    "kept": 19
   },
   "Google News: Pennsylvania woman": {
    "ok": true,
-   "items": 58,
-   "kept": 47
+   "items": 32,
+   "kept": 28
   },
   "Google News: South Dakota woman": {
    "ok": true,
-   "items": 59,
-   "kept": 39
+   "items": 30,
+   "kept": 21
   },
   "Google News: Utah woman": {
    "ok": true,
-   "items": 56,
-   "kept": 42
+   "items": 27,
+   "kept": 20
   },
   "Google News: Washington woman": {
    "ok": true,
-   "items": 46,
-   "kept": 36
+   "items": 24,
+   "kept": 19
   },
   "Google News: Wyoming woman": {
    "ok": true,
-   "items": 27,
-   "kept": 11
+   "items": 31,
+   "kept": 17
   },
   "Google News: police said man arrested": {
    "ok": true,
-   "items": 81,
-   "kept": 63
+   "items": 84,
+   "kept": 65
   },
   "Google News: deputies said woman": {
    "ok": true,
-   "items": 40,
-   "kept": 28
+   "items": 44,
+   "kept": 30
   },
   "Google News: sheriff's office said": {
    "ok": true,
    "items": 100,
-   "kept": 70
+   "kept": 62
   },
   "Google News: odd news": {
    "ok": true,
    "items": 36,
-   "kept": 32
+   "kept": 31
   },
   "Google News: bizarre arrest": {
    "ok": true,
-   "items": 12,
-   "kept": 11
+   "items": 8,
+   "kept": 8
   },
   "Google News: Florida festival": {
    "ok": true,
-   "items": 100,
-   "kept": 96
+   "items": 53,
+   "kept": 53
   },
   "Google News: Florida festival 2027": {
    "ok": true,
-   "items": 60,
-   "kept": 25
+   "items": 40,
+   "kept": 21
   },
   "Google News: Florida fair 2027": {
    "ok": true,
@@ -699,7 +698,7 @@
   "Google News: Florida county fair": {
    "ok": true,
    "items": 71,
-   "kept": 67
+   "kept": 66
   },
   "Google News: Florida seafood festival": {
    "ok": true,
@@ -708,18 +707,18 @@
   },
   "Google News: Florida food festival": {
    "ok": true,
-   "items": 35,
-   "kept": 23
+   "items": 77,
+   "kept": 61
   },
   "Google News: Florida strawberry festival": {
    "ok": true,
-   "items": 46,
-   "kept": 21
+   "items": 48,
+   "kept": 22
   },
   "Google News: Florida renaissance festival": {
    "ok": true,
-   "items": 4,
-   "kept": 4
+   "items": 9,
+   "kept": 8
   },
   "Google News: Florida rodeo": {
    "ok": true,
@@ -733,13 +732,13 @@
   },
   "Google News: Florida air show": {
    "ok": true,
-   "items": 33,
-   "kept": 32
+   "items": 35,
+   "kept": 33
   },
   "Google News: Florida chili cook-off": {
    "ok": true,
-   "items": 39,
-   "kept": 36
+   "items": 22,
+   "kept": 19
   },
   "Google News: Florida python challenge": {
    "ok": true,
@@ -748,13 +747,13 @@
   },
   "Google News: Florida mullet": {
    "ok": true,
-   "items": 13,
-   "kept": 13
+   "items": 43,
+   "kept": 41
   },
   "Google News: Florida swamp festival": {
    "ok": true,
-   "items": 5,
-   "kept": 4
+   "items": 3,
+   "kept": 2
   },
   "Google News: Florida weird festival": {
    "ok": true,
@@ -763,52 +762,52 @@
   },
   "Google News: Florida parade": {
    "ok": true,
-   "items": 47,
-   "kept": 41
+   "items": 48,
+   "kept": 46
   },
   "Google News: Florida holiday lights": {
    "ok": true,
-   "items": 39,
-   "kept": 33
+   "items": 68,
+   "kept": 54
   },
   "Google News: Florida pirate festival": {
    "ok": true,
-   "items": 10,
-   "kept": 8
+   "items": 11,
+   "kept": 9
   },
   "Google News: Sarasota festival": {
    "ok": true,
-   "items": 63,
-   "kept": 59
+   "items": 31,
+   "kept": 26
   },
   "Google News: Tampa festival": {
    "ok": true,
    "items": 77,
-   "kept": 64
+   "kept": 66
   },
   "Google News: Orlando festival": {
    "ok": true,
    "items": 100,
-   "kept": 83
+   "kept": 88
   },
   "Google News: Miami festival": {
    "ok": true,
-   "items": 91,
-   "kept": 83
+   "items": 48,
+   "kept": 47
   },
   "Google News: Jacksonville festival": {
    "ok": true,
    "items": 38,
-   "kept": 35
+   "kept": 33
   },
   "Google News: Key West festival": {
    "ok": true,
-   "items": 58,
+   "items": 57,
    "kept": 55
   },
   "Google News: Panhandle festival": {
    "ok": true,
-   "items": 23,
+   "items": 22,
    "kept": 21
   }
  }
