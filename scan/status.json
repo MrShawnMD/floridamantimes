@@ -1,9 +1,9 @@
 {
  "meta": {
-  "generated": "2026-11-26T19:32:15.199136+00:00",
+  "generated": "2026-11-27T02:10:27.011405+00:00",
   "hours": 72,
-  "count": 2354,
-  "feeds_ok": 60,
+  "count": 2528,
+  "feeds_ok": 62,
   "feeds_total": 63
  },
  "feeds": {
@@ -15,7 +15,7 @@
   "WFLA Florida": {
    "ok": true,
    "items": 50,
-   "kept": 9
+   "kept": 8
   },
   "FOX 13 Tampa": {
    "ok": true,
@@ -25,7 +25,7 @@
   "FOX 13 Local": {
    "ok": true,
    "items": 25,
-   "kept": 10
+   "kept": 8
   },
   "FOX 35 Orlando": {
    "ok": true,
@@ -55,17 +55,17 @@
   "WESH Orlando": {
    "ok": true,
    "items": 20,
-   "kept": 19
+   "kept": 20
   },
   "ClickOrlando WKMG": {
    "ok": true,
    "items": 20,
-   "kept": 18
+   "kept": 19
   },
   "WPBF West Palm": {
    "ok": true,
    "items": 20,
-   "kept": 9
+   "kept": 13
   },
   "WPTV West Palm": {
    "ok": true,
@@ -75,16 +75,17 @@
   "Local 10 Miami": {
    "ok": true,
    "items": 100,
-   "kept": 84
+   "kept": 83
   },
   "CBS Miami": {
-   "ok": false,
-   "error": "HTTP Error 406: Not Acceptable"
+   "ok": true,
+   "items": 30,
+   "kept": 30
   },
   "NBC 6 Miami": {
    "ok": true,
    "items": 52,
-   "kept": 0
+   "kept": 51
   },
   "WSVN 7 Miami": {
    "ok": true,
@@ -94,7 +95,7 @@
   "News4Jax": {
    "ok": true,
    "items": 20,
-   "kept": 8
+   "kept": 7
   },
   "First Coast News": {
    "ok": true,
@@ -104,12 +105,12 @@
   "WCJB Gainesville": {
    "ok": true,
    "items": 20,
-   "kept": 8
+   "kept": 12
   },
   "WCTV Tallahassee": {
    "ok": true,
    "items": 20,
-   "kept": 6
+   "kept": 7
   },
   "WTXL Tallahassee": {
    "ok": true,
@@ -119,12 +120,12 @@
   "WJHG Panama City": {
    "ok": true,
    "items": 20,
-   "kept": 8
+   "kept": 12
   },
   "WKRG Pensacola/Mobile": {
    "ok": true,
-   "items": 12,
-   "kept": 12
+   "items": 13,
+   "kept": 13
   },
   "WEAR Pensacola": {
    "ok": true,
@@ -152,172 +153,173 @@
   },
   "Google News: Florida deputies": {
    "ok": true,
-   "items": 28,
-   "kept": 18
+   "items": 37,
+   "kept": 22
   },
   "Google News: Florida police said": {
    "ok": true,
    "items": 19,
-   "kept": 18
+   "kept": 15
   },
   "Google News: Florida sheriff's office": {
    "ok": true,
-   "items": 38,
-   "kept": 26
+   "items": 31,
+   "kept": 20
   },
   "Google News: Florida arrested": {
    "ok": true,
-   "items": 82,
-   "kept": 57
+   "items": 100,
+   "kept": 66
   },
   "Google News: Florida man": {
    "ok": true,
-   "items": 73,
-   "kept": 50
+   "items": 72,
+   "kept": 45
   },
   "Google News: Florida woman": {
    "ok": true,
-   "items": 77,
-   "kept": 37
+   "items": 53,
+   "kept": 32
   },
   "Google News: Florida wildlife": {
    "ok": true,
-   "items": 68,
-   "kept": 59
+   "items": 33,
+   "kept": 29
   },
   "Google News: FWC Florida": {
    "ok": true,
-   "items": 24,
-   "kept": 11
+   "items": 21,
+   "kept": 14
   },
   "Google News: Florida county commission": {
    "ok": true,
    "items": 59,
-   "kept": 49
+   "kept": 52
   },
   "Google News: Florida city council": {
    "ok": true,
-   "items": 29,
-   "kept": 24
+   "items": 59,
+   "kept": 51
   },
   "Google News: Florida lawsuit": {
    "ok": true,
    "items": 43,
-   "kept": 43
+   "kept": 42
   },
   "Google News: Sarasota": {
    "ok": true,
-   "items": 100,
-   "kept": 80
+   "items": 90,
+   "kept": 75
   },
   "Google News: Bradenton": {
    "ok": true,
    "items": 100,
-   "kept": 90
+   "kept": 94
   },
   "Google News: Tampa": {
    "ok": true,
    "items": 100,
-   "kept": 88
+   "kept": 84
   },
   "Google News: St. Petersburg": {
    "ok": true,
    "items": 100,
-   "kept": 89
+   "kept": 87
   },
   "Google News: Fort Myers": {
    "ok": true,
    "items": 100,
-   "kept": 94
+   "kept": 91
   },
   "Google News: Cape Coral": {
    "ok": true,
-   "items": 97,
-   "kept": 85
+   "items": 66,
+   "kept": 59
   },
   "Google News: Naples Florida": {
    "ok": true,
-   "items": 36,
-   "kept": 30
+   "items": 66,
+   "kept": 55
   },
   "Google News: Orlando": {
-   "ok": false,
-   "error": "HTTP Error 429: Too Many Requests"
-  },
-  "Google News: Daytona Beach": {
-   "ok": true,
-   "items": 99,
-   "kept": 90
-  },
-  "Google News: Melbourne Florida": {
-   "ok": true,
-   "items": 28,
-   "kept": 23
-  },
-  "Google News: Ocala": {
-   "ok": true,
-   "items": 88,
-   "kept": 81
-  },
-  "Google News: Gainesville Florida": {
-   "ok": true,
-   "items": 68,
-   "kept": 63
-  },
-  "Google News: Jacksonville": {
-   "ok": true,
-   "items": 100,
-   "kept": 86
-  },
-  "Google News: Tallahassee": {
-   "ok": true,
-   "items": 100,
-   "kept": 91
-  },
-  "Google News: Pensacola": {
-   "ok": true,
-   "items": 100,
-   "kept": 75
-  },
-  "Google News: Panama City Beach": {
-   "ok": true,
-   "items": 24,
-   "kept": 22
-  },
-  "Google News: Key West": {
-   "ok": true,
-   "items": 30,
-   "kept": 18
-  },
-  "Google News: Miami": {
    "ok": true,
    "items": 100,
    "kept": 88
   },
+  "Google News: Daytona Beach": {
+   "ok": true,
+   "items": 68,
+   "kept": 61
+  },
+  "Google News: Melbourne Florida": {
+   "ok": true,
+   "items": 39,
+   "kept": 33
+  },
+  "Google News: Ocala": {
+   "ok": true,
+   "items": 100,
+   "kept": 89
+  },
+  "Google News: Gainesville Florida": {
+   "ok": true,
+   "items": 90,
+   "kept": 80
+  },
+  "Google News: Jacksonville": {
+   "ok": true,
+   "items": 100,
+   "kept": 85
+  },
+  "Google News: Tallahassee": {
+   "ok": true,
+   "items": 100,
+   "kept": 90
+  },
+  "Google News: Pensacola": {
+   "ok": true,
+   "items": 100,
+   "kept": 69
+  },
+  "Google News: Panama City Beach": {
+   "ok": true,
+   "items": 26,
+   "kept": 25
+  },
+  "Google News: Key West": {
+   "ok": true,
+   "items": 50,
+   "kept": 37
+  },
+  "Google News: Miami": {
+   "ok": true,
+   "items": 100,
+   "kept": 86
+  },
   "Google News: Fort Lauderdale": {
    "ok": true,
    "items": 100,
-   "kept": 87
+   "kept": 85
   },
   "Google News: West Palm Beach": {
    "ok": true,
-   "items": 100,
+   "items": 99,
    "kept": 60
   },
   "Google News: Port St. Lucie": {
    "ok": true,
-   "items": 38,
-   "kept": 27
+   "items": 41,
+   "kept": 31
   },
   "Google News: Lakeland": {
    "ok": true,
-   "items": 95,
-   "kept": 92
+   "items": 100,
+   "kept": 94
   },
   "Google News: Polk County Florida": {
    "ok": true,
-   "items": 42,
-   "kept": 21
+   "items": 26,
+   "kept": 8
   }
  }
 }
