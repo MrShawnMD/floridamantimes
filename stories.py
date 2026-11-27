@@ -13,6 +13,37 @@ Fields:
 
 STORIES = [
     {
+        "slug": "bradenton-police-herd-runaway-sheep",
+        "title": "Bradenton Police Try to Herd a Flock of Runaway Sheep. The Sheep Win.",
+        "dek": "Officers showed up, bodycams rolling, and asked the question every Florida cop secretly fears: are sheep aggressive?",
+        "category": "Wild Florida",
+        "location": "Bradenton, Manatee County",
+        "date": "2026-11-27",
+        "emoji": "🐑",
+        "color": "#a16207",
+        "image_prompt": "Photorealistic, over-the-top phone-snapshot scene in a sunny Bradenton, Florida suburban side yard with palm trees and a chain-link fence: two fictional uniformed police officers with arms spread wide, crouched like nervous goalies, trying to herd a small flock of fluffy white sheep that are scattering in every direction across the lawn, one sheep staring defiantly straight into the camera, another munching a hibiscus bush, a patrol car parked at the curb with its lights off, a bemused fictional neighbor in flip-flops watching from a porch, bright midday light, vivid colors, news-photo look, invented fictional people only, no logos, no badges with text, no readable text",
+        "quick": "On Friday, Nov. 20, a small flock of sheep wandered onto a neighbor's property in Bradenton, and Bradenton police were called to move them along. Bodycam video the department later shared shows officers struggling to round them up while the sheep ignored them completely. The owners eventually showed up and led the flock home, and the officers happily handed over herding duties.",
+        "body": [
+            "Florida police officers train for a lot of things. Traffic stops. Hurricanes. Gators in the pool. Golf carts on the highway. What the academy apparently does not cover is sheep.",
+            "Bradenton found that out the hard way on Friday, Nov. 20, when a small flock wandered off and set up camp on a neighbor's property. Somebody called the police. The police came. The sheep were not impressed.",
+            "## The standoff",
+            "According to FOX 13, the Bradenton Police Department later posted bodycam footage and social media updates about the encounter, and the video shows officers trying, and mostly failing, to get the flock to leave. WWSB reported that the department said officers tried to communicate with the sheep. The sheep, by all accounts, were not taking questions.",
+            "At one point an officer can be heard asking whether sheep are aggressive. It is a fair question. Nobody wants to be the first officer in Manatee County history to file a use-of-force report involving wool.",
+            "## The department's review of the suspects",
+            "The police department did not hold back in its official assessment. \"The sheep got sassy and refused to obey commands,\" the department said, according to FOX 13. The station added that the animals ignored every lawful baa, and the department summed up the whole operation with a pun about how badly it went, spelled with a few extra a's.",
+            "Mock-serious note for the record: refusing to obey a lawful command is a big deal for humans. For sheep, it is basically the job description.",
+            "## Enter the professionals",
+            "The standoff ended the way most Florida neighborhood dramas end: the owners showed up. WWSB reported that the owners arrived and guided the flock home, and police said Officer Germain was happy to let them handle the sheep from there.",
+            "Nobody was hurt, no one was charged and every sheep made it home. Neither station said how the flock got loose in the first place, or exactly how many sheep were involved, so those details remain a mystery known only to the sheep.",
+            "## The takeaway",
+            "If your livestock ever goes on a walkabout in Bradenton, the police will come. They will try their best. They will ask good questions. But if you really want the sheep to listen, you may need to bring the one voice they actually respect: yours.",
+        ],
+        "sources": [
+            ("FOX 13 Tampa Bay", "https://www.fox13news.com/news/video-bradenton-police-herding-sheep"),
+            ("WWSB ABC7", "https://www.mysuncoast.com/2026/11/24/sheep-wander-onto-property-prompting-bradenton-police-response/"),
+        ],
+    },
+    {
         "slug": "fort-pierce-man-sits-on-8-foot-alligator-jetty-rescue",
         "title": "Florida Man Finds an 8-Foot Gator Stuck in the Jetty Rocks. So He Sat on It.",
         "dek": "A bait-shop road trip in Fort Pierce turned into an alligator rescue, a catch pole failure and one very warm seat.",
