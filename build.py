@@ -38,7 +38,16 @@ SECTIONS = {
     "Florida Man": "florida-man",
     "Florida Woman": "florida-woman",
     "Wild Florida": "wild-florida",
+    "Across America": "across-america",
 }
+
+
+def is_fl(s):
+    return s.get("state", "Florida") == "Florida"
+
+
+FL_STORIES = sorted([x for x in STORIES if is_fl(x)], key=lambda x: x["date"], reverse=True)
+US_STORIES = sorted([x for x in STORIES if not is_fl(x)], key=lambda x: x["date"], reverse=True)
 
 e = html.escape
 
@@ -201,7 +210,7 @@ def header():
            '<a class="nav-feat" href="/eats/">Weird Eats</a><a class="nav-feat" href="/effd-up/">Eff\'d Up With…</a><a class="nav-feat" href="/rentals/">Rentals</a><a class="nav-feat" href="/odd-places/">Spooky &amp; Odd</a>'
            '<a class="nav-feat" href="/artist-of-the-week/">Artist of the Week</a><a class="nav-feat" href="/gives-back/">Gives Back</a>')
     sections = "".join(f'<a class="nav-extra" href="/section/{slug}/">{e(n)}</a>' for n, slug in SECTIONS.items())
-    latest = STORIES[0]
+    latest = FL_STORIES[0]
     return f"""<header class="site-header">
   <div class="bar">
     {logo()}
@@ -1067,7 +1076,7 @@ def build_county_pages():
         closed = [c for c in cl["closures"] if (c.get("county") or county_for(c["city"])) == county]
         written = [w for w in wu.get("items", []) if w["county"] == county]
         clean = [c for c in cd.get("items", []) if c["county"] == county]
-        loc_stories = [st for st in STORIES if county_of_place(st.get("location", "")) == county]
+        loc_stories = [st for st in FL_STORIES if county_of_place(st.get("location", "")) == county]
         loc_arrests = [a for a in ARRESTS if (a.get("county") or county_of_place(a.get("place", ""))) == county]
         loc_events = [ev for ev in ups if county_of_place(ev.get("city", "")) == county]
         loc_eats = [x for x in EATS if county_of_place(x.get("city", "") or x.get("address", "")) == county]
@@ -1084,7 +1093,7 @@ def build_county_pages():
         if loc_stories:
             sec("news", "📰 Local Florida Man news", f'<div class="grid">{"".join(card(st) for st in loc_stories[:6])}</div>')
         else:
-            sec("news", "📰 Florida Man news", f'<p class="section-sub">No {e(county)} County stories yet (behave yourselves). Here\'s the latest from around the state:</p><div class="grid">{"".join(card(st) for st in STORIES[:3])}</div>')
+            sec("news", "📰 Florida Man news", f'<p class="section-sub">No {e(county)} County stories yet (behave yourselves). Here\'s the latest from around the state:</p><div class="grid">{"".join(card(st) for st in FL_STORIES[:3])}</div>')
         if loc_arrests:
             sec("arrests", "🚔 Weirdest local arrests", f'<div class="arrest-list">{"".join(arrest_item(a) for a in loc_arrests[:6])}</div>')
         closed_html = "".join(closure_card(c) for c in closed) or f'<p class="rr-empty">🎉 No emergency closures in {e(county)} County in the last 8 weeks.</p>'
@@ -1426,21 +1435,32 @@ def eats_teaser():
 </aside>"""
 
 
+def across_america_row():
+    if not US_STORIES:
+        return ""
+    return f"""<section class="container across">
+  <div class="section-head split"><h2 class="label">🇺🇸 Meanwhile, Not in Florida</h2><a class="see-all" href="/section/across-america/">More from Across America →</a></div>
+  <p class="section-sub">Florida doesn't have a monopoly on weird. Our cousins in the other 49 states, doing their best.</p>
+  <div class="grid4 rowscroll">{"".join(card(s) for s in US_STORIES[:4])}</div>
+</section>"""
+
+
 def build_home():
-    lead = STORIES[0]
-    left = STORIES[1:4]
-    latest = STORIES[4:12]
+    lead = FL_STORIES[0]
+    left = FL_STORIES[1:4]
+    latest = FL_STORIES[4:12]
     body = f"""<section class="front3 container">
-  <div class="col-left">{"".join(mini(s) for s in left)}</div>
+  <div class="col-left"><h2 class="label left-label">Earlier this week</h2>{"".join(mini(s) for s in left)}</div>
   <div class="col-lead">{hero(lead)}{county_block()}</div>
   <div class="col-right">{arrest_feed(ARRESTS[:6])}</div>
 </section>
 <section class="container">
   <div class="section-head split"><h2 class="label">Latest Headlines</h2><a class="see-all" href="/section/florida-man/">All stories →</a></div>
   <div class="latest-wrap">
-    <div class="grid4">{"".join(card(s) for s in (latest or STORIES[1:]))}</div>
+    <div class="grid4">{"".join(card(s) for s in (latest or FL_STORIES[1:]))}</div>
   </div>
 </section>
+{across_america_row()}
 
 <section class="container two-up">
   <div>{events_band_inner()}<div style="margin-top:22px">{roach_teaser()}</div></div>
@@ -1449,7 +1469,7 @@ def build_home():
 {lemonade_promo()}
 {features_row()}
 {effd_promo()}
-{"".join(section_row(n, sl) for n, sl in SECTIONS.items())}
+{"".join(section_row(n, sl) for n, sl in SECTIONS.items() if n != "Across America")}
 <section class="container">
   <div class="cta">
     <div>
@@ -1496,8 +1516,8 @@ def build_story(s):
     srcs = s.get("sources") or [(s["source_name"], s["source_url"])]
     src_links = "".join(f'<li><a href="{u}" rel="nofollow noopener" target="_blank">{e(n)} ↗</a></li>' for n, u in srcs)
     src_names = ", ".join(e(n) for n, _ in srcs[:2])
-    cty = county_of_place(s.get("location", ""))
-    same = [x for x in STORIES if x is not s and cty and county_of_place(x.get("location", "")) == cty]
+    cty = county_of_place(s.get("location", "")) if is_fl(s) else None
+    same = [x for x in STORIES if x is not s and ((cty and is_fl(x) and county_of_place(x.get("location", "")) == cty) or (not is_fl(s) and not is_fl(x)))]
     related = (same + [x for x in STORIES if x is not s and x not in same])[:3]
     cty_link = (f'<a class="cty-link" href="/restaurant-inspections/{county_slug(cty)}/"><span>📍 More from {e(cty)} County</span>'
                 f'<strong>Local news, arrests, restaurant inspections &amp; where to eat →</strong></a>') if cty else ""

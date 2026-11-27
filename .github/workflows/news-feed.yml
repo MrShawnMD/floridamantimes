@@ -26,7 +26,7 @@ jobs:
         run: |
           git config user.name "floridamantimes-bot"
           git config user.email "bot@floridamantimes.com"
-          git add scan/feed.json scan/status.json scan/headlines.txt
+          git add scan/
           git diff --cached --quiet && exit 0
           git commit -m "Collect Florida headlines"
           for i in 1 2 3; do git pull --rebase -X theirs origin main && git push && break; sleep 5; done

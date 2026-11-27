@@ -689,3 +689,6 @@ a:hover .ph-emoji { transform: scale(1.08) rotate(-5deg); }
 .faq { border: 1px solid var(--gray-200); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; background: #fff; }
 .faq summary { font-weight: 800; cursor: pointer; }
 .faq p { margin: 8px 0 0; color: var(--gray-700, #333); }
+
+.left-label { font-size: 13px; margin: 0 0 10px; }
+.across .section-sub { margin: -6px 0 14px; color: var(--gray-600); font-size: 15px; }

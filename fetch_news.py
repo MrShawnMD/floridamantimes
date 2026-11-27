@@ -68,6 +68,20 @@ for q in GNEWS_QUERIES:
                                   + urllib.parse.quote(f"{q} when:3d") + "&hl=en-US&gl=US&ceid=US:en")
 
 
+STATES = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Georgia",
+          "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+          "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+          "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma",
+          "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
+          "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+# The other 49 states: their own "<State> man/woman" stories plus broad police-news searches and odd-news desks.
+NATIONAL = {"UPI Odd News": "https://rss.upi.com/news/odd_news.rss"}
+for q in [f"{st} man" for st in STATES] + [f"{st} woman" for st in STATES[::3]] + [
+        "police said man arrested", "deputies said woman", "sheriff's office said", "odd news", "bizarre arrest"]:
+    NATIONAL[f"Google News: {q}"] = ("https://news.google.com/rss/search?q="
+                                     + urllib.parse.quote(f"{q} when:3d") + "&hl=en-US&gl=US&ceid=US:en")
+
+
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/rss+xml, application/xml, text/xml, */*"})
     with urllib.request.urlopen(req, timeout=25) as r:
@@ -128,10 +142,9 @@ def parse(data, source):
     return out
 
 
-def main():
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=HOURS)
-    seen, items, status = set(), [], {}
-    for name, url in FEEDS.items():
+def collect(feeds, cutoff, seen, status):
+    items = []
+    for name, url in feeds.items():
         try:
             try:
                 raw = fetch(url)
@@ -157,6 +170,14 @@ def main():
             status[name] = {"ok": False, "error": str(e)[:160]}
         time.sleep(2.0 if "news.google.com" in url or "keysnews" in url else 0.4)
     items.sort(key=lambda x: x["published"], reverse=True)
+    return items
+
+
+def main():
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=HOURS)
+    seen, status = set(), {}
+    items = collect(FEEDS, cutoff, seen, status)
+    national = [x for x in collect(NATIONAL, cutoff, seen, status) if "florida" not in x["title"].lower()]
     os.makedirs("scan", exist_ok=True)
     meta = {"generated": datetime.now(timezone.utc).isoformat(), "hours": HOURS, "count": len(items),
             "feeds_ok": sum(1 for s in status.values() if s["ok"]), "feeds_total": len(status)}
@@ -168,9 +189,16 @@ def main():
                 "Format: number | published (UTC) | source | headline. Full link + summary: scan/feed.json items[number].\n")
         for i, x in enumerate(items):
             f.write(f"{i} | {x['published'][:16].replace('T', ' ')} | {x['source']} | {x['title']}\n")
+    with open("scan/national.json", "w") as f:
+        json.dump({"meta": {"generated": meta["generated"], "count": len(national)}, "items": national}, f, indent=0, ensure_ascii=False)
+    with open("scan/national.txt", "w") as f:
+        f.write(f"# {len(national)} headlines from the other 49 states, newest first. Format: number | published (UTC) | source | headline. "
+                "Full link + summary: scan/national.json items[number].\n")
+        for i, x in enumerate(national):
+            f.write(f"{i} | {x['published'][:16].replace('T', ' ')} | {x['source']} | {x['title']}\n")
     with open("scan/status.json", "w") as f:
         json.dump({"meta": meta, "feeds": status}, f, indent=1)
-    print(f"{meta['count']} headlines from {meta['feeds_ok']}/{meta['feeds_total']} feeds")
+    print(f"{meta['count']} Florida + {len(national)} national headlines; {meta['feeds_ok']}/{meta['feeds_total']} feeds ok")
 
 
 if __name__ == "__main__":
