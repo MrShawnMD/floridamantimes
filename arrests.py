@@ -1,9 +1,8 @@
 """Tonight's Weirdest Arrests — quick-hit arrest blurbs.
 
 Newest first. Rules (see STYLE.md "Weirdest Arrests"): no names, no mugshots, no photos of
-real people; one or two punchy sentences in the house voice; every fact from the source;
-skip anything involving violence with injuries, sex crimes, kids, abuse, addiction,
-mental-health crises or homelessness. Optional "story" = slug of a full story on the site (its image is reused).
+real people; one or two punchy sentences in the house voice; every fact from the source.
+Any off-the-wall arrest qualifies whatever the charge; never identify sex-crime victims or minors. Optional "story" = slug of a full story on the site (its image is reused).
 Images: images/arrests/<date>-<place-slug>.jpg (illustration, invented people only). "emoji" is the fallback.
 """
 

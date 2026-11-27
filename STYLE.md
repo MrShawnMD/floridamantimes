@@ -40,14 +40,17 @@ never claim any outside writer wrote for us. Byline is always "Florida Man Times
 - Link the original source at the bottom (`source_name`, `source_url`).
 
 ## Safety rules (the scanner publishes on its own, so these are strict)
+- **Any off-the-wall Florida story is fair game, whatever the topic.** That includes stories
+  involving deaths, injuries, crimes of any kind or tragedy. Shawn's test is simply: is it
+  bizarre, "only in Florida" news? (Shawn decided this on 2026-11-27.)
 - **Don't name private people who were arrested.** Describe them ("a 43-year-old Sanibel
   man"). Officials, agencies and businesses can be named.
+- **Never identify victims of sex crimes or anyone under 18** (no names, addresses or other
+  identifying details). This is a legal line, not a topic limit: the story itself can still run.
 - Always end arrest stories with a light presumed-innocent line.
-- **Skip** any story involving: a death or serious injury, sexual crimes or nudity-as-the-joke,
-  children as victims, abuse, mental health crises, suicide, hate crimes, or anyone under 18.
-  We mock absurd choices, never suffering, race, poverty, illness or addiction.
-- Wildlife stories: no animal cruelty as a punchline. Include the FWC nuisance alligator
-  line (866-392-4286) on gator stories.
+- Tone: aim the jokes at absurd choices. When someone died or was badly hurt, don't make the
+  person who suffered the punchline, and don't joke about race, poverty, illness or addiction.
+- Wildlife stories: include the FWC nuisance alligator line (866-392-4286) on gator stories.
 - Only use stories from established news outlets (local TV, newspapers, AP, sheriff's or
   police press releases). No forums, no social media posts as the only source.
 - Must be in Florida, and recent (ideally the last 14 days).
@@ -87,10 +90,8 @@ Quick-hit police-blotter items, newest first. Add 3–6 per day when good ones e
   charge, source_name, source_url, optional story (slug, if there is a full story on the site).
 - Prefer Southwest Florida / Tampa Bay (Sarasota, Manatee, Charlotte, Lee, Hillsborough, Pinellas,
   Pasco, Polk), then the rest of Florida.
-- Same safety rules as stories, strictly: skip violence with injuries, weapons fired, sex crimes,
-  anything involving kids, abuse, DUI crashes with injuries, addiction/overdoses, mental-health
-  crises, homelessness, and deaths. Weird and harmless only: absurd choices, odd thefts, silly
-  getaways, bizarre excuses, animals behaving badly.
+- Same rules as stories: any off-the-wall arrest qualifies, whatever the charge. No names of
+  the arrested, never identify victims of sex crimes or minors, facts only from the source.
 - Never repeat an item already in arrests.py (check source_url and headline).
 
 ## Weird Florida Events (events.py)

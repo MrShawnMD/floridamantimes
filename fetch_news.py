@@ -58,10 +58,10 @@ GNEWS_QUERIES = [
     "Florida deputies", "Florida police said", "Florida sheriff's office", "Florida arrested",
     "Florida man", "Florida woman", "Florida wildlife", "FWC Florida",
     "Florida county commission", "Florida city council", "Florida lawsuit",
-    "Sarasota", "Bradenton", "Tampa", "St. Petersburg", "Fort Myers", "Cape Coral", "Naples Florida",
+    "Sarasota", "Bradenton", "Tampa", "St. Petersburg Florida", "Fort Myers", "Cape Coral", "Naples Florida",
     "Orlando", "Daytona Beach", "Melbourne Florida", "Ocala", "Gainesville Florida", "Jacksonville",
     "Tallahassee", "Pensacola", "Panama City Beach", "Key West", "Miami", "Fort Lauderdale",
-    "West Palm Beach", "Port St. Lucie", "Lakeland", "Polk County Florida",
+    "West Palm Beach", "Port St. Lucie", "Lakeland Florida", "Polk County Florida",
 ]
 for q in GNEWS_QUERIES:
     FEEDS[f"Google News: {q}"] = ("https://news.google.com/rss/search?q="
