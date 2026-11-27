@@ -169,3 +169,12 @@ where-to-eat-florida-week-of-<YYYY-MM-DD of the DBPR week>).
   copyrighted). Use the AI image_prompt only. A restaurant's real photo can be used only if Shawn says
   the restaurant gave written permission; then save it as images/<slug>.jpg with photo_credit set.
 - Point readers to the Roach Report and Clean Plate Club at the end.
+
+## Across America (the other 49 states)
+
+Florida is the core of the site. The homepage lead story is ALWAYS a Florida story (the build enforces this). National stories live in their own "🇺🇸 Meanwhile, Not in Florida" row and the /section/across-america/ page.
+
+- Source: scan/national.txt (numbered; links + summaries in scan/national.json). Same safety rules as Florida stories: real, reputable sources, funny because of an absurd choice, nobody badly hurt, no sexual crimes, no crimes against kids, presumed-innocent line on arrests, no names of private people who were arrested.
+- Headline style mirrors ours, with the state: "Minnesota Man …", "New York Woman …", "Ohio Couple …". Keep the house voice; a light running joke that Florida finally has competition is fine, but don't overdo it.
+- Fields: same as any story, plus "state": "<Full state name>" (e.g. "Minnesota"), "category": "Across America", "location": "<City>, <State>". Never set state to "Florida" for these.
+- Volume: morning run 2 national stories, afternoon run 1 (only if genuinely good). Florida stories always come first in effort and count.
